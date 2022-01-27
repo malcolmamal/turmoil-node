@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 function Footer() {
   const spinnerDisplayStyle = {
@@ -11,12 +11,12 @@ function Footer() {
       <div className="footerBlock">
         <FormattedMessage id="turmoil.footer.logout" />
         {' '}
-        - (logged as application.loggedAccount.username)
+        - (logged as
+        {' '}
+        {localStorage.getItem('userName')}
+        )
       </div>
-      <div id="spinner" className="spinner" style={spinnerDisplayStyle}>
-        <FormattedMessage id="turmoil.footer.loading" />
-        &hellip;
-      </div>
+      <div id="spinner" className="spinner" style={spinnerDisplayStyle} title={`${useIntl().formatMessage({ id: 'turmoil.footer.loading' })}...`} />
     </div>
   );
 }

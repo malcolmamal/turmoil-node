@@ -4,28 +4,6 @@ import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 import Logger from '../utils/logger.js';
 
-export const addUser = (req, res) => {
-  let hashedPass;
-
-  bcrypt.hash(req.query.password || 'nopass', 12)
-    .then((hashedValue) => {
-      hashedPass = hashedValue;
-      User.create({
-        name: `whatever ${Math.random()}`,
-        password: hashedPass,
-        email: `email ${Math.random()}`,
-      });
-    })
-    .then((result) => {
-      // Logger.log(result);
-      res.send(`user created ${result}`);
-    })
-    .catch((err) => {
-      Logger.log(err);
-      res.send(err);
-    });
-};
-
 export const createUser = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -87,18 +65,19 @@ export const loginUser = async (req, res, next) => {
       return next(error);
     }
 
-    const token = await jwt.sign({ email: loadedUser.email, name: loadedUser.name, id: loadedUser.id }, 'turmoil-secret-key', { expiresIn: '1h' });
+    const token = await jwt.sign(
+      { email: loadedUser.email, name: loadedUser.name, id: loadedUser.id },
+      'turmoil-secret-key',
+      { expiresIn: '2h' },
+    );
 
-    // const token = 'some-token';
-    // const token = jwt.sign(
-    //     {
-    //         email: loadedUser.email,
-    //         userId: loadedUser.id.toString()
-    //     },
-    //     'somesupersecretsecret',
-    //     { expiresIn: '1h' }
-    // );
-    res.status(200).json({ token, userId: loadedUser.id.toString() });
+    res.status(200).json(
+      {
+        token,
+        userId: loadedUser.id.toString(),
+        userName: loadedUser.email,
+      },
+    );
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;
