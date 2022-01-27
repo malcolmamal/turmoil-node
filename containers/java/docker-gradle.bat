@@ -1,0 +1,1 @@
+docker build --build-arg JAR_FILE=build/*.jar -t nemhauser/turmoil-java .

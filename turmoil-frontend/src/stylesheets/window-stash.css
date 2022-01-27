@@ -1,0 +1,58 @@
+#stashItemListContainer {
+	list-style-type: none;
+	width: 443px;
+	height: 647px;
+	overflow:hidden;
+	padding-inline-start: 0;
+	margin-block-start: 0;
+}
+
+.stashItemContainerWrapper {
+	width: 443px;
+	height: 647px;
+}
+
+.stashItemContainer {
+	position: absolute;
+
+	left: 29px;
+	top: 27px;
+	/*
+			left: 30px;
+			top: 27px;
+	*/
+	width: 443px;
+	height: 647px;
+}
+
+.stashItemListEntry {
+	float: left;
+	position: relative;
+	margin: 2.5px;
+	padding-bottom: 6px;
+	width: 58px;
+	height: 118px;
+}
+
+.stashItem {
+	/*
+			float: left;
+			position: relative;
+
+			margin: 3px;
+			width: 55px;
+			height: 121px;
+	*/
+
+	/*
+			margin: 2px;
+			width: 57px;
+			height: 123px;
+	*/
+
+	/*
+			margin: 1px;
+			width: 59px;
+			height: 125px;
+	*/
+}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body style="margin: 0;">
+
+<div class="turmoil-tooltip d3-tooltip d3-tooltip-item" th:attr="monster=${monster.ident}">
+
+	<div th:insert="tooltip/fragments/monster :: headline (monster=${monster})"></div>
+
+	<div th:class="'tooltip-body'">
+
+	<div th:insert="tooltip/fragments/monster :: portrait (monster=${monster})"></div>
+
+	<div class="d3-item-properties">
+
+		<div th:insert="tooltip/fragments/monster :: baseStats (monster=${monster})"></div>
+
+		<div th:insert="tooltip/fragments/monster :: stats (monster=${monster})"></div>
+
+		<span class="clear"><!-- --></span>
+	</div>
+
+	<div th:insert="tooltip/fragments/monster :: flavor (monster=${monster})"></div>
+
+	</div>
+
+</div>
+
+</body>
+</html>

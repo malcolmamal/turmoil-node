@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<div th:fragment="headline (item)">
+	<div th:class="'tooltip-head tooltip-head-' + ${item.getRarityClass()}">
+		<h3 th:class="'d3-color-' + ${item.getRarityClass()}" th:text="${item.rarity.isPlain()}
+			? ${item.itemName} : #{${'turmoil.item.' + item.itemType.toString().toLowerCase() + '.' + item.itemCode}}">
+		</h3>
+	</div>
+</div>
+
+<div th:fragment="flavor (item)">
+	<div class="tooltip-extension ">
+		<div class="flavor">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+			sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+		</div>
+	</div>
+</div>
+
+<div th:fragment="attributes (item)">
+	<ul class="item-effects">
+
+		<p class="item-property-category" th:text="#{turmoil.item.info.effects}"></p>
+
+		<!-- default/utility/enchant -->
+
+		<tr th:each="attribute: ${item.attributes}">
+			<li class="d3-color-blue d3-item-property-default">
+				<p class="attributeEntry" th:utext="${#messages.msgWithParams('turmoil.item.attribute.' + attribute.type, {attribute.primaryValue, attribute.secondaryValue, attribute.tertiaryValue})}">
+				</p>
+			</li>
+		</tr>
+
+		<!--
+		<li class="d3-color-white full-socket">
+			<img class="gem" src="http://media.blizzard.com/d3/icons/items/small/emerald_18_demonhunter_male.png" />
+			<span class="socket-effects">
+				Lorem ipsum dolor sit amet 125,0%
+			</span>
+		</li>
+
+		<li class="d3-color-orange d3-item-property-utility">
+			<p>
+				Lorem ipsum dolor sit amet, <span class="value">197</span>, consectetur adipisicing elit, sed do eiusmod tempor
+			</p>
+		</li>
+		-->
+	</ul>
+</div>
+
+<div th:fragment="rarity (item)">
+	<ul class="item-type">
+		<li><span th:class="'d3-color-' + ${item.getRarityClass()}" th:text="#{${'turmoil.item.rarity.' + item.rarity}}"></span></li>
+	</ul>
+</div>
+
+<div th:fragment="requirements (item)">
+	<ul class="item-extras">
+		<li class="item-reqlevel">
+			<span class="d3-color-gold" th:text="#{turmoil.item.info.required.level} + ':'"></span> <span class="value">[[${item.level}]]</span>
+		</li>
+	</ul>
+
+	<span class="item-unique-equipped" th:text="#{turmoil.item.info.unique.equipped}"></span>
+</div>
+
+<div th:fragment="itemSlotTooltip (item)">
+<span th:class="'d3-icon d3-icon-item d3-icon-item-large d3-icon-item-' + ${item.getRarityClass()}">
+	<span class="icon-item-gradient">
+		<span th:class="'icon-item-inner icon-item-' + ${item.getTooltipShapeClass()}"
+			th:style="'background-image:url(' + ${item.getFullImagePath()} + ');'" >
+		</span>
+	</span>
+</span>
+</div>
+
+</body>
+</html>

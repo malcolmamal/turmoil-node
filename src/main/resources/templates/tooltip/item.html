@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body style="margin: 0;">
+
+<div class="turmoil-tooltip d3-tooltip d3-tooltip-item" th:attr="item=${item.getFileCode()} + '_' + ${item.id}">
+
+	<div th:insert="tooltip/fragments/item :: headline (item=${item})"></div>
+
+	<div th:class="'tooltip-body effect-bg effect-bg-' + ${item.getTooltipEffectClass()}">
+
+		<div th:insert="tooltip/fragments/item :: itemSlotTooltip (item=${item})"></div>
+
+		<div class="d3-item-properties">
+
+			<ul class="item-type-right">
+				<li class="item-slot" th:text="#{${'turmoil.item.type.' + item.getItemTypeClass()}}"></li>
+			</ul>
+
+			<div th:insert="tooltip/fragments/item :: rarity (item=${item})"></div>
+
+			<div th:if="${item.isArmor()}">
+				<ul class="item-armor-weapon item-armor-armor">
+					<li class="big"><span class="value" th:text="${item.armorValue}"></span></li>
+					<li th:text="#{turmoil.item.info.armor}"></li>
+				</ul>
+			</div>
+
+			<div th:if="${item.isWeapon()}">
+				<ul class="item-armor-weapon item-weapon-damage">
+					<li><p>
+						<span class="value" th:text="${item.minDamage}"></span>–<span class="value" th:text="${item.maxDamage}"></span>
+						<span class="d3-color-FF888888" th:text="#{${'turmoil.item.info.damage.' + item.damageType}}"></span>
+					</p>
+					</li>
+				</ul>
+			</div>
+
+			<div class="item-before-effects"></div>
+
+			<div th:insert="tooltip/fragments/item :: attributes (item=${item})"></div>
+
+			<div th:insert="tooltip/fragments/item :: requirements (item=${item})"></div>
+
+			<span class="clear"><!-- --></span>
+		</div>
+	</div>
+
+	<div th:insert="tooltip/fragments/item :: flavor (item=${item})"></div>
+
+</div>
+
+</body>
+</html>

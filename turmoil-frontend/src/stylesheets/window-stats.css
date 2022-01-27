@@ -1,0 +1,29 @@
+.statsContainer {
+	padding: 8px;
+}
+
+.statsLabel {
+}
+
+.statsValue {
+	text-align: right;
+	white-space: nowrap;
+	width: auto;
+}
+
+.statsTable tr:hover {
+	background-color: transparent;
+}
+
+.statsTable tr:hover td {
+	background-color: transparent;
+	border-bottom: 1px solid white;
+}
+
+.statsTable tr td {
+	border-bottom: 1px solid transparent;
+	font-size: 13px;
+	padding-left: 10px;
+	padding-top: 8px;
+	padding-bottom: 2px;
+}

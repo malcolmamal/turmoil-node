@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Hello</title>
+</head>
+<body>
+Dupcia: <span th:text="${myId}">13 February 2011</span>
+Dupcia2: <span th:utext="${yourId}">wtf</span>
+
+<div th:insert="tooltip/fragments/tester :: dupeczka"></div>
+<div th:insert="tooltip/fragments/tooltip :: headline"></div> <!-- model="['item': armor]" -->
+
+</body>
+</html>

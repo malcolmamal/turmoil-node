@@ -1,0 +1,1 @@
+docker build --build-arg MYSQL_DATABASE=turmoil --build-arg MYSQL_USER=root --build-arg MYSQL_ROOT_PASSWORD=nopass --build-arg MYSQL_USER=nopass -t nemhauser/turmoil-mysql .

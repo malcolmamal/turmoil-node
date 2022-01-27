@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<div th:fragment="headline (monster)">
+	<div th:class="'tooltip-head'">
+		<h3 th:class="'d3-color-red'" th:text="${monster.ident}">
+		</h3>
+	</div>
+</div>
+
+<div th:fragment="portrait (monster)">
+	<span class="d3-icon d3-icon-item d3-icon-item-large d3-icon-item-white">
+		<span class="icon-item-gradient">
+			<span th:class="'icon-item-inner icon-item-long instancePortraitFlipped'"
+				  th:style="'background-image:url(' + ${monster.getFullImagePath()} + '); background-size: 90px 70px;'" >
+			</span>
+		</span>
+	</span>
+</div>
+
+<div th:fragment="flavor (monster)">
+	<div class="tooltip-extension ">
+		<div class="flavor">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+			sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+		</div>
+	</div>
+</div>
+
+<div th:fragment="baseStats (monster)">
+	<ul class="item-type">
+		<li>
+			<span class="d3-color-gold" th:text="#{turmoil.monster.info.level} + ':'"></span> <span th:class="'d3-color-blue'" th:text="${monster.level}"></span>
+		</li>
+		<li>
+			<span class="d3-color-gold" th:text="#{turmoil.monster.info.health} + ':'"></span> <span th:class="'d3-color-blue'" th:text="${monster.currentHealth}"></span>
+		</li>
+		<li>
+			<span class="d3-color-gold" th:text="#{turmoil.monster.info.movement} + ':'"></span> <span th:class="'d3-color-blue'" th:text="${monster.movementPoints}"></span>
+		</li>
+	</ul>
+</div>
+
+<div th:fragment="stats (monster)">
+	<ul class="item-effects">
+		<p class="item-property-category" th:text="#{turmoil.monster.info.stats}"></p>
+
+		<li class="d3-color-blue d3-item-property-default">
+			<span class="d3-color-gold" th:text="#{turmoil.monster.info.damage.type} + ':'"></span> <span th:class="'d3-color-blue'" th:text="${monster.getDamageType().toString().toLowerCase()}"></span>
+		</li>
+	</ul>
+</div>
+
+</body>
+</html>
