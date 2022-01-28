@@ -1,11 +1,11 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import Server from './server.js';
 import sequelize from './configs/database.js';
-import router from './routes/userRoutes.js';
-import isAuthorized from './middleware/authMiddleware.js';
+import userRouter from './routes/userRoutes.js';
+import instanceRouter from './routes/instanceRoutes.js';
 import Logger from './utils/logger.js';
+import createErrorMiddleware from './middleware/errorMiddleware.js';
 
 // in case of doubled request, favicon workaround
 // app.get('/favicon.ico', (req, res) => res.sendStatus(204));
@@ -20,23 +20,36 @@ const startServer = (port, hostname) => {
   // app.use(bodyParser.urlencoded()); // x-www-form-urlencoded <form>
   app.use(bodyParser.json()); // application/json
 
-  app.use('/user', router);
+  app.use(bodyParser.urlencoded({
+    extended: false,
+  }));
 
-  app.get('/initializeStash', isAuthorized, (req, res) => {
-    Logger.log('Will initialize stash');
-    Server.initializeStash()
-      .then((r) => {
-        res.send(r);
-        Logger.log('Output sent');
-      });
-  });
+  app.use('/user', userRouter);
+  app.use('/instance', instanceRouter);
 
-  app.use((error, req, res) => {
-    Logger.log('got error', error);
-    const status = error.statusCode || 500;
-    const { message } = error;
-    const { data } = error;
-    res.status(status).json({ message, data });
+  // app.use(createErrorMiddleware({ logger: { error: console.error } }));
+
+  // app.use((err, req, res, next) => {
+  //   console.error(err.stack);
+  //   res.status(500).send('Something broke!');
+  // });
+
+  // error response
+  app.use((error, req, res, next) => {
+    console.log('got error', req);
+    const status = req.statusCode || 500;
+    const { message } = req;
+    const { data } = req;
+    res.statusCode = status;
+
+    console.log('zzz', error);
+    //
+    // req.send({
+    //   a: message, b: data,
+    // });
+
+    console.error(error.stack);
+    res.status(500).json({ info: 'Something broke!', message, data });
   });
 
   sequelize.sync({ force: false })
@@ -47,7 +60,7 @@ const startServer = (port, hostname) => {
       Logger.log(err);
     });
 
-  Logger.log('Server started');
+  Logger.log('JavaServerService started');
 };
 
 export default startServer;

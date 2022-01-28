@@ -10,6 +10,7 @@ import Ajax from '../../../js/core/turmoil-ajax';
 import WindowLocation from '../../../js/windows/window-location';
 import '../../../stylesheets/window-location.css';
 import Logger from '../../../js/utils/logger';
+import Fetch from '../../../js/core/turmoil-fetch';
 
 const mapStateToProps = (state) => ({
   enemyUnits: state.enemyUnits,
@@ -33,11 +34,19 @@ class ConnectedLocation extends React.Component {
 
     const { updateEnemyUnits, updateFriendlyUnits } = this.props;
 
-    Ajax.exec({
-      url: 'instance/initializeEnemyUnits',
+    Fetch.post({
+      path: 'instance/initializeEnemyUnits',
+      // path: 'user/login',
+      body: { hello: 'yes sir' },
       onSuccess: updateEnemyUnits,
       onSuccessThis: this,
-    });
+    }).then();
+
+    // Ajax.exec({
+    //   url: 'instance/initializeEnemyUnits',
+    //   onSuccess: updateEnemyUnits,
+    //   onSuccessThis: this,
+    // });
 
     Ajax.exec({
       url: 'instance/initializeFriendlyUnits',
