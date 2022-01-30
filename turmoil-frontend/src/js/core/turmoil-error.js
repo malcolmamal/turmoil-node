@@ -13,6 +13,9 @@ const Error = {
       message = error.status;
     }
 
+    const path = params ? (params.path || '') : '';
+
+    console.error('Error:', message, status, stack, path || null, fetchParams);
     jQuery('#error').html(message); // TODO: possibly not needed
     if (window.debug) {
       Logger.log('Error in ajax call', stack);
@@ -20,7 +23,7 @@ const Error = {
 
       // TODO: move that html somewhere nice and add a scroller
       if (window.debugPopup) {
-        jQuery('#modalContent').html(`<span style="font-weight: bold;">${status} ${params.path}</span><br> ${message}<br><br> <pre style="white-space: pre-wrap;">${stack} <br><br>Params: ${JSON.stringify(fetchParams)}</pre><br><br> <pre></pre>`);
+        jQuery('#modalContent').html(`<span style="font-weight: bold;">${status || ''} ${path}</span><br> ${message}<br><br> <pre style="white-space: pre-wrap;">${stack} <br><br>Params: ${JSON.stringify(fetchParams)}</pre><br><br> <pre></pre>`);
         window.modal.style.display = 'block';
       }
     }
@@ -36,4 +39,4 @@ const Error = {
   },
 };
 
-export default Error;
+export default Error; // TODO: should this be renamed?

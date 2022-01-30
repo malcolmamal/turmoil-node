@@ -4,6 +4,7 @@ import cors from 'cors';
 import sequelize from './configs/database.js';
 import userRouter from './routes/userRoutes.js';
 import instanceRouter from './routes/instanceRoutes.js';
+import characterRouter from './routes/characterRoutes.js';
 import Logger from './utils/logger.js';
 import createErrorMiddleware from './middleware/errorMiddleware.js';
 
@@ -26,6 +27,7 @@ const startServer = (port, hostname) => {
 
   app.use('/user', userRouter);
   app.use('/instance', instanceRouter);
+  app.use('/character', characterRouter);
 
   app.use(createErrorMiddleware({ logger: { error: console.error } }));
 

@@ -7,6 +7,7 @@ import Ajax from '../core/turmoil-ajax';
 import Logger from '../utils/logger';
 import Consts from '../core/turmoil-consts';
 import Permissions from '../core/turmoil-permissions';
+import Fetch from '../core/turmoil-fetch';
 
 const WindowLocation = {
   getPolygonForUnit(unit) {
@@ -19,12 +20,19 @@ const WindowLocation = {
       return;
     }
 
-    Ajax.exec({
-      url: `instance/instanceActionOnPosition/${polygon.attr('id')}`,
+    Fetch.get({
+      path: `instance/instanceActionOnPosition/${polygon.attr('id')}`,
       onSuccess: WindowLocation.finalizeActionsOnPolygon,
       onSuccessThis: callbacks,
       blockActions: true,
-    });
+    }).then();
+
+    // Ajax.exec({
+    //   url: `instance/instanceActionOnPosition/${polygon.attr('id')}`,
+    //   onSuccess: WindowLocation.finalizeActionsOnPolygon,
+    //   onSuccessThis: callbacks,
+    //   blockActions: true,
+    // });
   },
   actionOnUnit(unitId, callbacks) {
     const unit = jQuery(`#${unitId}`);

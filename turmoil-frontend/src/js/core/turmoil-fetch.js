@@ -1,5 +1,6 @@
 import Layout from './turmoil-layout';
 import Error from './turmoil-error';
+import Permissions from './turmoil-permissions';
 
 const Fetch = {
   baseUrl: 'http://localhost:3030/',
@@ -9,11 +10,23 @@ const Fetch = {
   },
   async fetch(params, fetchParams) {
     try {
+      if (params.blockActions === true) {
+        // TODO: this whole section should be moved to a more logical place
+        if (!Permissions.areActionsAllowed()) {
+          window.turmoil.logDebug('Actions are currently blocked', params);
+
+          return null;
+        }
+
+        Permissions.blockActions();
+      }
+
       Layout.showSpinner();
       const response = await fetch(`${this.baseUrl}${params.path}`, fetchParams);
       if (!response.ok) {
+        Permissions.enableActions();
+
         const jsonResponse = await response.json();
-        console.error('Error:', jsonResponse.message, params, fetchParams);
 
         return Error.handleError({
           message: jsonResponse.message, stack: jsonResponse.stack, status: response.status, params, fetchParams,
@@ -29,8 +42,12 @@ const Fetch = {
 
       return null;
     } catch (err) {
-      console.log('its bad', err);
-      Error.handleError({ message: err });
+      Permissions.enableActions();
+
+      Error.handleError({
+        message: err, params, fetchParams,
+      });
+
       return JSON.stringify(err);
     } finally {
       Layout.hideSpinner();

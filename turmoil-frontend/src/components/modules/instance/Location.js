@@ -36,8 +36,6 @@ class ConnectedLocation extends React.Component {
 
     Fetch.post({
       path: 'instance/initializeEnemyUnits',
-      // path: 'user/login',
-      body: { hello: 'yes sir' },
       onSuccess: updateEnemyUnits,
       onSuccessThis: this,
     }).then();
@@ -48,11 +46,17 @@ class ConnectedLocation extends React.Component {
     //   onSuccessThis: this,
     // });
 
-    Ajax.exec({
-      url: 'instance/initializeFriendlyUnits',
+    Fetch.post({
+      path: 'instance/initializeFriendlyUnits',
       onSuccess: updateFriendlyUnits,
       onSuccessThis: this,
-    });
+    }).then();
+
+    // Ajax.exec({
+    //   url: 'instance/initializeFriendlyUnits',
+    //   onSuccess: updateFriendlyUnits,
+    //   onSuccessThis: this,
+    // });
 
     if (window.debug) {
       Logger.log('Location initialized...');

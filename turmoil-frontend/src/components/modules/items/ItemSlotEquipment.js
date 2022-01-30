@@ -7,6 +7,7 @@ import Ajax from '../../../js/core/turmoil-ajax';
 import Sound from '../../../js/core/turmoil-sound';
 import WindowLocation from '../../../js/windows/window-location';
 import Permissions from '../../../js/core/turmoil-permissions';
+import Fetch from '../../../js/core/turmoil-fetch';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -21,12 +22,19 @@ class ConnectedItemSlotEquipment extends React.Component {
     Tooltip.hideAllTooltips();
 
     if (item.ident) {
-      Ajax.exec({
-        url: `character/unequip/${item.ident}`,
+      Fetch.get({
+        path: `character/unequip/${item.ident}`,
         onSuccess: ConnectedItemSlotEquipment.finalizeRightClickOnEquipment,
         onSuccessThis: updateItems,
         blockActions: true,
-      });
+      }).then();
+
+      // Ajax.exec({
+      //   url: `character/unequip/${item.ident}`,
+      //   onSuccess: ConnectedItemSlotEquipment.finalizeRightClickOnEquipment,
+      //   onSuccessThis: updateItems,
+      //   blockActions: true,
+      // });
     }
   }
 

@@ -9,13 +9,34 @@ export const initializeStash = async (req, res) => {
   res.status(201).send(result);
 };
 
-export const initializeEnemyUnits = async (req, res, next) => {
-  Logger.log('in post enemy units');
+export const initializeEquipment = async (req, res) => {
+  const result = await JavaServerService.initializeEquipment();
+
+  res.status(201).send(result);
+};
+
+export const instanceActionOnPosition = async (req, res, next) => {
+  Logger.log('Will initialize stash');
+  const { position } = req.params;
+  if (!position) {
+    const error = new Error('instanceActionOnPosition -> position param is missing');
+    error.statusCode = 401;
+    return next(error);
+  }
+
+  const result = await JavaServerService.instanceActionOnPosition(position);
+
+  return res.status(201).send(result);
+};
+
+export const initializeEnemyUnits = async (req, res) => {
   const result = await JavaServerService.initializeEnemyUnits();
 
-  // const error = new Error('Something went wrong.');
-  // error.statusCode = 401;
-  // return next(error);
+  res.status(201).send(result);
+};
+
+export const initializeFriendlyUnits = async (req, res) => {
+  const result = await JavaServerService.initializeFriendlyUnits();
 
   res.status(201).send(result);
 };
