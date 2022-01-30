@@ -1,5 +1,5 @@
 import Layout from './turmoil-layout';
-import Ajax from './turmoil-ajax';
+import Error from './turmoil-error';
 
 const Fetch = {
   baseUrl: 'http://localhost:3030/',
@@ -11,6 +11,14 @@ const Fetch = {
     try {
       Layout.showSpinner();
       const response = await fetch(`${this.baseUrl}${params.path}`, fetchParams);
+      if (!response.ok) {
+        const jsonResponse = await response.json();
+        console.error('Error:', jsonResponse.message, params, fetchParams);
+
+        return Error.handleError({
+          message: jsonResponse.message, stack: jsonResponse.stack, status: response.status, params, fetchParams,
+        });
+      }
 
       const jsonResponse = await response.json();
       if (typeof (params.onSuccessThis) !== 'undefined') {
@@ -22,10 +30,9 @@ const Fetch = {
       return null;
     } catch (err) {
       console.log('its bad', err);
-      Ajax.handleAjaxError(err, err, '');
+      Error.handleError({ message: err });
       return JSON.stringify(err);
     } finally {
-      console.log('wtf');
       Layout.hideSpinner();
     }
   },

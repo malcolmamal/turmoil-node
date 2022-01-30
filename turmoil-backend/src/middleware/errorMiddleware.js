@@ -7,7 +7,7 @@ const createErrorMiddleware = ({ logger }) => function errorMiddleware(error, re
     res.status(500);
     res.json({
       message: error.message,
-      ...(process.env.NODE_ENV === 'production' ? null : { stack: error.stack }),
+      ...(process.env.NODE_ENV === 'prod' ? null : { stack: error.stack }),
     });
   }
 };

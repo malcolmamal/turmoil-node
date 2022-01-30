@@ -83,32 +83,7 @@ const Ajax = {
       Logger.log('Missing url param for ajax call');
     }
   },
-  handleAjaxError(responseText, errorThrown, status) {
-    let response = responseText;
-    if (typeof responseText === 'undefined') {
-      response = status;
-    }
 
-    jQuery('#error').html(response);
-    if (window.debug) {
-      Logger.log('Error in ajax call', errorThrown);
-      Ajax.debugInfo = response;
-
-      if (window.debugPopup) {
-        jQuery('#modalContent').html(response);
-        window.modal.style.display = 'block';
-      }
-    }
-
-    Layout.hideSpinner();
-  },
-  showAjaxError() {
-    const windowId = window.open('', 'ajaxError', 'height=900, width=1600');
-    windowId.document.write(Ajax.debugInfo);
-    windowId.focus();
-
-    Layout.hideSpinnerWithDelay();
-  },
 };
 
 export default Ajax;

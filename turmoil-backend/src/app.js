@@ -27,30 +27,12 @@ const startServer = (port, hostname) => {
   app.use('/user', userRouter);
   app.use('/instance', instanceRouter);
 
-  // app.use(createErrorMiddleware({ logger: { error: console.error } }));
+  app.use(createErrorMiddleware({ logger: { error: console.error } }));
 
   // app.use((err, req, res, next) => {
   //   console.error(err.stack);
   //   res.status(500).send('Something broke!');
   // });
-
-  // error response
-  app.use((error, req, res, next) => {
-    console.log('got error', req);
-    const status = req.statusCode || 500;
-    const { message } = req;
-    const { data } = req;
-    res.statusCode = status;
-
-    console.log('zzz', error);
-    //
-    // req.send({
-    //   a: message, b: data,
-    // });
-
-    console.error(error.stack);
-    res.status(500).json({ info: 'Something broke!', message, data });
-  });
 
   sequelize.sync({ force: false })
     .then(() => {
