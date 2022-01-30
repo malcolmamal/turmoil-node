@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import sequelize from './configs/database.js';
 import userRouter from './routes/userRoutes.js';
+import tooltipRouter from './routes/tooltipRoutes.js';
 import instanceRouter from './routes/instanceRoutes.js';
 import characterRouter from './routes/characterRoutes.js';
 import Logger from './utils/logger.js';
@@ -26,6 +27,7 @@ const startServer = (port, hostname) => {
   }));
 
   app.use('/user', userRouter);
+  app.use('/tooltip', tooltipRouter);
   app.use('/instance', instanceRouter);
   app.use('/character', characterRouter);
 

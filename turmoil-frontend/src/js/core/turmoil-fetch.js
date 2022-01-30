@@ -33,11 +33,14 @@ const Fetch = {
         });
       }
 
-      const jsonResponse = await response.json();
-      if (typeof (params.onSuccessThis) !== 'undefined') {
-        params.onSuccess(jsonResponse, params.onSuccessThis);
+      const contentResponse = params.contentType === 'text' ? await response.text() : await response.json();
+      if (params.onSuccessThis !== undefined) {
+        params.onSuccess(contentResponse, params.onSuccessThis);
+      } else if (params.onSuccess !== undefined) {
+        params.onSuccess(contentResponse);
       } else {
-        params.onSuccess(jsonResponse);
+        // return new Promise((resolve) => { resolve(contentResponse); });
+        return Promise.resolve(contentResponse);
       }
 
       return null;

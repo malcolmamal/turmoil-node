@@ -2,7 +2,25 @@ import fetch from 'node-fetch';
 
 const API_PATH = 'http://localhost:8080';
 
+// TODO: wrap each fetch and check for errors
+
 class JavaServerService {
+  static tooltip = async (type, ident) => {
+    const result = await fetch(
+      `${API_PATH}/tooltip/${type}/${ident}`,
+    );
+
+    if (!result.ok) {
+      const errorMessage = await result.text();
+      const error = new Error(`tooltip -> ${errorMessage}`);
+      error.statusCode = result.status;
+
+      return Promise.reject(error);
+    }
+
+    return result.text();
+  };
+
   static characterState = async () => {
     const result = await fetch(
       `${API_PATH}/character/state`,

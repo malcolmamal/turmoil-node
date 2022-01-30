@@ -1,10 +1,10 @@
 import express from 'express';
 import { state, equip, unequip } from '../controllers/characterController.js';
 
-const userRouter = express.Router();
+const characterRouter = express.Router();
 
-userRouter.get('/state', state);
-userRouter.get('/equip/:item', equip);
-userRouter.get('/unequip/:item', unequip);
+characterRouter.get('/state', state);
+characterRouter.get('/equip/:item', equip);
+characterRouter.get('/unequip/:item', unequip);
 
-export default userRouter;
+export default characterRouter;
