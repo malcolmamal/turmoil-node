@@ -1,13 +1,5 @@
-import { Sequelize } from 'sequelize';
+import sequelizePostgres from './database-postgres.js';
 
-// https://sequelize.org/master/manual/model-basics.html
-
-const sequelize = new Sequelize('turmoil', 'root', 'nopass', {
-  dialect: 'mysql',
-  host: 'localhost',
-  dialectOptions: {
-    // Your mysql2 options here
-  },
-});
+const sequelize = sequelizePostgres;
 
 export default sequelize;

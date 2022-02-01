@@ -2,7 +2,7 @@ import { Sequelize } from 'sequelize';
 
 // https://sequelize.org/master/manual/model-basics.html
 
-const sequelize = new Sequelize('turmoil', 'root', 'nopass', {
+const sequelizeMysql = new Sequelize('turmoil', 'root', 'nopass', {
   dialect: 'mysql',
   host: 'localhost',
   dialectOptions: {
@@ -10,4 +10,4 @@ const sequelize = new Sequelize('turmoil', 'root', 'nopass', {
   },
 });
 
-export default sequelize;
+export default sequelizeMysql;
