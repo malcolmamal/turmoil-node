@@ -1,0 +1,1 @@
+docker build --build-arg POSTGRES_DB=turmoil --build-arg POSTGRES_PASSWORD=nopass -t nemhauser/turmoil-postgres .
