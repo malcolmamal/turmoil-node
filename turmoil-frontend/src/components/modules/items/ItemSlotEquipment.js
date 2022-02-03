@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import ReduxActions from '../../../js/redux/actions';
 import WindowStats from '../../../js/windows/window-stats';
 import Tooltip from '../../../js/core/turmoil-tooltip';
-import Ajax from '../../../js/core/turmoil-ajax';
 import Sound from '../../../js/core/turmoil-sound';
 import WindowLocation from '../../../js/windows/window-location';
 import Permissions from '../../../js/core/turmoil-permissions';
@@ -28,13 +27,6 @@ class ConnectedItemSlotEquipment extends React.Component {
         onSuccessThis: updateItems,
         blockActions: true,
       }).then();
-
-      // Ajax.exec({
-      //   url: `character/unequip/${item.ident}`,
-      //   onSuccess: ConnectedItemSlotEquipment.finalizeRightClickOnEquipment,
-      //   onSuccessThis: updateItems,
-      //   blockActions: true,
-      // });
     }
   }
 

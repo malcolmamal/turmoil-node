@@ -6,7 +6,6 @@ import Field from './Field';
 import FriendlyUnit from './FriendlyUnit';
 import EnemyUnit from './EnemyUnit';
 import ReduxActions from '../../../js/redux/actions';
-import Ajax from '../../../js/core/turmoil-ajax';
 import WindowLocation from '../../../js/windows/window-location';
 import '../../../stylesheets/window-location.css';
 import Logger from '../../../js/utils/logger';
@@ -40,23 +39,11 @@ class ConnectedLocation extends React.Component {
       onSuccessThis: this,
     }).then();
 
-    // Ajax.exec({
-    //   url: 'instance/initializeEnemyUnits',
-    //   onSuccess: updateEnemyUnits,
-    //   onSuccessThis: this,
-    // });
-
     Fetch.post({
       path: 'instance/initializeFriendlyUnits',
       onSuccess: updateFriendlyUnits,
       onSuccessThis: this,
     }).then();
-
-    // Ajax.exec({
-    //   url: 'instance/initializeFriendlyUnits',
-    //   onSuccess: updateFriendlyUnits,
-    //   onSuccessThis: this,
-    // });
 
     if (window.debug) {
       Logger.log('Location initialized...');

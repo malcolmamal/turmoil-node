@@ -1,6 +1,5 @@
 import jQuery from 'jquery';
 import 'jquery-ui/ui/widgets/tooltip';
-import Ajax from './turmoil-ajax';
 import '../../stylesheets/turmoil-tooltip.css';
 import Logger from '../utils/logger';
 import Fetch from './turmoil-fetch';
@@ -67,33 +66,6 @@ const Tooltip = {
       }).catch((err) => {
         Logger.log('Tooltip Ajax error', ident, err);
       });
-
-      // jQuery.ajax({
-      //   type: 'POST',
-      //   crossDomain: true,
-      //   url: `${Ajax.baseUrl}tooltip/${type}/${ident}`,
-      //   success(data, textStatus) {
-      //     if (textStatus === 'success') {
-      //       Tooltip.prepareTooltip(ident, data);
-      //
-      //       // in case the tooltip will be partially outside the viewport, it has to be closed and opened again for jqueryui to reposition the tooltip
-      //       setTimeout(() => {
-      //         Tooltip.reopenTooltipIfNotVisible(element, `#something-${ident}`);
-      //       }, 10);
-      //     } else if (window.debug) {
-      //       Logger.log('Tooltip Ajax error', textStatus, ident, data);
-      //     }
-      //   },
-      //   error(XMLHttpRequest, textStatus, errorThrown) {
-      //     jQuery('#error').html(XMLHttpRequest.responseText);
-      //
-      //     if (window.debug) {
-      //       Logger.log('Error in ajax call', errorThrown);
-      //     }
-      //   },
-      // });
-
-      // content = tooltipContents[id];
     }
 
     return content;

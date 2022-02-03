@@ -30,7 +30,7 @@ const Error = {
 
     Layout.hideSpinner();
   },
-  showAjaxError() {
+  showError() {
     const windowId = window.open('', 'ajaxError', 'height=900, width=1600');
     windowId.document.write(Error.debugInfo);
     windowId.focus();

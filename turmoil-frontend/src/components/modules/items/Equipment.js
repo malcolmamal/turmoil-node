@@ -4,7 +4,6 @@ import jQuery from 'jquery';
 import Window from '../../Window';
 import ItemSlotEquipment from './ItemSlotEquipment';
 import ReduxActions from '../../../js/redux/actions';
-import Ajax from '../../../js/core/turmoil-ajax';
 import Tooltip from '../../../js/core/turmoil-tooltip';
 import Fetch from '../../../js/core/turmoil-fetch';
 

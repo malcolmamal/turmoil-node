@@ -198,7 +198,7 @@ export default class Turmoil extends React.Component {
               test
               <Navigate to="/login" />
             </div>
-)}
+          )}
         />
         <Route
           path="/logged"
@@ -211,7 +211,7 @@ export default class Turmoil extends React.Component {
 
               <Location />
             </div>
-    )}
+          )}
         />
         <Route
           path="/signup"
@@ -220,7 +220,7 @@ export default class Turmoil extends React.Component {
               onSignup={this.signupHandler}
               loading={authLoading}
             />
-    )}
+          )}
         />
         <Route
           path="/login"
@@ -229,7 +229,7 @@ export default class Turmoil extends React.Component {
               onLogin={this.loginHandler}
               loading={authLoading}
             />
-    )}
+          )}
         />
       </Routes>
     );

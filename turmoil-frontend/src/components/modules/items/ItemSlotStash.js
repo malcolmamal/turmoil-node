@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import ReduxActions from '../../../js/redux/actions';
 import WindowStats from '../../../js/windows/window-stats';
 import Tooltip from '../../../js/core/turmoil-tooltip';
-import Ajax from '../../../js/core/turmoil-ajax';
 import Sound from '../../../js/core/turmoil-sound';
 import Permissions from '../../../js/core/turmoil-permissions';
 import Fetch from '../../../js/core/turmoil-fetch';
@@ -26,13 +25,6 @@ class ConnectedItemSlotStash extends React.Component {
       onSuccessThis: updateItems,
       blockActions: true,
     }).then();
-
-    // Ajax.exec({
-    //   url: `character/equip/${itemId}`,
-    //   onSuccess: ConnectedItemSlotStash.finalizeRightClickOnStashedItem,
-    //   onSuccessThis: updateItems,
-    //   blockActions: true,
-    // });
   }
 
   static finalizeRightClickOnStashedItem(data, callbackFunction) {

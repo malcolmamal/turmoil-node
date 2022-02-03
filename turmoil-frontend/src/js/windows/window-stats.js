@@ -1,4 +1,3 @@
-import Ajax from '../core/turmoil-ajax';
 import Fetch from '../core/turmoil-fetch';
 
 const WindowStats = {
@@ -7,11 +6,6 @@ const WindowStats = {
       path: 'character/state',
       onSuccess: callBackFunction,
     }).then();
-
-    // Ajax.exec({
-    //   url: 'character/state',
-    //   onSuccess: callBackFunction,
-    // });
   },
 };
 
