@@ -1,4 +1,3 @@
-import jQuery from 'jquery';
 import Logger from '../utils/logger';
 import Layout from './turmoil-layout';
 
@@ -16,14 +15,13 @@ const Error = {
     const path = params ? (params.path || '') : '';
 
     console.error('Error:', message, status, stack, path || null, fetchParams);
-    jQuery('#error').html(message); // TODO: possibly not needed
     if (window.debug) {
       Logger.log('Error in ajax call', stack);
       Error.debugInfo = message;
 
       // TODO: move that html somewhere nice and add a scroller
       if (window.debugPopup) {
-        jQuery('#modalContent').html(`<span style="font-weight: bold;">${status || ''} ${path}</span><br> ${message}<br><br> <pre style="white-space: pre-wrap;">${stack} <br><br>Params: ${JSON.stringify(fetchParams)}</pre><br><br> <pre></pre>`);
+        document.querySelector('#modalContent').innerHTML = `<span style="font-weight: bold;">${status || ''} ${path}</span><br> ${message}<br><br> <pre style="white-space: pre-wrap;">${stack} <br><br>Params: ${JSON.stringify(fetchParams)}</pre><br><br> <pre></pre>`;
         window.modal.style.display = 'block';
       }
     }

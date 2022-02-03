@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import jQuery from 'jquery';
 import Unit from './Unit';
 import ReduxActions from '../../../js/redux/actions';
 import WindowLocation from '../../../js/windows/window-location';
@@ -26,7 +25,7 @@ class ConnectedEnemyUnit extends React.Component {
     const { ident, position } = this.props;
 
     setTimeout(() => {
-      WindowLocation.handleMoveToPolygon(jQuery(`#${position}`), jQuery(`#${ident}`));
+      WindowLocation.handleMoveToPolygon(document.querySelector(`#${position}`), document.querySelector(`#${ident}`));
     }, 125);
   }
 

@@ -88,7 +88,7 @@ const WindowLocation = {
         if (typeof (callbackFunctions) !== 'undefined' && typeof (callbackFunctions.addEnemyUnit) === 'function') {
           callbackFunctions.addEnemyUnit(data.unitToAdd);
 
-          WindowLocation.handleMoveToPolygon(jQuery(`#${data.unitToAdd.position}`), jQuery(`#${data.unitToAdd.ident}`));
+          WindowLocation.handleMoveToPolygon(document.querySelector(`#${data.unitToAdd.position}`), document.querySelector(`#${data.unitToAdd.ident}`));
         }
       }
 
@@ -99,11 +99,14 @@ const WindowLocation = {
       }
     }
   },
-  handleMoveToPolygon(polygon, unit) {
+  handleMoveToPolygon(polygonElement, unitElement) {
     WindowLocation.inactivateUnits();
 
+    const polygon = jQuery(polygonElement);
+    const unit = jQuery(unitElement);
+
     if (unit.data('previousPolygonId') != null) {
-      const previousPolygon = jQuery(`#${unit.data('previousPolygonId')}`);
+      const previousPolygon = document.querySelector(`#${unit.data('previousPolygonId')}`);
 
       Svg.addClass(previousPolygon, 'instancePolygon');
       if (unit.hasClass('enemyUnit')) {
@@ -111,7 +114,7 @@ const WindowLocation = {
       } else {
         Svg.removeClass(previousPolygon, 'instancePolygonActive');
       }
-      previousPolygon.data('unit', '');
+      previousPolygon.dataset.unit = '';
     }
 
     const offsetContainer = jQuery('#locationContainer').offset();

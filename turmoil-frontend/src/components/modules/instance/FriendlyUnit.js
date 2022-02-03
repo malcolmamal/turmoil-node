@@ -1,5 +1,4 @@
 import React from 'react';
-import jQuery from 'jquery';
 import Unit from './Unit';
 import WindowLocation from '../../../js/windows/window-location';
 import Logger from '../../../js/utils/logger';
@@ -21,7 +20,7 @@ export default class FriendlyUnit extends React.Component {
     WindowLocation.setEquipmentBackground(gender);
 
     setTimeout(() => {
-      WindowLocation.handleMoveToPolygon(jQuery(`#${position}`), jQuery(`#${ident}`));
+      WindowLocation.handleMoveToPolygon(document.querySelector(`#${position}`), document.querySelector(`#${ident}`));
     }, 200);
 
     setTimeout(() => {

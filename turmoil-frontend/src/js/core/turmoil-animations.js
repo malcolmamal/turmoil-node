@@ -73,28 +73,28 @@ const Animations = {
     Animations.animateIndicator(ident);
   },
   attackSwing(unitId) {
-    const effect = jQuery(`#${unitId}Effect`);
+    const effect = document.querySelector(`#${unitId}Effect`);
 
     // TODO: check attack type per attacking unit
-    const targetUnit = jQuery(`#${unitId}`);
+    const targetUnit = document.querySelector(`#${unitId}`);
 
-    if (window.turmoil.instance.attackType === Consts.ATTACK_TYPE_BOW && targetUnit.hasClass('enemyUnit')) {
-      effect.addClass('attackArrow');
+    if (window.turmoil.instance.attackType === Consts.ATTACK_TYPE_BOW && targetUnit.classList.contains('enemyUnit')) {
+      effect.classList.add('attackArrow');
       Sound.playAudio(`soundAttackBow${Utils.randomInt(3)}`);
 
       setTimeout(
         () => {
-          effect.removeClass('attackArrow');
+          effect.classList.remove('attackArrow');
         },
         500,
       );
     } else {
-      effect.addClass('attackSwing');
+      effect.classList.add('attackSwing');
       Sound.playAudio(`soundAttackMelee${Utils.randomInt(3)}`);
 
       setTimeout(
         () => {
-          effect.removeClass('attackSwing');
+          effect.classList.remove('attackSwing');
         },
         500,
       );
