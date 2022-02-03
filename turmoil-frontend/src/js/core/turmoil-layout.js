@@ -1,5 +1,3 @@
-import jQuery from 'jquery';
-
 const Layout = {
   isVerticalScrollPresent() {
     // currently disabled
@@ -7,8 +5,9 @@ const Layout = {
     // return (document.documentElement.scrollHeight !== document.documentElement.clientHeight);
   },
   setProperContentHeight() {
-    const turmoilBody = jQuery('#turmoilBody');
-    const turmoilFooter = jQuery('#turmoilFooter');
+    const turmoilBody = document.querySelector('#turmoilBody');
+    const turmoilFooter = document.querySelector('#turmoilFooter');
+
     let newFooterPosition;
     if (Layout.isVerticalScrollPresent()) {
       // making sure the footer is always at the bottom
@@ -18,42 +17,46 @@ const Layout = {
       // height would yield some results (changing height if possible)
       // alternatively the scroll could just be disabled (not sure if the mouse scrolling would be still possible
       // then or if that could be disabled as well)
-      newFooterPosition = Math.round(document.documentElement.scrollHeight - turmoilFooter.height());
+      newFooterPosition = Math.round(document.documentElement.scrollHeight - turmoilFooter.offsetHeight);
     } else {
-      newFooterPosition = Math.round(jQuery(window).height() - turmoilFooter.height());
+      newFooterPosition = Math.round(window.innerHeight - turmoilFooter.offsetHeight);
     }
-    turmoilFooter.css('top', `${newFooterPosition}px`);
+
+    turmoilFooter.style.top = `${newFooterPosition}px`;
 
     const headerPosition = document.getElementById('turmoilHeader').getBoundingClientRect().bottom;
     const footerPosition = document.getElementById('turmoilFooter').getBoundingClientRect().top;
     const contentHeight = Math.round(footerPosition - headerPosition - 2);
 
-    turmoilBody.css('height', `${contentHeight}px`);
+    turmoilBody.style.height = `${contentHeight}px`;
 
-    const tallContentContainer = jQuery('.tallContentContainer');
-    if (tallContentContainer.length) {
-      const tallContainerHeight = turmoilBody.height() - 25;
-      tallContentContainer.height(tallContainerHeight);
+    const tallContentContainer = document.querySelector('.tallContentContainer');
+
+    if (tallContentContainer) {
+      tallContentContainer.style.height = turmoilBody.offsetHeight - 25;
     }
   },
   setCenteredContent() {
-    Layout.centerContentVertically(jQuery('#centeredContentWrapper'));
+    // TODO: we don't have it at the moment (was it removed?) but login form would be an example of centered content
+    Layout.centerContentVertically(document.querySelector('#centeredContentWrapper'));
   },
-  centerContentVertically(centeredContentWrapper) {
-    if (centeredContentWrapper.length) {
+  centerContentVertically(centeredContentWrapperElement) {
+    const centeredContentWrapper = centeredContentWrapperElement;
+
+    if (centeredContentWrapper) {
       let parentOffset = 0;
-      if (centeredContentWrapper.parent().length) {
+      if (centeredContentWrapper.parent()) {
         parentOffset = centeredContentWrapper.parent().get(0).getBoundingClientRect().top;
       }
       const halfOfContentHeight = Math.round((centeredContentWrapper.get(0).getBoundingClientRect().bottom - centeredContentWrapper.get(0).getBoundingClientRect().top) / 2);
-      const halfOfWindowHeight = Math.round(jQuery(window).height() / 2);
+      const halfOfWindowHeight = Math.round(window.innerHeight / 2);
 
       let topPosition = halfOfWindowHeight - halfOfContentHeight - parentOffset;
       if (topPosition < 0) {
         topPosition = 0;
       }
 
-      centeredContentWrapper.css('top', `${topPosition}px`);
+      centeredContentWrapper.style.top = `${topPosition}px`;
     }
   },
   centerContentHorizontally(centeredContentWrapper) {
@@ -63,7 +66,7 @@ const Layout = {
         parentOffset = centeredContentWrapper.parent().get(0).getBoundingClientRect().left;
       }
       const halfOfContentWidth = Math.round((centeredContentWrapper.get(0).getBoundingClientRect().right - centeredContentWrapper.get(0).getBoundingClientRect().left) / 2);
-      const halfOfWindowWidth = Math.round(jQuery(window).width() / 2);
+      const halfOfWindowWidth = Math.round(window.innerWidth / 2);
 
       let leftPosition = halfOfWindowWidth - halfOfContentWidth - parentOffset;
       if (leftPosition < 0) {
@@ -78,10 +81,10 @@ const Layout = {
     Layout.setCenteredContent();
   },
   showSpinner() {
-    jQuery('#spinner').show();
+    document.querySelector('#spinner').style.display = 'block';
   },
   hideSpinner() {
-    jQuery('#spinner').hide();
+    document.querySelector('#spinner').style.display = 'none';
   },
   hideSpinnerWithDelay() {
     setTimeout(() => {

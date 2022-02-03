@@ -28,7 +28,7 @@ class ConnectedLocation extends React.Component {
     jQuery('#window_location').disableSelection();
 
     jQuery('.instancePolygon').click(function onClickAction() {
-      WindowLocation.actionOnPolygon(jQuery(this));
+      WindowLocation.actionOnPolygon(this);
     });
 
     const { updateEnemyUnits, updateFriendlyUnits } = this.props;

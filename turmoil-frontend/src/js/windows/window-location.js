@@ -10,25 +10,25 @@ import Fetch from '../core/turmoil-fetch';
 
 const WindowLocation = {
   getPolygonForUnit(unit) {
-    return jQuery(`#${jQuery(unit).data('previousPolygonId')}`);
+    return document.querySelector(`#${jQuery(unit).data('previousPolygonId')}`);
   },
   actionOnPolygon(polygon, unit, callbacks) {
-    if (typeof (polygon) === 'undefined' || polygon == null) {
+    if (!polygon) {
       window.turmoil.logDebug('Wrong polygon parameter', polygon, unit, callbacks);
 
       return;
     }
 
     Fetch.get({
-      path: `instance/instanceActionOnPosition/${polygon.attr('id')}`,
+      path: `instance/instanceActionOnPosition/${polygon.getAttribute('id')}`,
       onSuccess: WindowLocation.finalizeActionsOnPolygon,
       onSuccessThis: callbacks,
       blockActions: true,
     }).then();
   },
   actionOnUnit(unitId, callbacks) {
-    const unit = jQuery(`#${unitId}`);
-    const polygon = jQuery(WindowLocation.getPolygonForUnit(unit));
+    const unit = document.querySelector(`#${unitId}`);
+    const polygon = WindowLocation.getPolygonForUnit(unit);
 
     return WindowLocation.actionOnPolygon(polygon, unit, callbacks);
   },
@@ -185,8 +185,8 @@ const WindowLocation = {
   },
   setActivePolygons() {
     window.turmoil.instance.polygonsInRange.forEach((element) => {
-      const polygon = jQuery(`#${element}`);
-      if (polygon.hasClass('instancePolygon')) {
+      const polygon = document.querySelector(`#${element}`);
+      if (polygon.classList.contains('instancePolygon')) {
         Svg.replaceClass(polygon, 'instancePolygonInRange', 'instancePolygon');
       }
     });

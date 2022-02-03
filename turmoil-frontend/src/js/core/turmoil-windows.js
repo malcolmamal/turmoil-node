@@ -175,7 +175,6 @@ const Windows = {
     windowResizer.height(totalHeight);
 
     if (typeof (setToCenter) !== 'undefined' && setToCenter === true) {
-      Layout.centerContentVertically(windowResizer);
       Layout.centerContentHorizontally(windowResizer);
 
       window.turmoil.windowSettings[windowType].left = windowResizer.css('left');
@@ -185,13 +184,13 @@ const Windows = {
   actionMinimize(windowType) {
     Tooltip.hideAllTooltips();
 
-    jQuery(`#window_${windowType}_content_wrapper`).hide();
-    jQuery(`#${windowType}ButtonMaximize`).show();
-    jQuery(`#${windowType}ButtonMinimize`).hide();
+    document.querySelector(`#window_${windowType}_content_wrapper`).style.display = 'none';
+    document.querySelector(`#${windowType}ButtonMaximize`).style.display = 'block';
+    document.querySelector(`#${windowType}ButtonMinimize`).style.display = 'none';
 
-    const handleContainer = jQuery(`#handle_${windowType}_container`);
-    const handleHeight = handleContainer.get(0).getBoundingClientRect().bottom - handleContainer.get(0).getBoundingClientRect().top;
-    jQuery(`#window_${windowType}_resizer`).height(Math.round(handleHeight));
+    const handleContainer = document.querySelector(`#handle_${windowType}_container`);
+    const handleHeight = handleContainer.getBoundingClientRect().bottom - handleContainer.getBoundingClientRect().top;
+    document.querySelector(`#window_${windowType}_resizer`).style.height = `${Math.round(handleHeight)}px`;
   },
   switchShowClose(windowType, setToCenter) {
     if (jQuery(`#window_${windowType}_content_wrapper`).is(':visible')) {
