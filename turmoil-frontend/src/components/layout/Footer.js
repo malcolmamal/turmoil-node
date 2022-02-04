@@ -8,14 +8,16 @@ function Footer() {
 
   let logoutBox = '';
   if (localStorage.getItem('userName')) {
-    logoutBox = <div>
-      <FormattedMessage id="turmoil.footer.logout" />
-      {' '}
-      - (logged as
-      {' '}
-      {localStorage.getItem('userName')}
-      )
-    </div>;
+    logoutBox = (
+      <div>
+        <FormattedMessage id="turmoil.footer.logout" />
+        {' '}
+        - (logged as
+        {' '}
+        {localStorage.getItem('userName')}
+        )
+      </div>
+    );
   }
 
   return (

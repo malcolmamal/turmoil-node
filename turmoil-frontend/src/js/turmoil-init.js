@@ -207,16 +207,6 @@ jQuery(() => {
     }
   }
 
-  jQuery('.flatSubMenu').mouseenter(() => {
-    Windows.resetZIndex();
-  });
-
-  jQuery.each(jQuery('.flatMenu').find('li'), (index, value) => {
-    jQuery(value).click(() => {
-      Layout.showSpinner();
-    });
-  });
-
   Windows.initWindow('console', true);
   Windows.initWindow('equipment', true);
   Windows.initWindow('stash', true);
@@ -233,7 +223,7 @@ jQuery(() => {
 if (typeof jQuery !== 'undefined') {
   (function spinWhileAjaxRuns() {
     jQuery('#spinner').ajaxStart(() => {
-      Logger.log('Should be spinning but it still has to be fixed probably... maybe beucase there is no #spinner?');
+      Logger.log('Should be spinning but it still has to be fixed probably... maybe because there is no #spinner?');
       jQuery(this).fadeIn();
     }).ajaxStop(() => {
       jQuery(this).fadeOut();
