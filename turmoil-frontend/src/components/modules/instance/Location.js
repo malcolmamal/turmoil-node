@@ -10,6 +10,7 @@ import WindowLocation from '../../../js/windows/window-location';
 import '../../../stylesheets/window-location.css';
 import Logger from '../../../js/utils/logger';
 import Fetch from '../../../js/core/turmoil-fetch';
+import Windows from '../../../js/core/turmoil-windows';
 
 const mapStateToProps = (state) => ({
   enemyUnits: state.enemyUnits,
@@ -48,6 +49,8 @@ class ConnectedLocation extends React.Component {
     if (window.debug) {
       Logger.log('Location initialized...');
     }
+
+    Windows.initWindow('location', true);
   }
 
   render() {

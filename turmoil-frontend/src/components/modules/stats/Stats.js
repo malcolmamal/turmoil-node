@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Window from '../../Window';
 import CharacterState from './CharacterState';
 import '../../../stylesheets/window-stats.css';
+import Windows from '../../../js/core/turmoil-windows';
 
 function Stats() {
   const background = {
@@ -9,6 +10,10 @@ function Stats() {
     width: '300px',
     height: '700px',
   };
+
+  useEffect(() => {
+    Windows.initWindow('stats', true);
+  }, []);
 
   return (
     <Window ident="stats" background={background}>

@@ -6,6 +6,7 @@ import ItemSlotEquipment from './ItemSlotEquipment';
 import ReduxActions from '../../../js/redux/actions';
 import Tooltip from '../../../js/core/turmoil-tooltip';
 import Fetch from '../../../js/core/turmoil-fetch';
+import Windows from '../../../js/core/turmoil-windows';
 
 const mapStateToProps = (state) => ({ equipmentItems: state.equipmentItems });
 
@@ -49,10 +50,7 @@ class ConnectedEquipment extends React.Component {
       onSuccess: this.wornItems,
     }).then();
 
-    // Ajax.exec({
-    //   url: 'initializeEquipment',
-    //   onSuccess: this.wornItems,
-    // });
+    Windows.initWindow('equipment', true);
   }
 
   wornItems(content) {

@@ -7,6 +7,7 @@ import Window from './Window';
 import 'malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css';
 import '../stylesheets/window-console.css';
 import Logger from '../js/utils/logger';
+import Windows from '../js/core/turmoil-windows';
 
 export default class Console extends React.Component {
   componentDidMount() {
@@ -19,6 +20,8 @@ export default class Console extends React.Component {
     });
 
     Logger.log('Console initialized...');
+
+    Windows.initWindow('console', true);
   }
 
   render() {

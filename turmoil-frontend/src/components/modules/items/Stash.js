@@ -5,10 +5,10 @@ import 'jquery-ui/ui/widgets/sortable';
 import Window from '../../Window';
 import ItemSlotStash from './ItemSlotStash';
 import ReduxActions from '../../../js/redux/actions';
-// import Ajax from '../../../js/core/turmoil-ajax';
 import '../../../stylesheets/window-stash.css';
 import Logger from '../../../js/utils/logger';
 import Fetch from '../../../js/core/turmoil-fetch';
+import Windows from '../../../js/core/turmoil-windows';
 
 const mapStateToProps = (state) => ({ stashItems: state.stashItems });
 
@@ -50,11 +50,7 @@ class ConnectedStash extends React.Component {
       onSuccess: this.stashedItems,
     }).then();
 
-    // Ajax.exec({
-    //   fullUrl: 'http://localhost:3030/initializeStash',
-    //   url: 'initializeStash',
-    //   onSuccess: this.stashedItems,
-    // });
+    Windows.initWindow('stash', true);
   }
 
   stashedItems(content) {

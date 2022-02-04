@@ -16,7 +16,7 @@ const Error = {
 
     console.error('Error:', message, status, stack, path || null, fetchParams);
     if (window.debug) {
-      Logger.log('Error in ajax call', stack);
+      Logger.log('Error in call', stack);
       Error.debugInfo = message;
 
       // TODO: move that html somewhere nice and add a scroller
@@ -29,7 +29,7 @@ const Error = {
     Layout.hideSpinner();
   },
   showError() {
-    const windowId = window.open('', 'ajaxError', 'height=900, width=1600');
+    const windowId = window.open('', 'errorWindow', 'height=900, width=1600');
     windowId.document.write(Error.debugInfo);
     windowId.focus();
 

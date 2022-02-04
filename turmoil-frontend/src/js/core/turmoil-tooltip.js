@@ -64,7 +64,7 @@ const Tooltip = {
           Tooltip.reopenTooltipIfNotVisible(element, `#something-${ident}`);
         }, 10);
       }).catch((err) => {
-        Logger.log('Tooltip Ajax error', ident, err);
+        Logger.log('Tooltip error', ident, err);
       });
     }
 

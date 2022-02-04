@@ -209,12 +209,6 @@ jQuery(() => {
     }
   }
 
-  Windows.initWindow('console', true);
-  Windows.initWindow('equipment', true);
-  Windows.initWindow('stash', true);
-  Windows.initWindow('stats', true);
-  Windows.initWindow('location', true);
-
   audioReady().then(() => {
     Logger.log('Audio assets initialized...');
   });

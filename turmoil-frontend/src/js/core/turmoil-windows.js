@@ -69,7 +69,7 @@ const Windows = {
           // fixing the horizontal alignment
           Windows.fixHorizontalAlignment(`window_${windowType}_resizer`, `window_${windowType}_wrapper`);
 
-          // TODO: save changes with ajax
+          // TODO: save changes with fetch
 
           window.turmoil.windowSettings[windowType].scale = scale;
           Windows.saveWindowsPositions();
@@ -235,7 +235,7 @@ const Windows = {
 
     localStorage.setItem('windowSettings', JSON.stringify(window.turmoil.windowSettings));
 
-    // window.turmoil.ajax.exec({
+    // Fetch or whatever ({
     //  url: 'account/saveWindowsSettings/' + encodeURI(JSON.stringify(window.turmoil.windowSettings))
     // });
 
