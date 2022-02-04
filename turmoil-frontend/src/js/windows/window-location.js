@@ -63,18 +63,18 @@ const WindowLocation = {
         window.turmoil.instance.polygonsInRange = data.unit.polygonsInRange;
       }
 
-      const polygon = jQuery(`#${data.polygonId}`);
-      if (polygon.length > 0 && typeof (data.actionType) !== 'undefined') {
+      const polygon = document.querySelector(`#${data.polygonId}`);
+      if (polygon && data.actionType) {
         if (data.actionType === 'attack') {
-          if (typeof (data.attackingUnit) === 'undefined') {
+          if (!data.attackingUnit) {
             window.turmoil.logErrors('Attack action failed');
           }
-          WindowLocation.handleAttackPolygon(polygon, jQuery(`#${data.attackingUnit}`), data);
+          WindowLocation.handleAttackPolygon(polygon, document.querySelector(`#${data.attackingUnit}`), data);
         } else if (data.actionType === 'move') {
           if (typeof (data.unitToMove) === 'undefined') {
             window.turmoil.logErrors('Move action failed');
           }
-          WindowLocation.handleMoveToPolygon(polygon, jQuery(`#${data.unitToMove}`));
+          WindowLocation.handleMoveToPolygon(polygon, document.querySelector(`#${data.unitToMove}`));
         }
       }
 
@@ -99,17 +99,17 @@ const WindowLocation = {
       }
     }
   },
-  handleMoveToPolygon(polygonElement, unitElement) {
+  handleMoveToPolygon(polygon, unit) {
     WindowLocation.inactivateUnits();
 
-    const polygon = jQuery(polygonElement);
-    const unit = jQuery(unitElement);
+    // const polygon = jQuery(polygonElement);
+    // const unit = jQuery(unitElement);
 
-    if (unit.data('previousPolygonId') != null) {
-      const previousPolygon = document.querySelector(`#${unit.data('previousPolygonId')}`);
+    if (unit.dataset.previousPolygonId) {
+      const previousPolygon = document.querySelector(`#${unit.dataset.previousPolygonId}`);
 
       Svg.addClass(previousPolygon, 'instancePolygon');
-      if (unit.hasClass('enemyUnit')) {
+      if (unit.classList.contains('enemyUnit')) {
         Svg.removeClass(previousPolygon, 'instancePolygonEnemy');
       } else {
         Svg.removeClass(previousPolygon, 'instancePolygonActive');
@@ -118,24 +118,24 @@ const WindowLocation = {
     }
 
     const offsetContainer = jQuery('#locationContainer').offset();
-    if (typeof offsetContainer === 'undefined') {
+    if (!offsetContainer) {
       Logger.log('OffsetContainer undefined');
       return;
     }
 
-    if (typeof polygon === 'undefined') {
+    if (!polygon) {
       Logger.log('Polygon undefined');
       return;
     }
 
-    const offset = polygon.offset();
-    if (typeof offset === 'undefined') {
+    const offset = jQuery(polygon).offset();
+    if (!offset) {
       Logger.log('Offset undefined', polygon);
       return;
     }
 
-    const width = polygon.width();
-    const height = polygon.height();
+    const width = jQuery(polygon).width();
+    const height = jQuery(polygon).height();
 
     // TODO: here probably some math should be applied regarding the scale
     const centerX = offset.left + width / 2 - offsetContainer.left + 17;
@@ -143,38 +143,38 @@ const WindowLocation = {
 
     Animations.moveUnit(unit, polygon, centerX, centerY);
 
-    unit.data('previousPolygonId', polygon.attr('id'));
-    polygon.data('unit', unit.attr('id'));
+    unit.setAttribute('data-previous-polygon-id', polygon.getAttribute('id'));
+    polygon.setAttribute('data-unit', unit.getAttribute('id'));
   },
   handleAttackPolygon(polygon, unit, data) {
     // TODO: make sure that it is not possible to do actions when enemy is doing stuff
     WindowLocation.markUnitAsActive(unit);
 
-    const targetUnit = jQuery(`#${polygon.data('unit')}`);
+    const targetUnit = document.querySelector(`#${polygon.dataset.unit}`);
 
     let damageDealt = 0;
-    if (typeof (data.damageDealt) !== 'undefined') {
+    if (data.damageDealt) {
       let hitType = null;
-      if (typeof (data.type) !== 'undefined') {
+      if (data.type) {
         hitType = data.type;
       }
 
       damageDealt = data.damageDealt;
       Animations.addDamageIndicator(targetUnit, damageDealt, hitType);
     }
-    window.turmoil.logCombat(`Unit ${unit.attr('id')} attacks unit ${polygon.data('unit')} on ${polygon.attr('id')} dealing ${damageDealt} damage`);
+    window.turmoil.logCombat(`Unit ${unit.getAttribute('id')} attacks unit ${polygon.dataset.unit} on ${polygon.getAttribute('id')} dealing ${damageDealt} damage`);
 
-    if (typeof (data.healthBar) !== 'undefined') {
-      jQuery(`#${polygon.data('unit')}Health`).css('width', data.healthBar);
+    if (data.healthBar) {
+      document.querySelector(`#${polygon.dataset.unit}Health`).style.width = `${data.healthBar}px`;
     }
 
-    Animations.attackSwing(targetUnit.attr('id'));
+    Animations.attackSwing(targetUnit.getAttribute('id'));
   },
   markUnitAsActive(unit) {
-    if (unit.hasClass('enemyUnit')) {
+    if (unit.classList.contains('enemyUnit')) {
       WindowLocation.inactivateUnits();
 
-      const polygon = jQuery(`#${unit.data('previousPolygonId')}`);
+      const polygon = document.querySelector(`#${unit.dataset.previousPolygonId}`);
       Svg.replaceClass(polygon, 'instancePolygonEnemyActive', 'instancePolygonEnemy');
     }
   },

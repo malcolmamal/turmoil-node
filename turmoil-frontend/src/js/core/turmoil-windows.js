@@ -103,31 +103,29 @@ const Windows = {
   fixHorizontalAlignment(parentId, childId) {
     // fixing the horizontal alignment
 
-    const parent = jQuery(`#${parentId}`);
-    const child = jQuery(`#${childId}`);
+    const parent = document.querySelector(`#${parentId}`);
+    const child = document.querySelector(`#${childId}`);
 
-    child.css('left', '0px');
+    child.style.left = '0px';
 
-    const properLeftPosition = parent.get(0).getBoundingClientRect().left;
-    const wrongLeftPosition = child.get(0).getBoundingClientRect().left;
+    const properLeftPosition = parent.getBoundingClientRect().left;
+    const wrongLeftPosition = child.getBoundingClientRect().left;
     const newPosition = Math.round(properLeftPosition - wrongLeftPosition);
 
-    child.css('left', `${newPosition}px`);
+    child.style.left = `${newPosition}px`;
   },
   resizeToDefault(windowType, setToCenter) {
     // TODO: check if it is necessary (and possible) to move the window higher (so it would not go over the footer)
 
     Windows.actionMaximize(windowType, setToCenter);
 
-    jQuery(`#window_${windowType}_minimizer`).show();
-
     const keyWidth = `${windowType}Width`;
     const keyHeight = `${windowType}Height`;
     const fullHeight = Math.round(Windows.windowSizes[keyHeight] + 40);
 
-    const windowResizer = jQuery(`#window_${windowType}_resizer`);
-    windowResizer.css('width', `${Windows.windowSizes[keyWidth]}px`);
-    windowResizer.css('height', `${fullHeight}px`);
+    const windowResizer = document.querySelector(`#window_${windowType}_resizer`);
+    windowResizer.style.width = `${Windows.windowSizes[keyWidth]}px`;
+    windowResizer.style.height = `${fullHeight}px`;
 
     const scale = 1;
     Windows.setWindowScale(scale, windowType);
@@ -141,7 +139,7 @@ const Windows = {
   actionClose(windowType) {
     Tooltip.hideAllTooltips();
 
-    jQuery(`#window_${windowType}_resizer`).hide();
+    document.querySelector(`#window_${windowType}_resizer`).style.display = 'none';
     window.turmoil.windowSettings[windowType].visible = false;
 
     Windows.saveWindowsPositions();
@@ -150,7 +148,7 @@ const Windows = {
     Tooltip.hideAllTooltips();
     Windows.bringToTheTop(windowType);
 
-    jQuery(`#window_${windowType}_resizer`).show();
+    document.querySelector(`#window_${windowType}_resizer`).style.display = 'block';
     window.turmoil.windowSettings[windowType].visible = true;
 
     Windows.saveWindowsPositions();
@@ -160,25 +158,25 @@ const Windows = {
 
     Windows.actionShow(windowType);
 
-    const windowContentWrapper = jQuery(`#window_${windowType}_content_wrapper`);
-    const windowContainer = jQuery(`#handle_${windowType}_container`);
+    const windowContentWrapper = document.querySelector(`#window_${windowType}_content_wrapper`);
+    const windowContainer = document.querySelector(`#handle_${windowType}_container`);
 
-    windowContentWrapper.show();
-    jQuery(`#${windowType}ButtonMaximize`).hide();
-    jQuery(`#${windowType}ButtonMinimize`).show();
+    windowContentWrapper.style.display = 'block';
+    document.querySelector(`#${windowType}ButtonMaximize`).style.display = 'none';
+    document.querySelector(`#${windowType}ButtonMinimize`).style.display = 'block';
 
-    const handleHeight = windowContainer.get(0).getBoundingClientRect().bottom - windowContainer.get(0).getBoundingClientRect().top;
-    const contentHeight = windowContentWrapper.get(0).getBoundingClientRect().bottom - windowContentWrapper.get(0).getBoundingClientRect().top;
+    const handleHeight = windowContainer.getBoundingClientRect().bottom - windowContainer.getBoundingClientRect().top;
+    const contentHeight = windowContentWrapper.getBoundingClientRect().bottom - windowContentWrapper.getBoundingClientRect().top;
     const totalHeight = Math.round(handleHeight + contentHeight);
 
-    const windowResizer = jQuery(`#window_${windowType}_resizer`);
-    windowResizer.height(totalHeight);
+    const windowResizer = document.querySelector(`#window_${windowType}_resizer`);
+    windowResizer.style.height = `${totalHeight}px`;
 
-    if (typeof (setToCenter) !== 'undefined' && setToCenter === true) {
+    if (setToCenter) {
       Layout.centerContentHorizontally(windowResizer);
 
-      window.turmoil.windowSettings[windowType].left = windowResizer.css('left');
-      window.turmoil.windowSettings[windowType].top = windowResizer.css('top');
+      window.turmoil.windowSettings[windowType].left = windowResizer.style.left;
+      window.turmoil.windowSettings[windowType].top = windowResizer.style.top;
     }
   },
   actionMinimize(windowType) {
@@ -204,10 +202,10 @@ const Windows = {
     }
   },
   switchMinimizeMaximize(windowType) {
-    if (jQuery(`#window_${windowType}_content_wrapper`).is(':visible')) {
-      Windows.actionMinimize(windowType);
-    } else {
+    if (document.querySelector(`#window_${windowType}_content_wrapper`).style.display === 'none') {
       Windows.actionMaximize(windowType);
+    } else {
+      Windows.actionMinimize(windowType);
     }
   },
   bringToTheTop(windowType) {

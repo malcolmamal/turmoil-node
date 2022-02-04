@@ -49,7 +49,7 @@ const Animations = {
     const ident = `indicator_${new Date().getTime()}`;
     let styleClass = 'damageIndicator';
 
-    if (typeof (type) !== 'undefined') {
+    if (type) {
       styleClass += ' ';
       switch (type) {
         case 'critical': {
@@ -69,7 +69,7 @@ const Animations = {
     }
 
     const damageIndicator = `<div id="${ident}" class="${styleClass}">${value}</div>`;
-    unit.prepend(damageIndicator);
+    jQuery(unit).prepend(damageIndicator);
     Animations.animateIndicator(ident);
   },
   attackSwing(unitId) {
@@ -100,8 +100,10 @@ const Animations = {
       );
     }
   },
-  moveUnit(unit, polygon, positionX, positionY) {
-    Sound.playAudioLoop('soundMoveLeather', unit.attr('id'));
+  moveUnit(unitElement, polygon, positionX, positionY) {
+    Sound.playAudioLoop('soundMoveLeather', unitElement.getAttribute('id'));
+
+    const unit = jQuery(unitElement);
 
     unit.stop().animate(
       {
