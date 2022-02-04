@@ -24,7 +24,7 @@ const Sound = {
   },
   stopAudioLoop(audio, suffix) {
     const ident = `${audio}_${suffix}`;
-    if (typeof (window.turmoil.soundLoops[ident]) !== 'undefined') {
+    if (window.turmoil.soundLoops[ident]) {
       const sound = window.turmoil.soundLoops[ident];
       const playPromise = window.turmoil.soundLoopsPromises[ident];
 

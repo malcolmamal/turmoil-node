@@ -32,7 +32,7 @@ class ConnectedItemSlotEquipment extends React.Component {
 
   static finalizeRightClickOnEquipment(data, callbackFunction) {
     if (data != null && data.success === true) {
-      if (typeof (data.itemForStash) !== 'undefined') {
+      if (data.itemForStash) {
         switch (data.itemForStash.type) {
           case 'ACCESSORY':
             Sound.playAudio('soundAccessoryJewellery');

@@ -12,7 +12,7 @@ const Utils = {
   },
   addEvent(elementParam, type, eventHandle) {
     const element = elementParam;
-    if (element == null || typeof (element) === 'undefined') {
+    if (!element) {
       return;
     }
 

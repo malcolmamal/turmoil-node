@@ -29,7 +29,7 @@ class ConnectedItemSlotStash extends React.Component {
 
   static finalizeRightClickOnStashedItem(data, callbackFunction) {
     if (data != null && data.success === true) {
-      if (typeof (data.itemForEquipment) !== 'undefined') {
+      if (data.itemForEquipment) {
         switch (data.itemForEquipment.type) {
           case 'ACCESSORY':
             Sound.playAudio('soundAccessoryJewellery');

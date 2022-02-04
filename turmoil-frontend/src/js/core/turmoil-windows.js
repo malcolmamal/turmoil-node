@@ -21,7 +21,7 @@ const Windows = {
     let verticalPos;
     let horizontalPos;
 
-    if (typeof (window.turmoil.windowSettings[windowType]) === 'undefined') {
+    if (!window.turmoil.windowSettings[windowType]) {
       window.turmoil.windowSettings[windowType] = {};
     } else {
       verticalPos = window.turmoil.windowSettings[windowType].top;
@@ -77,8 +77,8 @@ const Windows = {
       },
     });
 
-    if (typeof (isVisible) !== 'undefined' && isVisible) {
-      if (typeof (verticalPos) === 'undefined' || typeof (horizontalPos) === 'undefined') {
+    if (isVisible) {
+      if (!verticalPos || !horizontalPos) {
         Windows.resizeToDefault(windowType, true);
       } else {
         windowResizer.css('left', window.turmoil.windowSettings[windowType].left);
@@ -193,9 +193,9 @@ const Windows = {
   switchShowClose(windowType, setToCenter) {
     if (jQuery(`#window_${windowType}_content_wrapper`).is(':visible')) {
       Windows.actionClose(windowType);
-    } else if (typeof (window.turmoil.windowSettings[windowType]) === 'undefined'
-        || typeof (window.turmoil.windowSettings[windowType].left) === 'undefined'
-        || typeof (window.turmoil.windowSettings[windowType].top) === 'undefined') {
+    } else if (!window.turmoil.windowSettings[windowType]
+        || !window.turmoil.windowSettings[windowType].left
+        || !window.turmoil.windowSettings[windowType].top) {
       Windows.resizeToDefault(windowType, setToCenter);
     } else {
       Windows.actionShow(windowType);

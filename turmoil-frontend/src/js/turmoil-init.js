@@ -112,7 +112,7 @@ window.turmoil.windowSettings = localStorage.getItem('windowSettings') === null 
 window.turmoil.lastLogDate = null;
 window.turmoil.log = (content, targetParam) => {
   let target = targetParam;
-  if (typeof (targetParam) === 'undefined') {
+  if (!targetParam) {
     target = 'all';
   }
 
@@ -192,6 +192,8 @@ function audioReady() {
 }
 
 jQuery(() => {
+  console.log('Initializing');
+
   Layout.setLayout();
   Utils.addEvent(window, 'resize', Layout.resizeEvent);
 
@@ -219,14 +221,3 @@ jQuery(() => {
 
   // TODO: handle browser window resize
 });
-
-if (typeof jQuery !== 'undefined') {
-  (function spinWhileAjaxRuns() {
-    jQuery('#spinner').ajaxStart(() => {
-      Logger.log('Should be spinning but it still has to be fixed probably... maybe because there is no #spinner?');
-      jQuery(this).fadeIn();
-    }).ajaxStop(() => {
-      jQuery(this).fadeOut();
-    });
-  }(jQuery));
-}
