@@ -1,5 +1,5 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import jQuery from 'jquery';
 import Window from '../../Window';
 import ItemSlotEquipment from './ItemSlotEquipment';
@@ -8,31 +8,24 @@ import Tooltip from '../../../js/core/turmoil-tooltip';
 import Fetch from '../../../js/core/turmoil-fetch';
 import Windows from '../../../js/core/turmoil-windows';
 
-const mapStateToProps = (state) => ({ equipmentItems: state.equipmentItems });
+function Equipment() {
+  const stateData = useSelector((state) => state);
+  const dispatch = useDispatch();
 
-function mapDispatchToProps(dispatch) {
-  return {
-    updateItems: (equipmentItems) => dispatch(ReduxActions.updateItemsInEquipmentAction(equipmentItems)),
-  };
-}
-
-class Equipment extends React.Component {
-  static prepareEquipmentItems(equipmentItems) {
+  const prepareEquipmentItems = (equipmentItems) => {
     const preparedItems = { ...window.turmoil.equipment.defaultItems };
     equipmentItems.forEach((item) => {
       preparedItems[item.slot].item = item;
     });
 
     return Object.values(preparedItems);
-  }
+  };
 
-  constructor(props) {
-    super(props);
+  const wornItems = (content) => {
+    dispatch(ReduxActions.updateItemsInEquipmentAction({ wornItems: content }));
+  };
 
-    this.wornItems = this.wornItems.bind(this);
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     Object.keys(window.turmoil.equipment.defaultItems).forEach((value) => {
       jQuery(`#${value}`).draggable({
         revert: true,
@@ -47,58 +40,48 @@ class Equipment extends React.Component {
 
     Fetch.get({
       path: 'instance/initializeEquipment',
-      onSuccess: this.wornItems,
+      onSuccess: wornItems,
     }).then();
 
     Windows.initWindow('equipment', true);
-  }
+  }, []);
 
-  wornItems(content) {
-    const { updateItems } = this.props;
-    updateItems({ wornItems: content });
-  }
+  const { equipmentItems } = stateData;
+  const preparedEquipmentItems = prepareEquipmentItems(equipmentItems);
 
-  render() {
-    const { equipmentItems } = this.props;
-    const preparedEquipmentItems = Equipment.prepareEquipmentItems(equipmentItems);
-
-    return (
-      <Window ident="equipment">
+  return (
+    <Window ident="equipment">
+      <div
+        id="equipmentContent"
+        className="equipmentContainer"
+        style={{ width: '800px', height: '830px' }}
+      >
         <div
-          id="equipmentContent"
-          className="equipmentContainer"
-          style={{ width: '800px', height: '830px' }}
+          id="window_equipment"
+          className="windowContent equipmentWindowContent"
+          style={{
+            transform: 'scale(1)', WebkitTransform: 'scale(1)', MozTransform: 'scale(1)', OTransform: 'scale(1)',
+          }}
         >
           <div
-            id="window_equipment"
-            className="windowContent equipmentWindowContent"
-            style={{
-              transform: 'scale(1)', WebkitTransform: 'scale(1)', MozTransform: 'scale(1)', OTransform: 'scale(1)',
-            }}
+            className="windowContentInner equipmentBackground"
+            style={{ width: '800px', height: '830px' }}
           >
-            <div
-              className="windowContentInner equipmentBackground"
-              style={{ width: '800px', height: '830px' }}
-            >
-              {preparedEquipmentItems.map((item) => (
-                <ItemSlotEquipment
-                  item={item.item}
-                  slot={item.slot}
-                  top={item.top}
-                  left={item.left}
-                  key={item.slot}
-                  iconItemSize={item.iconItemSize ? item.iconItemSize : ''}
-                />
-              ))}
-            </div>
+            {preparedEquipmentItems.map((item) => (
+              <ItemSlotEquipment
+                item={item.item}
+                slot={item.slot}
+                top={item.top}
+                left={item.left}
+                key={item.slot}
+                iconItemSize={item.iconItemSize ? item.iconItemSize : ''}
+              />
+            ))}
           </div>
         </div>
-      </Window>
-    );
-  }
+      </div>
+    </Window>
+  );
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Equipment);
+export default connect()(Equipment);
