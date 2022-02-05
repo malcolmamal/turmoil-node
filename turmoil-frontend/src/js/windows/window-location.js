@@ -1,6 +1,3 @@
-import jQuery from 'jquery';
-import 'jquery-ui/ui/widgets/draggable';
-import 'jquery-ui/ui/widgets/resizable';
 import Svg from '../core/turmoil-svg';
 import Animations from '../core/turmoil-animations';
 import Logger from '../utils/logger';
@@ -10,7 +7,7 @@ import Fetch from '../core/turmoil-fetch';
 
 const WindowLocation = {
   getPolygonForUnit(unit) {
-    return document.querySelector(`#${jQuery(unit).data('previousPolygonId')}`);
+    return document.querySelector(`#${unit.dataset.previousPolygonId}`);
   },
   actionOnPolygon(polygon, unit, callbacks) {
     if (!polygon) {
@@ -99,11 +96,22 @@ const WindowLocation = {
       }
     }
   },
+  getOffset(element) {
+    const rect = element.getBoundingClientRect();
+    const { defaultView } = element.ownerDocument;
+
+    return {
+      top: rect.top + defaultView.pageYOffset,
+      left: rect.left + defaultView.pageXOffset,
+    };
+  },
   handleMoveToPolygon(polygon, unit) {
     WindowLocation.inactivateUnits();
 
-    // const polygon = jQuery(polygonElement);
-    // const unit = jQuery(unitElement);
+    if (!polygon) {
+      Logger.log('Polygon undefined');
+      return;
+    }
 
     if (unit.dataset.previousPolygonId) {
       const previousPolygon = document.querySelector(`#${unit.dataset.previousPolygonId}`);
@@ -117,29 +125,11 @@ const WindowLocation = {
       previousPolygon.dataset.unit = '';
     }
 
-    const offsetContainer = jQuery('#locationContainer').offset();
-    if (!offsetContainer) {
-      Logger.log('OffsetContainer undefined');
-      return;
-    }
+    const offsetContainer = WindowLocation.getOffset(document.querySelector('#locationContainer'));
+    const offset = WindowLocation.getOffset(polygon);
 
-    if (!polygon) {
-      Logger.log('Polygon undefined');
-      return;
-    }
-
-    const offset = jQuery(polygon).offset();
-    if (!offset) {
-      Logger.log('Offset undefined', polygon);
-      return;
-    }
-
-    const width = jQuery(polygon).width();
-    const height = jQuery(polygon).height();
-
-    // TODO: here probably some math should be applied regarding the scale
-    const centerX = offset.left + width / 2 - offsetContainer.left + 17;
-    const centerY = offset.top + height / 2 - offsetContainer.top + 17;
+    const centerX = offset.left - offsetContainer.left + 18;
+    const centerY = offset.top - offsetContainer.top + 19;
 
     Animations.moveUnit(unit, polygon, centerX, centerY);
 

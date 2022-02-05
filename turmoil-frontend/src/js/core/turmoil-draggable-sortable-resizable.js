@@ -1,5 +1,7 @@
 import jQuery from 'jquery';
 import 'jquery-ui/ui/widgets/sortable';
+import 'jquery-ui/ui/widgets/draggable';
+import 'jquery-ui/ui/widgets/resizable';
 import Logger from '../utils/logger';
 
 export const addDraggable = (ident, config) => {

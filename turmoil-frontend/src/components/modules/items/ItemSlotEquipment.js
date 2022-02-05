@@ -7,6 +7,7 @@ import Sound from '../../../js/core/turmoil-sound';
 import WindowLocation from '../../../js/windows/window-location';
 import Permissions from '../../../js/core/turmoil-permissions';
 import Fetch from '../../../js/core/turmoil-fetch';
+import Logger from '../../../js/utils/logger';
 
 function ItemSlotEquipment(props) {
   const dispatch = useDispatch();
@@ -56,7 +57,7 @@ function ItemSlotEquipment(props) {
         blockActions: true,
       }).then(() => {
         WindowStats.updateStats(updateCharacterStats);
-      }).catch((err) => console.error(err));
+      }).catch((err) => Logger.error(err));
     }
   };
 

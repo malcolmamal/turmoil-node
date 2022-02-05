@@ -14,7 +14,7 @@ const Error = {
 
     const path = params ? (params.path || '') : '';
 
-    console.error('Error:', message, status, stack, path || null, fetchParams);
+    Logger.error('Error:', message, status, stack, path || null, fetchParams);
     if (window.debug) {
       Logger.log('Error in call', stack);
       Error.debugInfo = message;

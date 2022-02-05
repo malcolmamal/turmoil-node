@@ -6,6 +6,7 @@ import Tooltip from '../../../js/core/turmoil-tooltip';
 import Sound from '../../../js/core/turmoil-sound';
 import Permissions from '../../../js/core/turmoil-permissions';
 import Fetch from '../../../js/core/turmoil-fetch';
+import Logger from '../../../js/utils/logger';
 
 function ItemSlotStash(props) {
   const dispatch = useDispatch();
@@ -54,7 +55,7 @@ function ItemSlotStash(props) {
       blockActions: true,
     }).then(() => {
       WindowStats.updateStats(updateCharacterStats);
-    }).catch((error) => { console.error(error); });
+    }).catch((error) => { Logger.error(error); });
   };
 
   const onContextMenuHandler = (event, itemId) => {

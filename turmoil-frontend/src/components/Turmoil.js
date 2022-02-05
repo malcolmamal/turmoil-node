@@ -142,12 +142,11 @@ function Turmoil(props) {
         navigate('/logged');
       })
       .catch((err) => {
-        Logger.log(err);
         setAuth(false);
         setAuthLoading(false);
         setError(err);
 
-        console.error(err);
+        Logger.error(err);
       });
   };
 
