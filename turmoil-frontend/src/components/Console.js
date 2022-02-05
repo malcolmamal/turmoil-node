@@ -11,13 +11,11 @@ import Windows from '../js/core/turmoil-windows';
 
 function Console() {
   useEffect(() => {
-    jQuery(() => {
-      jQuery('#consoleTabs').tabs();
+    jQuery('#consoleTabs').tabs();
 
-      if (window.debug) {
-        Logger.log('Tabs initialized...');
-      }
-    });
+    if (window.debug) {
+      Logger.log('Tabs initialized...');
+    }
 
     Logger.log('Console initialized...');
 

@@ -15,7 +15,7 @@ function Window(props) {
 
       <div
         id={`window_${ident}_resizer`}
-        className={`windowResizer ${ident}WindowResizer`}
+        className={`windowResizer ${ident}WindowResizer noSelection`}
         style={windowResizerStyle}
       >
         <div id={`window_${ident}_wrapper`} className="windowWrapper">

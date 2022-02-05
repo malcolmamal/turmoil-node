@@ -3,7 +3,6 @@ import moment from 'moment';
 import 'jquery-ui/themes/base/all.css';
 import Utils from './core/turmoil-utils';
 import Layout from './core/turmoil-layout';
-import Windows from './core/turmoil-windows';
 import Logger from './utils/logger';
 
 // styles
@@ -118,8 +117,8 @@ window.turmoil.log = (content, targetParam) => {
 
   Logger.log(`[${target}]`, content);
 
-  const consoleTarget = jQuery(`#console-${target}`);
-  if (consoleTarget.length > 0) {
+  const consoleTarget = document.querySelector(`#console-${target}`);
+  if (consoleTarget) {
     let currentDate;
     if (typeof (moment) === 'function') {
       currentDate = moment().format('YYYY-MM-DD HH:mm:ss.SSS');
@@ -134,10 +133,15 @@ window.turmoil.log = (content, targetParam) => {
       currentDate += ` (${difference}ms) `;
     }
 
-    consoleTarget.find('.mCSB_container').prepend(`${currentDate + content}<br>`);
+    const div = document.createElement('div');
+    div.append(`${currentDate + content}`);
+
+    const consoleTargetContent = document.querySelector(`#console-${target} .mCSB_container`);
+    consoleTargetContent.prepend(div);
 
     if (target !== 'all') {
-      jQuery('#console-all').find('.mCSB_container').prepend(`${currentDate + content}<br>`);
+      const allConsoleTargetContent = document.querySelector('#console-all .mCSB_container');
+      allConsoleTargetContent.prepend(div.cloneNode(true));
     }
 
     window.turmoil.lastLogDate = currentDateObject;

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import jQuery from 'jquery';
 import Window from '../../Window';
 import Field from './Field';
 import FriendlyUnit from './FriendlyUnit';
@@ -19,10 +18,10 @@ function Location() {
   const { enemyUnits, friendlyUnits } = stateData;
 
   useEffect(() => {
-    jQuery('#window_location').disableSelection();
-
-    jQuery('.instancePolygon').click(function onClickAction() {
-      WindowLocation.actionOnPolygon(this);
+    document.querySelectorAll('.instancePolygon').forEach((item) => {
+      item.addEventListener('click', () => {
+        WindowLocation.actionOnPolygon(item);
+      });
     });
 
     const updateEnemyUnits = (units) => {
