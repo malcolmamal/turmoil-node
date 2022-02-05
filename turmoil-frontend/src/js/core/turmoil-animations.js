@@ -6,21 +6,28 @@ import Consts from './turmoil-consts';
 
 const Animations = {
   animateToTop(id) {
-    const element = jQuery(`#${id}`);
-    if (element.length > 0) {
+    const element = document.querySelector(`#${id}`);
+    if (element) {
       let direction = 1;
-      if (element.data('direction') === 2) {
+      if (element.dataset.direction === '2') {
         direction = -1;
       }
-      element.css('top', '-=2px');
-      if (direction !== 0) {
-        element.css('left', `-=${element.data('variable')}px`);
-        if (element.data('variable') > 5) {
-          element.data('variable', element.data('variable') + 0.05 * direction);
-        } else {
-          element.data('variable', element.data('variable') + 0.1 * direction);
-        }
+      let variable = parseFloat(element.dataset.variable || 0);
+
+      if (variable) {
+        variable += 0.05 * direction;
+      } else {
+        variable += 0.1 * direction;
       }
+
+      element.dataset.variable = variable.toString();
+
+      const newTop = `${parseInt(element.style.top || '0', 10) - 2}px`;
+      const newLeft = `${parseFloat(element.style.left || '0') - parseFloat(element.dataset.variable || 0)}px`;
+
+      element.style.setProperty('top', newTop);
+      element.style.setProperty('left', newLeft);
+
       setTimeout(
         () => {
           Animations.animateToTop(id);
@@ -30,9 +37,10 @@ const Animations = {
     }
   },
   animateIndicator(id) {
-    const element = jQuery(`#${id}`);
-    element.data('variable', 0);
-    element.data('direction', Utils.randomInt(2));
+    const elementDOM = document.querySelector(`#${id}`);
+    elementDOM.dataset.direction = Utils.randomInt(2).toString();
+
+    const element = jQuery(elementDOM);
     this.animateToTop(id);
     element.fadeTo(2000, 0.0, () => {
       element.remove();

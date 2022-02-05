@@ -63,10 +63,6 @@ const Windows = {
           const scale = document.querySelector(`#window_${windowType}_resizer`).offsetWidth / Windows.windowSizes[keyWidth];
           Windows.setWindowScale(scale, windowType);
 
-          // var positionFix = (jQuery("#window_" + windowType + "_resizer").width() - Windows.windowSizes[keyWidth]) / 2;
-          // console.log('positionFix', positionFix);
-          // jQuery("#window_" + windowType + "_wrapper").css('top', positionFix + 'px');
-
           // fixing the horizontal alignment
           Windows.fixHorizontalAlignment(`window_${windowType}_resizer`, `window_${windowType}_wrapper`);
 
