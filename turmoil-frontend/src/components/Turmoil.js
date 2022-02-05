@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Navigate } from 'react-router';
 import { Route, Link } from 'react-router-dom';
 import Header from './layout/Header';
@@ -12,37 +12,25 @@ import Location from './modules/instance/Location';
 import SignupPage from '../pages/auth/Signup';
 import LoginPage from '../pages/auth/Login';
 import Button from './Button/Button';
-import Windows from '../js/core/turmoil-windows';
 import Logger from '../js/utils/logger';
 
-export default class Turmoil extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+function Turmoil(props) {
+  const { navigate, location } = props;
 
-    this.state = {
-      isAuth: false,
-      token: null,
-      userId: null,
-      authLoading: false,
-      error: null,
-      shouldRedirect: false,
-    };
-  }
+  const [isAuth, setAuth] = useState(false);
+  const [token, setToken] = useState(null);
+  const [userId, setUserId] = useState(null);
+  const [authLoading, setAuthLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  componentDidMount() {
-    const { location } = this.props;
-    Logger.log('mounted at', location);
-
-    if (location.pathname === '/logged') {
-      Logger.log('is in logged pathname');
-      setTimeout(() => {
-        Windows.initWindow('console', true);
-        Logger.log('tried to init window...');
-      }, 2000);
-    } else {
-      Logger.log('is not in pathname :/');
+  useEffect(() => {
+    if (!localStorage.getItem('token') && location.pathname !== '/login') {
+      console.log('location redirection from', location.pathname, 'to ', 'login');
+      navigate('/login');
     }
-  }
+
+    Logger.log('mounted at', location);
+  });
 
   // componentDidMount() {
   //     const token = localStorage.getItem('token');
@@ -61,11 +49,11 @@ export default class Turmoil extends React.Component {
   //     this.setAutoLogout(remainingMilliseconds);
   // }
 
-  changeShouldRedirect = (e, state) => {
-    Logger.log('clicked!', e, state);
-    Logger.log('state', this.state);
-    this.setState({ shouldRedirect: !state.shouldRedirect });
-    Logger.log('state', this.state);
+  const changeShouldRedirect = (e) => {
+    Logger.log('clicked!', e);
+    Logger.log('token', token);
+    Logger.log('userId', userId);
+    Logger.log('isAuth', isAuth);
   };
 
   // setAutoLogout = (milliseconds) => {
@@ -81,10 +69,11 @@ export default class Turmoil extends React.Component {
   //   localStorage.removeItem('userId');
   // };
 
-  loginHandler = (event, authData) => {
+  const loginHandler = (event, authData) => {
     event.preventDefault();
 
-    this.setState({ authLoading: true });
+    setAuthLoading(true);
+
     fetch('http://localhost:3030/user/login', {
       method: 'POST',
       headers: {
@@ -111,12 +100,11 @@ export default class Turmoil extends React.Component {
       })
       .then((resData) => {
         Logger.log(resData);
-        this.setState({
-          isAuth: true,
-          token: resData.token,
-          authLoading: false,
-          userId: resData.userId,
-        });
+        setAuth(true);
+        setToken(resData.token);
+        setAuthLoading(false);
+        setUserId(resData.userId);
+
         localStorage.setItem('token', resData.token);
         localStorage.setItem('userId', resData.userId);
         localStorage.setItem('userName', resData.userName);
@@ -127,22 +115,22 @@ export default class Turmoil extends React.Component {
         localStorage.setItem('expiryDate', expiryDate.toISOString());
         // this.setAutoLogout(remainingMilliseconds);
 
-        const { navigate } = this.props;
         navigate('/logged');
       })
       .catch((err) => {
         Logger.log(err);
-        this.setState({
-          isAuth: false,
-          authLoading: false,
-          error: err,
-        });
+        setAuth(false);
+        setAuthLoading(false);
+        setError(err);
+
+        console.error(err);
       });
   };
 
-  signupHandler = (event, authData) => {
+  const signupHandler = (event, authData) => {
     event.preventDefault();
-    this.setState({ authLoading: true });
+    setAuthLoading(true);
+
     fetch('http://localhost:3030/user/create', {
       method: 'PUT',
       headers: {
@@ -168,109 +156,104 @@ export default class Turmoil extends React.Component {
       })
       .then((resData) => {
         Logger.log(resData);
-        this.setState({ isAuth: false, authLoading: false });
+        setAuth(false);
+        setAuthLoading(false);
         // todo redirect to login
         // this.props.history.replace('/logged');
 
-        const { navigate } = this.props;
         navigate('/login');
       })
       .catch((err) => {
         Logger.log(err);
-        this.setState({
-          isAuth: false,
-          authLoading: false,
-          error: err,
-        });
+        setAuth(false);
+        setAuthLoading(false);
+        setError(err);
       });
   };
 
-  render() {
-    // Logger.log("location", this.props.location);
-    const { authLoading } = this.state;
-
-    const routes = (
-      <Routes>
-        <Route
-          path="/test"
-          element={(
-            <div>
-              test
-              <Navigate to="/login" />
-            </div>
-          )}
-        />
-        <Route
-          path="/logged"
-          element={(
-            <div>
-              <Console />
-              <Equipment />
-              <Stash />
-              <Stats />
-
-              <Location />
-            </div>
-          )}
-        />
-        <Route
-          path="/signup"
-          element={(
-            <SignupPage
-              onSignup={this.signupHandler}
-              loading={authLoading}
-            />
-          )}
-        />
-        <Route
-          path="/login"
-          element={(
-            <LoginPage
-              onLogin={this.loginHandler}
-              loading={authLoading}
-            />
-          )}
-        />
-      </Routes>
-    );
-
-    return (
-      <div>
-        <Error />
-        <Header />
-
-        <div className="turmoilContainer">
-          <div id="turmoilBody" className="turmoilBody">
-            <div id="shadows">
-              <div className="shadowTop" />
-              <div className="shadowLeft" />
-              <div className="shadowRight" />
-              <div className="shadowBottom" />
-            </div>
-
-            <Link to="/logged">Main</Link>
-            {' '}
-            |
-            {' '}
-            <Link to="/signup">Signup</Link>
-            {' '}
-            |
-            {' '}
-            <Link to="/login">Login</Link>
-
-            {routes}
-
-            <form>
-              <Button design="raised" type="button" onClick={(e) => this.changeShouldRedirect(e, this.state)}>
-                Test me!
-              </Button>
-            </form>
-
+  const routes = (
+    <Routes>
+      <Route
+        path="/test"
+        element={(
+          <div>
+            test
+            <Navigate to="/login" />
           </div>
-        </div>
+          )}
+      />
+      <Route
+        path="/logged"
+        element={(
+          <div>
+            <Console />
+            <Equipment />
+            <Stash />
+            <Stats />
 
-        <Footer />
+            <Location />
+          </div>
+          )}
+      />
+      <Route
+        path="/signup"
+        element={(
+          <SignupPage
+            onSignup={signupHandler}
+            loading={authLoading}
+          />
+          )}
+      />
+      <Route
+        path="/login"
+        element={(
+          <LoginPage
+            onLogin={loginHandler}
+            loading={authLoading}
+          />
+          )}
+      />
+    </Routes>
+  );
+
+  return (
+    <div>
+      <Error />
+      <Header />
+
+      <div className="turmoilContainer">
+        <div id="turmoilBody" className="turmoilBody">
+          <div id="shadows">
+            <div className="shadowTop" />
+            <div className="shadowLeft" />
+            <div className="shadowRight" />
+            <div className="shadowBottom" />
+          </div>
+
+          <Link to="/logged">Main</Link>
+          {' '}
+          |
+          {' '}
+          <Link to="/signup">Signup</Link>
+          {' '}
+          |
+          {' '}
+          <Link to="/login">Login</Link>
+
+          {routes}
+
+          <form>
+            <Button design="raised" type="button" onClick={(e) => changeShouldRedirect(e)}>
+              Test me!
+            </Button>
+          </form>
+
+        </div>
       </div>
-    );
-  }
+
+      <Footer />
+    </div>
+  );
 }
+
+export default Turmoil;
