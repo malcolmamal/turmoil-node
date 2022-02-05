@@ -1,18 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Unit from './Unit';
 import WindowLocation from '../../../js/windows/window-location';
 import Logger from '../../../js/utils/logger';
 
-export default class FriendlyUnit extends React.Component {
-  static actionOnUnitHandler(ident) {
-    // do nothing at the moment
-    Logger.log('Nothing to do with Unit at the moment', ident);
-  }
-
-  componentDidMount() {
+function FriendlyUnit(props) {
+  useEffect(() => {
     const {
       ident, position, polygonsInRange, gender,
-    } = this.props;
+    } = props;
 
     window.turmoil.instance.activeUnit = ident;
     window.turmoil.instance.polygonsInRange = polygonsInRange;
@@ -26,15 +21,20 @@ export default class FriendlyUnit extends React.Component {
     setTimeout(() => {
       WindowLocation.setActivePolygons();
     }, 500);
-  }
+  }, []);
 
-  render() {
-    const {
-      ident, portrait, healthBar, movement,
-    } = this.props;
+  const {
+    ident, portrait, healthBar, movement,
+  } = props;
 
-    return (
-      <Unit ident={ident} portrait={portrait} healthBar={healthBar} movement={movement} onClick={FriendlyUnit.actionOnUnitHandler} />
-    );
-  }
+  const actionOnUnitHandler = () => {
+    // do nothing at the moment
+    Logger.log('Nothing to do with Unit at the moment', ident);
+  };
+
+  return (
+    <Unit ident={ident} portrait={portrait} healthBar={healthBar} movement={movement} onClick={actionOnUnitHandler} />
+  );
 }
+
+export default FriendlyUnit;

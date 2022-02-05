@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../../stylesheets/turmoil-error.css';
 import Logger from '../../js/utils/logger';
 
-export default class Error extends React.Component {
-  componentDidMount() {
+function Error() {
+  useEffect(() => {
     // Get the modal
     window.modal = document.getElementById('myModal');
 
@@ -25,16 +25,16 @@ export default class Error extends React.Component {
     if (window.debug) {
       Logger.log('Error modal initialized...');
     }
-  }
+  }, []);
 
-  render() {
-    return (
-      <div id="myModal" className="modal">
-        <div className="modal-content">
-          <span className="close" id="modalClose">&times;</span>
-          <p id="modalContent" />
-        </div>
+  return (
+    <div id="myModal" className="modal">
+      <div className="modal-content">
+        <span className="close" id="modalClose">&times;</span>
+        <p id="modalContent" />
       </div>
-    );
-  }
+    </div>
+  );
 }
+
+export default Error;
