@@ -12,7 +12,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-class ConnectedCharacterState extends React.Component {
+class CharacterState extends React.Component {
   componentDidMount() {
     const { updateCharacterStats } = this.props;
     WindowStats.updateStats(updateCharacterStats);
@@ -212,9 +212,7 @@ class ConnectedCharacterState extends React.Component {
   }
 }
 
-const CharacterState = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ConnectedCharacterState);
-
-export default CharacterState;
+)(CharacterState);

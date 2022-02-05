@@ -16,7 +16,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-class ConnectedEquipment extends React.Component {
+class Equipment extends React.Component {
   static prepareEquipmentItems(equipmentItems) {
     const preparedItems = { ...window.turmoil.equipment.defaultItems };
     equipmentItems.forEach((item) => {
@@ -60,7 +60,7 @@ class ConnectedEquipment extends React.Component {
 
   render() {
     const { equipmentItems } = this.props;
-    const preparedEquipmentItems = ConnectedEquipment.prepareEquipmentItems(equipmentItems);
+    const preparedEquipmentItems = Equipment.prepareEquipmentItems(equipmentItems);
 
     return (
       <Window ident="equipment">
@@ -98,9 +98,7 @@ class ConnectedEquipment extends React.Component {
   }
 }
 
-const Equipment = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ConnectedEquipment);
-
-export default Equipment;
+)(Equipment);

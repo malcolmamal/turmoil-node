@@ -24,7 +24,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-class ConnectedLocation extends React.Component {
+class Location extends React.Component {
   componentDidMount() {
     jQuery('#window_location').disableSelection();
 
@@ -112,9 +112,7 @@ class ConnectedLocation extends React.Component {
   }
 }
 
-const Location = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ConnectedLocation);
-
-export default Location;
+)(Location);

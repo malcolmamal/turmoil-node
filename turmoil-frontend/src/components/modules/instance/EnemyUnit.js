@@ -11,7 +11,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-class ConnectedEnemyUnit extends React.Component {
+class EnemyUnit extends React.Component {
   constructor(props) {
     super(props);
 
@@ -59,9 +59,7 @@ class ConnectedEnemyUnit extends React.Component {
   }
 }
 
-const EnemyUnit = connect(
+export default connect(
   null,
   mapDispatchToProps,
-)(ConnectedEnemyUnit);
-
-export default EnemyUnit;
+)(EnemyUnit);

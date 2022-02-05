@@ -18,7 +18,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-class ConnectedStash extends React.Component {
+class Stash extends React.Component {
   constructor(props) {
     super(props);
 
@@ -91,9 +91,7 @@ class ConnectedStash extends React.Component {
   }
 }
 
-const Stash = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ConnectedStash);
-
-export default Stash;
+)(Stash);

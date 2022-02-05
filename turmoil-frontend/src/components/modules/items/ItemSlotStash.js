@@ -15,13 +15,13 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-class ConnectedItemSlotStash extends React.Component {
+class ItemSlotStash extends React.Component {
   static actionRightClickOnStashedItem(itemId, updateItems) {
     Tooltip.hideAllTooltips();
 
     Fetch.get({
       path: `character/equip/${itemId}`,
-      onSuccess: ConnectedItemSlotStash.finalizeRightClickOnStashedItem,
+      onSuccess: ItemSlotStash.finalizeRightClickOnStashedItem,
       onSuccessThis: updateItems,
       blockActions: true,
     }).then();
@@ -59,7 +59,7 @@ class ConnectedItemSlotStash extends React.Component {
   onContextMenuHandler(event, itemId) {
     event.preventDefault();
 
-    ConnectedItemSlotStash.actionRightClickOnStashedItem(itemId, this.updateItems);
+    ItemSlotStash.actionRightClickOnStashedItem(itemId, this.updateItems);
     const { updateCharacterStats } = this.props;
     WindowStats.updateStats(updateCharacterStats);
   }
@@ -111,9 +111,7 @@ class ConnectedItemSlotStash extends React.Component {
   }
 }
 
-const ItemSlotStash = connect(
+export default connect(
   null,
   mapDispatchToProps,
-)(ConnectedItemSlotStash);
-
-export default ItemSlotStash;
+)(ItemSlotStash);

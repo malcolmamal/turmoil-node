@@ -16,14 +16,14 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-class ConnectedItemSlotEquipment extends React.Component {
+class ItemSlotEquipment extends React.Component {
   static actionRightClickOnEquipment(item, updateItems) {
     Tooltip.hideAllTooltips();
 
     if (item.ident) {
       Fetch.get({
         path: `character/unequip/${item.ident}`,
-        onSuccess: ConnectedItemSlotEquipment.finalizeRightClickOnEquipment,
+        onSuccess: ItemSlotEquipment.finalizeRightClickOnEquipment,
         onSuccessThis: updateItems,
         blockActions: true,
       }).then();
@@ -64,7 +64,7 @@ class ConnectedItemSlotEquipment extends React.Component {
   onContextMenuHandler(event, item) {
     event.preventDefault();
     if (item.ident) {
-      ConnectedItemSlotEquipment.actionRightClickOnEquipment(item, this.updateItems);
+      ItemSlotEquipment.actionRightClickOnEquipment(item, this.updateItems);
       const { updateCharacterStats } = this.props;
       WindowStats.updateStats(updateCharacterStats);
     }
@@ -148,9 +148,7 @@ class ConnectedItemSlotEquipment extends React.Component {
   }
 }
 
-const ItemSlotEquipment = connect(
+export default connect(
   null,
   mapDispatchToProps,
-)(ConnectedItemSlotEquipment);
-
-export default ItemSlotEquipment;
+)(ItemSlotEquipment);
