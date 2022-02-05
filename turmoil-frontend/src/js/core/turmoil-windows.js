@@ -1,4 +1,3 @@
-import jQuery from 'jquery';
 import Tooltip from './turmoil-tooltip';
 import Layout from './turmoil-layout';
 import { addDraggable, addResizable } from './turmoil-draggable-sortable-resizable';
@@ -189,7 +188,10 @@ const Windows = {
     document.querySelector(`#window_${windowType}_resizer`).style.height = `${Math.round(handleHeight)}px`;
   },
   switchShowClose(windowType, setToCenter) {
-    if (jQuery(`#window_${windowType}_content_wrapper`).is(':visible')) {
+    Tooltip.hideAllTooltips();
+
+    const element = document.querySelector(`#window_${windowType}_content_wrapper`);
+    if (element.offsetWidth > 0 && element.offsetHeight > 0) {
       Windows.actionClose(windowType);
     } else if (!window.turmoil.windowSettings[windowType]
         || !window.turmoil.windowSettings[windowType].left
@@ -198,6 +200,8 @@ const Windows = {
     } else {
       Windows.actionShow(windowType);
     }
+
+    return null;
   },
   switchMinimizeMaximize(windowType) {
     if (document.querySelector(`#window_${windowType}_content_wrapper`).style.display === 'none') {
@@ -236,46 +240,8 @@ const Windows = {
     // Fetch or whatever ({
     //  url: 'account/saveWindowsSettings/' + encodeURI(JSON.stringify(window.turmoil.windowSettings))
     // });
-
     // + '&save=' + forceSave
   },
-  switchWindow(windowType) {
-    Tooltip.hideAllTooltips();
-
-    const resizer = jQuery(`#window_${windowType}_resizer`);
-    if (resizer.is(':hidden')) {
-      resizer.show();
-      Windows.bringToTheTop(windowType);
-    } else {
-      resizer.hide();
-    }
-  },
 };
-
-/**
- * TODO: fix / move to better place / remove jquery
- *
- * seems to react to any key...
- */
-
-/*
-  jQuery(document).bind('keydown', 'i', function () {
-    switchWindow('equipment')
-  });
-  jQuery(document).bind('keydown', 'c', function () {
-    switchWindow('stats')
-  });
-  jQuery(document).bind('keydown', 's', function () {
-    switchWindow('stash')
-  });
-
-  jQuery(document).bind('keydown', 'n', function () {
-    switchWindow('instance')
-  });
-
-  jQuery(document).bind('keydown', 'o', function () {
-    switchWindow('console')
-  });
-*/
 
 export default Windows;

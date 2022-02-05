@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Navigate } from 'react-router';
 import { Route, Link } from 'react-router-dom';
+import { useHotkeys } from 'react-hotkeys-hook';
 import Header from './layout/Header';
 import Footer from './layout/Footer';
 import Error from './layout/Error';
@@ -16,6 +17,7 @@ import Logger from '../js/utils/logger';
 import Layout from '../js/core/turmoil-layout';
 import Utils from '../js/core/turmoil-utils';
 import { addDraggable } from '../js/core/turmoil-draggable-sortable-resizable';
+import Windows from '../js/core/turmoil-windows';
 
 function Turmoil(props) {
   const { navigate, location } = props;
@@ -26,9 +28,17 @@ function Turmoil(props) {
   const [authLoading, setAuthLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const keyMapping = [
+    ['i', 'equipment'], ['c', 'stats'], ['s', 'stash'], ['l', 'location'], ['o', 'console'],
+  ];
+
+  keyMapping.forEach(([key, target]) => {
+    useHotkeys(key, () => Windows.switchShowClose(target));
+  });
+
   useEffect(() => {
     if (!localStorage.getItem('token') && location.pathname !== '/login') {
-      console.log('location redirection from', location.pathname, 'to ', 'login');
+      Logger.log('location redirection from', location.pathname, 'to ', 'login');
       navigate('/login');
     }
 
