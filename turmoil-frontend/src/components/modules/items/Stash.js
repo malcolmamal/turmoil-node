@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import jQuery from 'jquery';
-import 'jquery-ui/ui/widgets/sortable';
 import Window from '../../Window';
 import ItemSlotStash from './ItemSlotStash';
 import ReduxActions from '../../../js/redux/actions';
@@ -9,6 +7,7 @@ import '../../../stylesheets/window-stash.css';
 import Logger from '../../../js/utils/logger';
 import Fetch from '../../../js/core/turmoil-fetch';
 import Windows from '../../../js/core/turmoil-windows';
+import { addSortable } from '../../../js/core/turmoil-draggable-sortable-resizable';
 
 function Stash() {
   const stateData = useSelector((state) => state);
@@ -19,20 +18,7 @@ function Stash() {
   };
 
   useEffect(() => {
-    const stash = jQuery('#stashItemListContainer');
-    stash.sortable({
-      // forceHelperSize: true,
-      containment: '#stashItemContainer',
-      // grid: [ 6, 3 ],
-      distance: 45,
-      items: '> li',
-      update() {
-        const resultOrder = jQuery(this).sortable('toArray').toString();
-        Logger.log(resultOrder);
-      },
-    });
-
-    stash.disableSelection();
+    addSortable('#stashItemListContainer', '#stashItemContainer');
 
     if (window.debug) {
       Logger.log('Stash initialized...');

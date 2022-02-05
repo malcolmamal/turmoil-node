@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import jQuery from 'jquery';
 import Window from '../../Window';
 import ItemSlotEquipment from './ItemSlotEquipment';
 import ReduxActions from '../../../js/redux/actions';
-import Tooltip from '../../../js/core/turmoil-tooltip';
 import Fetch from '../../../js/core/turmoil-fetch';
 import Windows from '../../../js/core/turmoil-windows';
+import { addDraggable } from '../../../js/core/turmoil-draggable-sortable-resizable';
+import Tooltip from '../../../js/core/turmoil-tooltip';
 
 function Equipment() {
   const stateData = useSelector((state) => state);
@@ -26,8 +26,8 @@ function Equipment() {
   };
 
   useEffect(() => {
-    Object.keys(window.turmoil.equipment.defaultItems).forEach((value) => {
-      jQuery(`#${value}`).draggable({
+    Object.keys(window.turmoil.equipment.defaultItems).forEach((item) => {
+      addDraggable(`#${item}`, {
         revert: true,
         start() {
           Tooltip.hideAllTooltips();

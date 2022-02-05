@@ -1,8 +1,6 @@
-import jQuery from 'jquery';
 import moment from 'moment';
 import 'jquery-ui/themes/base/all.css';
 import Utils from './core/turmoil-utils';
-import Layout from './core/turmoil-layout';
 import Logger from './utils/logger';
 
 // styles
@@ -186,6 +184,9 @@ window.onkeydown = checkKeys;
 
 function audioReady() {
   return Promise.resolve();
+
+  // TODO: investigate if some sound loading is required (the previous "canplay")
+
   // TODO: this code seems to not do what it's supposed to do? there are no audio elements found to do anything there
   // also - remove jquery...
   // return jQuery.when.apply(jQuery, jQuery('audio').map(() => {
@@ -195,27 +196,6 @@ function audioReady() {
   // }));
 }
 
-jQuery(() => {
-  console.log('Initializing');
-
-  Layout.setLayout();
-  Utils.addEvent(window, 'resize', Layout.resizeEvent);
-
-  /**
-   * TODO: maybe replace it with https://scotch.io/tutorials/implementing-smooth-scrolling-in-react
-   */
-  const scrollableContainer = jQuery('.scrollableContainer');
-  if (scrollableContainer.length) {
-    if (jQuery.isFunction(jQuery().mCustomScrollbar)) {
-      scrollableContainer.mCustomScrollbar({ theme: 'dark' });
-    } else if (window.debug) {
-      Logger.log('scrollableContainer found, but custom-scrollbar module is not active...');
-    }
-  }
-
-  audioReady().then(() => {
-    Logger.log('Audio assets initialized...');
-  });
-
-  // TODO: handle browser window resize
+audioReady().then(() => {
+  Logger.log('Audio assets initialized...');
 });

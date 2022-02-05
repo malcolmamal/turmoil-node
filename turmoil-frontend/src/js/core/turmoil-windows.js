@@ -1,6 +1,7 @@
 import jQuery from 'jquery';
 import Tooltip from './turmoil-tooltip';
 import Layout from './turmoil-layout';
+import { addDraggable, addResizable } from './turmoil-draggable-sortable-resizable';
 
 const Windows = {
   windowSizes: {
@@ -29,8 +30,9 @@ const Windows = {
       isVisible = window.turmoil.windowSettings[windowType].visible;
     }
 
-    const windowResizer = jQuery(`#window_${windowType}_resizer`);
-    windowResizer.draggable({
+    const windowResizerIdent = `#window_${windowType}_resizer`;
+    const windowResizer = document.querySelector(windowResizerIdent);
+    addDraggable(windowResizerIdent, {
       handle: `#handle_${windowType}_container`,
       containment: '.turmoilBody',
       stack: '.windowResizer',
@@ -42,13 +44,13 @@ const Windows = {
       stop() {
         Tooltip.hideAllTooltips();
 
-        window.turmoil.windowSettings[windowType].left = windowResizer.css('left');
-        window.turmoil.windowSettings[windowType].top = windowResizer.css('top');
+        window.turmoil.windowSettings[windowType].left = windowResizer.style.left;
+        window.turmoil.windowSettings[windowType].top = windowResizer.style.top;
         Windows.saveWindowsPositions();
       },
     });
 
-    windowResizer.resizable({
+    addResizable(windowResizerIdent, {
       aspectRatio: true,
       helper: 'ui-resizable-helper',
       start() {
@@ -59,7 +61,7 @@ const Windows = {
 
         const keyWidth = `${windowType}Width`;
         if (isScalable && Windows.windowSizes[keyWidth] !== 0) {
-          const scale = jQuery(`#window_${windowType}_resizer`).width() / Windows.windowSizes[keyWidth];
+          const scale = document.querySelector(`#window_${windowType}_resizer`).offsetWidth / Windows.windowSizes[keyWidth];
           Windows.setWindowScale(scale, windowType);
 
           // var positionFix = (jQuery("#window_" + windowType + "_resizer").width() - Windows.windowSizes[keyWidth]) / 2;
@@ -81,8 +83,8 @@ const Windows = {
       if (!verticalPos || !horizontalPos) {
         Windows.resizeToDefault(windowType, true);
       } else {
-        windowResizer.css('left', window.turmoil.windowSettings[windowType].left);
-        windowResizer.css('top', window.turmoil.windowSettings[windowType].top);
+        windowResizer.style.left = window.turmoil.windowSettings[windowType].left;
+        windowResizer.style.top = window.turmoil.windowSettings[windowType].top;
         Windows.actionShow(windowType);
       }
     } else {
@@ -90,15 +92,11 @@ const Windows = {
     }
 
     // TODO: check if it is not out of bounds
-    windowResizer.css('top', `${verticalPos}px`);
-    windowResizer.css('left', `${horizontalPos}px`);
+    windowResizer.style.top = verticalPos;
+    windowResizer.style.left = horizontalPos;
   },
   setWindowScale(scale, windowType) {
-    const windowWrapper = jQuery(`#window_${windowType}_wrapper`);
-    windowWrapper.css('transform', `scale(${scale})`);
-    windowWrapper.css('-webkit-transform', `scale(${scale})`);
-    windowWrapper.css('-moz-transform', `scale(${scale})`);
-    windowWrapper.css('-o-transform', `scale(${scale})`);
+    document.querySelector(`#window_${windowType}_wrapper`).style.transform = `scale(${scale}, ${scale})`;
   },
   fixHorizontalAlignment(parentId, childId) {
     // fixing the horizontal alignment
@@ -254,15 +252,8 @@ const Windows = {
   },
 };
 
-jQuery(() => {
-  jQuery.each(jQuery.find('.windowIcon'), (index, value) => {
-    jQuery(value).draggable({
-      revert: true,
-    });
-  });
-
-  /**
- * TODO: fix
+/**
+ * TODO: fix / move to better place / remove jquery
  *
  * seems to react to any key...
  */
@@ -286,6 +277,5 @@ jQuery(() => {
     switchWindow('console')
   });
 */
-});
 
 export default Windows;

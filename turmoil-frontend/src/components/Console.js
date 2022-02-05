@@ -13,6 +13,18 @@ function Console() {
   useEffect(() => {
     jQuery('#consoleTabs').tabs();
 
+    /**
+     * TODO: maybe replace it with https://scotch.io/tutorials/implementing-smooth-scrolling-in-react
+     */
+    const scrollableContainer = jQuery('.scrollableContainer');
+    if (scrollableContainer.length) {
+      if (jQuery.isFunction(jQuery().mCustomScrollbar)) {
+        scrollableContainer.mCustomScrollbar({ theme: 'dark' });
+      } else if (window.debug) {
+        Logger.log('scrollableContainer found, but custom-scrollbar module is not active...');
+      }
+    }
+
     if (window.debug) {
       Logger.log('Tabs initialized...');
     }

@@ -13,6 +13,9 @@ import SignupPage from '../pages/auth/Signup';
 import LoginPage from '../pages/auth/Login';
 import Button from './Button/Button';
 import Logger from '../js/utils/logger';
+import Layout from '../js/core/turmoil-layout';
+import Utils from '../js/core/turmoil-utils';
+import { addDraggable } from '../js/core/turmoil-draggable-sortable-resizable';
 
 function Turmoil(props) {
   const { navigate, location } = props;
@@ -29,7 +32,14 @@ function Turmoil(props) {
       navigate('/login');
     }
 
-    Logger.log('mounted at', location);
+    document.querySelectorAll('.windowIcon').forEach((icon) => addDraggable(`#${icon.id}`, {
+      revert: true,
+    }));
+
+    Layout.setLayout();
+    Utils.addEvent(window, 'resize', Layout.resizeEvent);
+
+    Logger.log('Turmoil container mounted at', location.pathname);
   });
 
   // componentDidMount() {
@@ -54,6 +64,7 @@ function Turmoil(props) {
     Logger.log('token', token);
     Logger.log('userId', userId);
     Logger.log('isAuth', isAuth);
+    Logger.log('error', error);
   };
 
   // setAutoLogout = (milliseconds) => {

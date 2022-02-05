@@ -68,8 +68,13 @@ const Animations = {
       }
     }
 
-    const damageIndicator = `<div id="${ident}" class="${styleClass}">${value}</div>`;
-    jQuery(unit).prepend(damageIndicator);
+    const damageIndicator = document.createElement('div');
+    damageIndicator.className = styleClass;
+    damageIndicator.id = ident;
+    damageIndicator.append(value);
+
+    unit.prepend(damageIndicator);
+
     Animations.animateIndicator(ident);
   },
   attackSwing(unitId) {
