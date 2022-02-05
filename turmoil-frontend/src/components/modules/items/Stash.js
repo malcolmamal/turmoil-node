@@ -1,5 +1,5 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import jQuery from 'jquery';
 import 'jquery-ui/ui/widgets/sortable';
 import Window from '../../Window';
@@ -10,22 +10,15 @@ import Logger from '../../../js/utils/logger';
 import Fetch from '../../../js/core/turmoil-fetch';
 import Windows from '../../../js/core/turmoil-windows';
 
-const mapStateToProps = (state) => ({ stashItems: state.stashItems });
+function Stash() {
+  const stateData = useSelector((state) => state);
+  const dispatch = useDispatch();
 
-function mapDispatchToProps(dispatch) {
-  return {
-    updateItems: (stashItems) => dispatch(ReduxActions.updateItemsInStashAction(stashItems)),
+  const stashedItems = (content) => {
+    dispatch(ReduxActions.updateItemsInStashAction({ stashItems: content }));
   };
-}
 
-class Stash extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.stashedItems = this.stashedItems.bind(this);
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     const stash = jQuery('#stashItemListContainer');
     stash.sortable({
       // forceHelperSize: true,
@@ -47,51 +40,41 @@ class Stash extends React.Component {
 
     Fetch.get({
       path: 'instance/initializeStash',
-      onSuccess: this.stashedItems,
+      onSuccess: stashedItems,
     }).then();
 
     Windows.initWindow('stash', true);
-  }
+  }, []);
 
-  stashedItems(content) {
-    const { updateItems } = this.props;
-    updateItems({ stashItems: content });
-  }
+  const background = {
+    backgroundImage: "url('/images/windows/stash.png')",
+    width: '500px',
+    height: '700px',
+  };
 
-  render() {
-    const background = {
-      backgroundImage: "url('/images/windows/stash.png')",
-      width: '500px',
-      height: '700px',
-    };
+  const { stashItems } = stateData;
 
-    const { stashItems } = this.props;
+  return (
+    <Window ident="stash" background={background}>
+      <div id="stashItemContainerWrapper">
+        <div id="stashItemContainer" className="stashItemContainer">
+          <ul id="stashItemListContainer">
 
-    return (
-      <Window ident="stash" background={background}>
-        <div id="stashItemContainerWrapper">
-          <div id="stashItemContainer" className="stashItemContainer">
-            <ul id="stashItemListContainer">
+            {stashItems.map((item) => (
+              <ItemSlotStash
+                item={item.ident}
+                rarity={item.rarity}
+                key={item.ident}
+                filePath={item.filePath}
+                fileCode={item.fileCode}
+              />
+            ))}
 
-              {stashItems.map((item) => (
-                <ItemSlotStash
-                  item={item.ident}
-                  rarity={item.rarity}
-                  key={item.ident}
-                  filePath={item.filePath}
-                  fileCode={item.fileCode}
-                />
-              ))}
-
-            </ul>
-          </div>
+          </ul>
         </div>
-      </Window>
-    );
-  }
+      </div>
+    </Window>
+  );
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Stash);
+export default connect()(Stash);
