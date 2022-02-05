@@ -18,6 +18,7 @@ import Layout from '../js/core/turmoil-layout';
 import Utils from '../js/core/turmoil-utils';
 import { addDraggable } from '../js/core/turmoil-draggable-sortable-resizable';
 import Windows from '../js/core/turmoil-windows';
+import Tooltip from '../js/core/turmoil-tooltip';
 
 function Turmoil(props) {
   const { navigate, location } = props;
@@ -48,6 +49,8 @@ function Turmoil(props) {
 
     Layout.setLayout();
     Utils.addEvent(window, 'resize', Layout.resizeEvent);
+
+    Tooltip.init();
 
     Logger.log('Turmoil container mounted at', location.pathname);
   });

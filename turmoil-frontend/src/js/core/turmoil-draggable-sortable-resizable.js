@@ -10,8 +10,8 @@ export const addResizable = (ident, config) => {
   jQuery(ident).resizable(config);
 };
 
-export const addSortable = (element, containmentElement) => {
-  const stash = jQuery(element);
+export const addSortable = (ident, containmentElement) => {
+  const stash = jQuery(ident);
   stash.sortable({
     // forceHelperSize: true,
     containment: containmentElement,

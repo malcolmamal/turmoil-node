@@ -14,7 +14,7 @@ const Tooltip = {
   },
   prepareTooltip: function prepareTooltip(id, data) {
     Tooltip.tooltipContents[id] = Tooltip.emptyContent.replace('_CONTENT_', data).replace('_ID_', id);
-    jQuery(`#something-${id}`).html(data);
+    document.querySelector(`#something-${id}`).innerHTML = data;
   },
   isElementVisibleOrAlreadyGone: function isElementVisibleOrAlreadyGone(element) {
     if (jQuery(element).length === 0) {
@@ -70,36 +70,35 @@ const Tooltip = {
 
     return content;
   },
+  init: () => {
+    jQuery(document).tooltip({
+      items: '.tooltip',
+      hide: false,
+      show: false,
+      tooltipClass: 'fancyTooltip',
+      position: { my: 'left+15 top', at: 'right center' },
+      content() {
+        let content;
+        if (jQuery(this).hasClass('itemTooltip')) {
+          content = Tooltip.handleItemTooltipContent(jQuery(this));
+        } else {
+          content = jQuery(this).prop('title');
+        }
+
+        return content;
+      },
+      open(event, ui) {
+        // closing current tooltip after 20 seconds
+        setTimeout(() => {
+          jQuery(ui.tooltip).hide();
+        }, 20000 * 100);
+      },
+    });
+
+    if (window.debug) {
+      Logger.log('Tooltip initialized...');
+    }
+  },
 };
-
-jQuery(() => {
-  jQuery(document).tooltip({
-    items: '.tooltip',
-    hide: false,
-    show: false,
-    tooltipClass: 'fancyTooltip',
-    position: { my: 'left+15 top', at: 'right center' },
-    content() {
-      let content;
-      if (jQuery(this).hasClass('itemTooltip')) {
-        content = Tooltip.handleItemTooltipContent(jQuery(this));
-      } else {
-        content = jQuery(this).prop('title');
-      }
-
-      return content;
-    },
-    open(event, ui) {
-      // closing current tooltip after 20 seconds
-      setTimeout(() => {
-        jQuery(ui.tooltip).hide();
-      }, 20000 * 100);
-    },
-  });
-
-  if (window.debug) {
-    Logger.log('Tooltip initialized...');
-  }
-});
 
 export default Tooltip;
