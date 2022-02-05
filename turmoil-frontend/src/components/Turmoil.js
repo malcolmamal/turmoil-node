@@ -86,13 +86,6 @@ function Turmoil(props) {
   //   }, milliseconds);
   // };
 
-  // logoutHandler = () => {
-  //   this.setState({ isAuth: false, token: null });
-  //   localStorage.removeItem('token');
-  //   localStorage.removeItem('expiryDate');
-  //   localStorage.removeItem('userId');
-  // };
-
   const loginHandler = (event, authData) => {
     event.preventDefault();
 
@@ -274,7 +267,7 @@ function Turmoil(props) {
         </div>
       </div>
 
-      <Footer />
+      <Footer navigate={navigate} />
     </div>
   );
 }
