@@ -6,7 +6,9 @@ const Fetch = {
   baseUrl: 'http://localhost:3030/',
   baseHeaders: {
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${localStorage.getItem('token')}`,
+  },
+  getAuthHeader() {
+    return { Authorization: `Bearer ${localStorage.getItem('token')}` };
   },
   async fetch(params, fetchParams) {
     try {
@@ -60,7 +62,7 @@ const Fetch = {
     const fetchParams = {
       method: 'POST',
       body: JSON.stringify(params.body || {}),
-      headers: this.baseHeaders,
+      headers: { ...this.baseHeaders, ...this.getAuthHeader() },
     };
 
     return this.fetch(params, fetchParams);
@@ -68,7 +70,7 @@ const Fetch = {
   async get(params) {
     const fetchParams = {
       method: 'GET',
-      headers: this.baseHeaders,
+      headers: { ...this.baseHeaders, ...this.getAuthHeader() },
     };
 
     return this.fetch(params, fetchParams);
