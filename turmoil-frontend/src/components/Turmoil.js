@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Navigate } from 'react-router';
-import { Route, Link } from 'react-router-dom';
+import { Routes, Navigate, useNavigate } from 'react-router';
+import { Route, Link, useLocation } from 'react-router-dom';
 import { useHotkeys } from 'react-hotkeys-hook';
 import Header from './layout/Header';
 import Footer from './layout/Footer';
@@ -20,8 +20,9 @@ import Windows from '../js/core/turmoil-windows';
 import Tooltip from '../js/core/turmoil-tooltip';
 import { addDraggable } from '../js/core/turmoil-draggable-sortable-resizable';
 
-function Turmoil(props) {
-  const { navigate, location } = props;
+function Turmoil() {
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const [isAuth, setAuth] = useState(false);
   const [token, setToken] = useState(null);
@@ -105,7 +106,7 @@ function Turmoil(props) {
           throw new Error('Validation failed.');
         }
         if (res.status !== 200 && res.status !== 201) {
-          Logger.log('Error!');
+          Logger.log('Error, could not log in!');
           throw new Error('Could not authenticate you!');
         }
         return res.json();
@@ -134,6 +135,7 @@ function Turmoil(props) {
         setAuthLoading(false);
         setError(err);
 
+        Logger.error('problem logging in');
         Logger.error(err);
       });
   };
