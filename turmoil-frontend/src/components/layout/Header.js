@@ -14,10 +14,10 @@ function Header() {
   return (
     <div role="banner" id="turmoilHeader" className="turmoilHeader" style={headerBannerStyle}>
       <div style={languageSelectorStyle}>
-        {/* <language:selector langs="en, pl"/> */}
+        {/* bring back language selector */}
       </div>
       {/* <div style="position: absolute; right: 0; bottom: 0;"> */}
-      {/* <g:render template="/common/menu"/> */}
+      {/* bring back the old menu */}
       {/* </div> */}
     </div>
   );

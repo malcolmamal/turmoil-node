@@ -97,6 +97,7 @@ function ItemSlotEquipment(props) {
         }}
       />
     ) : '';
+
   const leftHandEffect = (item.slot === 'slot_left_hand' && item.damageType)
     ? (
       <span

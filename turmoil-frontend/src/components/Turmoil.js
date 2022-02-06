@@ -58,7 +58,7 @@ function Turmoil() {
     Logger.log('Turmoil container mounted at', location.pathname);
   });
 
-  const changeShouldRedirect = (e) => {
+  const testButton = (e) => {
     Logger.log('clicked!', e);
     Logger.log('token', token);
     Logger.log('userId', userId);
@@ -248,7 +248,7 @@ function Turmoil() {
           {routes}
 
           <form>
-            <Button design="raised" type="button" onClick={(e) => changeShouldRedirect(e)}>
+            <Button design="raised" type="button" onClick={(e) => testButton(e)}>
               Test me!
             </Button>
           </form>
