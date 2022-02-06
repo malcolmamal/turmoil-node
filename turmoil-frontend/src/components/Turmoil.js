@@ -99,10 +99,6 @@ function Turmoil() {
         email: authData.email,
         password: authData.password,
       }),
-
-      // if we were doing authorization:
-      // Authorization: 'Bearer ' + localStorage.getItem('token')
-
     })
       .then((res) => {
         if (res.status === 422) {
@@ -174,8 +170,6 @@ function Turmoil() {
         Logger.log(resData);
         setAuth(false);
         setAuthLoading(false);
-        // todo redirect to login
-        // this.props.history.replace('/logged');
 
         navigate('/login');
       })
@@ -206,7 +200,6 @@ function Turmoil() {
             <Equipment />
             <Stash />
             <Stats />
-
             <Location />
           </div>
           )}
@@ -247,13 +240,9 @@ function Turmoil() {
           </div>
 
           <Link to="/logged">Main</Link>
-          {' '}
-          |
-          {' '}
+          {' | '}
           <Link to="/signup">Signup</Link>
-          {' '}
-          |
-          {' '}
+          {' | '}
           <Link to="/login">Login</Link>
 
           {routes}
