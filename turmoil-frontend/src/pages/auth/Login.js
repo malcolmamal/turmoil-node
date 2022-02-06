@@ -19,8 +19,6 @@ function Login(props) {
     },
   });
 
-  const [formIsValid, setFormIsValid] = useState(false);
-
   const inputChangeHandler = (input, value) => {
     let isValid = true;
 
@@ -42,7 +40,6 @@ function Login(props) {
     });
 
     setLoginForm(updatedForm);
-    setFormIsValid(isValid);
   };
 
   const inputBlurHandler = (input) => {

@@ -39,7 +39,9 @@ function Turmoil() {
   });
 
   useEffect(() => {
-    if (!localStorage.getItem('token') && location.pathname !== '/login') {
+    if (!localStorage.getItem('token')
+        && location.pathname !== '/login'
+        && location.pathname !== '/signup') {
       Logger.log('location redirection from', location.pathname, 'to ', 'login');
       navigate('/login');
     }
@@ -72,6 +74,7 @@ function Turmoil() {
     localStorage.removeItem('token');
     localStorage.removeItem('expiryDate');
     localStorage.removeItem('userId');
+    localStorage.removeItem('userName');
 
     navigate('/login');
   };
