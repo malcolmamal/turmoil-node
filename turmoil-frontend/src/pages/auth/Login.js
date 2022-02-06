@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-
-import Input from '../../components/Form/Input/Input';
-import Button from '../../components/Button/Button';
+import Input from '../../components/form/input/Input';
+import Button from '../../components/button/Button';
 import { required, length, email } from '../../js/utils/validators';
 
 class Login extends Component {

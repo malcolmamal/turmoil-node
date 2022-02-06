@@ -12,13 +12,13 @@ import Stats from './modules/stats/Stats';
 import Location from './modules/instance/Location';
 import SignupPage from '../pages/auth/Signup';
 import LoginPage from '../pages/auth/Login';
-import Button from './Button/Button';
+import Button from './button/Button';
 import Logger from '../js/utils/logger';
 import Layout from '../js/core/turmoil-layout';
 import Utils from '../js/core/turmoil-utils';
-import { addDraggable } from '../js/core/turmoil-draggable-sortable-resizable';
 import Windows from '../js/core/turmoil-windows';
 import Tooltip from '../js/core/turmoil-tooltip';
+import { addDraggable } from '../js/core/turmoil-draggable-sortable-resizable';
 
 function Turmoil(props) {
   const { navigate, location } = props;
@@ -55,23 +55,6 @@ function Turmoil(props) {
     Logger.log('Turmoil container mounted at', location.pathname);
   });
 
-  // componentDidMount() {
-  //     const token = localStorage.getItem('token');
-  //     const expiryDate = localStorage.getItem('expiryDate');
-  //     if (!token || !expiryDate) {
-  //         return;
-  //     }
-  //     if (new Date(expiryDate) <= new Date()) {
-  //         this.logoutHandler();
-  //         return;
-  //     }
-  //     const userId = localStorage.getItem('userId');
-  //     const remainingMilliseconds =
-  //         new Date(expiryDate).getTime() - new Date().getTime();
-  //     this.setState({ isAuth: true, token: token, userId: userId });
-  //     this.setAutoLogout(remainingMilliseconds);
-  // }
-
   const changeShouldRedirect = (e) => {
     Logger.log('clicked!', e);
     Logger.log('token', token);
@@ -80,11 +63,23 @@ function Turmoil(props) {
     Logger.log('error', error);
   };
 
-  // setAutoLogout = (milliseconds) => {
-  //   setTimeout(() => {
-  //     this.logoutHandler();
-  //   }, milliseconds);
-  // };
+  const logoutHandler = () => {
+    setAuth(false);
+    setUserId(null);
+    setToken(null);
+
+    localStorage.removeItem('token');
+    localStorage.removeItem('expiryDate');
+    localStorage.removeItem('userId');
+
+    navigate('/login');
+  };
+
+  const setAutoLogout = (milliseconds) => {
+    setTimeout(() => {
+      logoutHandler();
+    }, milliseconds);
+  };
 
   const loginHandler = (event, authData) => {
     event.preventDefault();
@@ -130,7 +125,7 @@ function Turmoil(props) {
           new Date().getTime() + remainingMilliseconds,
         );
         localStorage.setItem('expiryDate', expiryDate.toISOString());
-        // this.setAutoLogout(remainingMilliseconds);
+        setAutoLogout(remainingMilliseconds);
 
         navigate('/logged');
       })
@@ -267,7 +262,7 @@ function Turmoil(props) {
         </div>
       </div>
 
-      <Footer navigate={navigate} />
+      <Footer logout={logoutHandler} />
     </div>
   );
 }

@@ -1,25 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 
 function Footer(props) {
-  const [isAuth, setAuth] = useState(false);
-  const [token, setToken] = useState(null);
-  const [userId, setUserId] = useState(null);
-
-  const { navigate } = props;
-
-  const logoutHandler = () => {
-    setAuth(false);
-    setUserId(null);
-    setToken(null);
-
-    localStorage.removeItem('token');
-    localStorage.removeItem('expiryDate');
-    localStorage.removeItem('userId');
-
-    navigate('/login');
-  };
+  const { logout } = props;
 
   const spinnerDisplayStyle = {
     display: 'none',
@@ -29,7 +13,7 @@ function Footer(props) {
   if (localStorage.getItem('userName')) {
     logoutBox = (
       <div>
-        <Link onClick={logoutHandler} to="/logout">
+        <Link onClick={logout} to="/login">
           <FormattedMessage id="turmoil.footer.logout" />
           {' '}
           - (logged as
