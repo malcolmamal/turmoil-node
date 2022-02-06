@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router';
 import Input from '../../components/form/input/Input';
 import Button from '../../components/button/Button';
 import { required, length, email } from '../../js/utils/validators';
+import Error from '../../components/layout/Error';
+import Logger from '../../js/utils/logger';
 
 function Login(props) {
+  const navigate = useNavigate();
+
+  const [authLoading, setAuthLoading] = useState(false);
+
   const [loginForm, setLoginForm] = useState({
     email: {
       value: '',
@@ -57,11 +64,68 @@ function Login(props) {
   const inputBlurHandlerEmail = () => { inputBlurHandler('email'); };
   const inputBlurHandlerPassword = () => { inputBlurHandler('password'); };
 
-  const { onLogin, loading } = props;
+  const setAutoLogout = (milliseconds) => {
+    const { logout } = props;
+    setTimeout(() => {
+      logout();
+    }, milliseconds);
+  };
+
+  const loginHandler = (event, authData) => {
+    /**
+     * TODO: fetch only if form data are valid
+     */
+    event.preventDefault();
+
+    setAuthLoading(true);
+
+    fetch('http://localhost:3030/user/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: authData.email,
+        password: authData.password,
+      }),
+    })
+      .then((res) => {
+        if (res.status === 422) {
+          throw new Error('Validation failed.');
+        }
+        if (res.status !== 200 && res.status !== 201) {
+          Logger.log('Error, could not log in!');
+          throw new Error('Could not authenticate you!');
+        }
+        return res.json();
+      })
+      .then((resData) => {
+        Logger.log(resData);
+        setAuthLoading(false);
+
+        localStorage.setItem('token', resData.token);
+        localStorage.setItem('userId', resData.userId);
+        localStorage.setItem('userName', resData.userName);
+        const remainingMilliseconds = 60 * 60 * 1000;
+        const expiryDate = new Date(
+          new Date().getTime() + remainingMilliseconds,
+        );
+        localStorage.setItem('expiryDate', expiryDate.toISOString());
+        setAutoLogout(remainingMilliseconds);
+
+        navigate('/logged');
+      })
+      .catch((err) => {
+        setAuthLoading(false);
+
+        Logger.error('problem logging in');
+        Logger.error(err);
+      });
+  };
 
   return (
     <form
-      onSubmit={(e) => onLogin(e, {
+      onSubmit={(e) => loginHandler(e, {
         email: loginForm.email.value,
         password: loginForm.password.value,
       })}
@@ -88,7 +152,7 @@ function Login(props) {
         valid={loginForm.password.valid}
         touched={loginForm.password.touched}
       />
-      <Button design="raised" loading={loading}>
+      <Button design="raised" loading={authLoading}>
         Login
       </Button>
     </form>

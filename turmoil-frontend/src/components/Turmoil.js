@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Navigate, useNavigate } from 'react-router';
 import { Route, Link, useLocation } from 'react-router-dom';
 import { useHotkeys } from 'react-hotkeys-hook';
@@ -24,12 +24,6 @@ function Turmoil() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [isAuth, setAuth] = useState(false);
-  const [token, setToken] = useState(null);
-  const [userId, setUserId] = useState(null);
-  const [authLoading, setAuthLoading] = useState(false);
-  const [error, setError] = useState(null);
-
   const keyMapping = [
     ['i', 'equipment'], ['c', 'stats'], ['s', 'stash'], ['l', 'location'], ['o', 'console'],
   ];
@@ -46,6 +40,7 @@ function Turmoil() {
       navigate('/login');
     }
 
+    // TODO: probably move it to WindowIcon
     document.querySelectorAll('.windowIcon').forEach((icon) => addDraggable(`#${icon.id}`, {
       revert: true,
     }));
@@ -60,125 +55,15 @@ function Turmoil() {
 
   const testButton = (e) => {
     Logger.log('clicked!', e);
-    Logger.log('token', token);
-    Logger.log('userId', userId);
-    Logger.log('isAuth', isAuth);
-    Logger.log('error', error);
   };
 
   const logoutHandler = () => {
-    setAuth(false);
-    setUserId(null);
-    setToken(null);
-
     localStorage.removeItem('token');
     localStorage.removeItem('expiryDate');
     localStorage.removeItem('userId');
     localStorage.removeItem('userName');
 
     navigate('/login');
-  };
-
-  const setAutoLogout = (milliseconds) => {
-    setTimeout(() => {
-      logoutHandler();
-    }, milliseconds);
-  };
-
-  const loginHandler = (event, authData) => {
-    event.preventDefault();
-
-    setAuthLoading(true);
-
-    fetch('http://localhost:3030/user/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: authData.email,
-        password: authData.password,
-      }),
-    })
-      .then((res) => {
-        if (res.status === 422) {
-          throw new Error('Validation failed.');
-        }
-        if (res.status !== 200 && res.status !== 201) {
-          Logger.log('Error, could not log in!');
-          throw new Error('Could not authenticate you!');
-        }
-        return res.json();
-      })
-      .then((resData) => {
-        Logger.log(resData);
-        setAuth(true);
-        setToken(resData.token);
-        setAuthLoading(false);
-        setUserId(resData.userId);
-
-        localStorage.setItem('token', resData.token);
-        localStorage.setItem('userId', resData.userId);
-        localStorage.setItem('userName', resData.userName);
-        const remainingMilliseconds = 60 * 60 * 1000;
-        const expiryDate = new Date(
-          new Date().getTime() + remainingMilliseconds,
-        );
-        localStorage.setItem('expiryDate', expiryDate.toISOString());
-        setAutoLogout(remainingMilliseconds);
-
-        navigate('/logged');
-      })
-      .catch((err) => {
-        setAuth(false);
-        setAuthLoading(false);
-        setError(err);
-
-        Logger.error('problem logging in');
-        Logger.error(err);
-      });
-  };
-
-  const signupHandler = (event, authData) => {
-    event.preventDefault();
-    setAuthLoading(true);
-
-    fetch('http://localhost:3030/user/create', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: authData.signupForm.email.value,
-        password: authData.signupForm.password.value,
-        name: authData.signupForm.name.value,
-      }),
-    })
-      .then((res) => {
-        if (res.status === 422) {
-          throw new Error(
-            "Validation failed. Make sure the email address isn't used yet!",
-          );
-        }
-        if (res.status !== 200 && res.status !== 201) {
-          Logger.log('Error!');
-          throw new Error('Creating a user failed!');
-        }
-        return res.json();
-      })
-      .then((resData) => {
-        Logger.log(resData);
-        setAuth(false);
-        setAuthLoading(false);
-
-        navigate('/login');
-      })
-      .catch((err) => {
-        Logger.log(err);
-        setAuth(false);
-        setAuthLoading(false);
-        setError(err);
-      });
   };
 
   const routes = (
@@ -207,18 +92,14 @@ function Turmoil() {
       <Route
         path="/signup"
         element={(
-          <SignupPage
-            onSignup={signupHandler}
-            loading={authLoading}
-          />
+          <SignupPage />
           )}
       />
       <Route
         path="/login"
         element={(
           <LoginPage
-            onLogin={loginHandler}
-            loading={authLoading}
+            logout={logoutHandler}
           />
           )}
       />
