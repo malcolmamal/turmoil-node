@@ -3,6 +3,7 @@ import JavaServerService from '../services/javaServerService.js';
 
 export const initializeStash = async (req, res) => {
   Logger.log('Will initialize stash');
+  Logger.log('user found', req.user);
 
   const result = await JavaServerService.initializeStash();
 

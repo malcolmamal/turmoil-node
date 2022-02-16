@@ -1,10 +1,11 @@
 import express from 'express';
 import { state, equip, unequip } from '../controllers/characterController.js';
+import passportAuthorized from '../middleware/passportJwtMiddleware.js';
 
 const characterRouter = express.Router();
 
-characterRouter.get('/state', state);
-characterRouter.get('/equip/:item', equip);
-characterRouter.get('/unequip/:item', unequip);
+characterRouter.get('/state', passportAuthorized, state);
+characterRouter.get('/equip/:item', passportAuthorized, equip);
+characterRouter.get('/unequip/:item', passportAuthorized, unequip);
 
 export default characterRouter;
