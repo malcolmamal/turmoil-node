@@ -2,10 +2,12 @@ import { Strategy, ExtractJwt } from 'passport-jwt';
 import passport from 'passport';
 import User from '../models/User.js';
 
+export const secretKey = 'turmoil-secret-key';
+
 const initializePassport = () => {
   const options = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: 'turmoil-secret-key',
+    secretOrKey: secretKey,
   };
 
   console.log('initializing passport');

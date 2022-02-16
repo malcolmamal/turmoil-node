@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 import Logger from '../utils/logger.js';
+import { secretKey } from '../configs/passportJwt.js';
 
 export const createUser = async (req, res, next) => {
   const errors = validationResult(req);
@@ -67,7 +68,7 @@ export const loginUser = async (req, res, next) => {
 
     const token = await jwt.sign(
       { email: loadedUser.email, name: loadedUser.name, id: loadedUser.id },
-      'turmoil-secret-key',
+      secretKey,
       { expiresIn: '2h' },
     );
 
