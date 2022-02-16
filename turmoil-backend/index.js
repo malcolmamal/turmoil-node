@@ -6,4 +6,4 @@ const hostname = process.env.TURMOIL_BACKEND_HOSTNAME || '127.0.0.1';
 
 Logger.log('Starting server on port', port);
 
-startServer(port, hostname);
+await startServer(port, hostname);

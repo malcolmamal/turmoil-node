@@ -1,5 +1,5 @@
 const createErrorMiddleware = ({ logger }) => function errorMiddleware(error, req, res, next) {
-  console.log('here in error middleware');
+  logger.log('here in error middleware');
   if (res.headersSent) {
     next(error);
   } else {
