@@ -1,6 +1,7 @@
 import { Strategy, ExtractJwt } from 'passport-jwt';
 import passport from 'passport';
 import User from '../models/User.js';
+import Logger from '../utils/logger.js';
 
 export const secretKey = 'turmoil-secret-key';
 
@@ -10,13 +11,13 @@ const initializePassport = () => {
     secretOrKey: secretKey,
   };
 
-  console.log('initializing passport');
+  Logger.log('initializing passport');
 
   passport.use(new Strategy(options, async (jwtPayload, done) => {
-    console.log('searching for user in password authenticate', jwtPayload.email);
+    Logger.log('searching for user in password authenticate', jwtPayload.email);
     try {
       const user = await User.findOne({ where: { email: jwtPayload.email } });
-      console.log('this is user', user);
+      Logger.log('this is user', user);
 
       if (user) {
         return done(null, user);
