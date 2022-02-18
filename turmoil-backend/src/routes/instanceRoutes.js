@@ -12,6 +12,8 @@ import passportAuthorized from '../middleware/passportJwtMiddleware.js';
 
 const instanceRouter = express.Router();
 
+// instanceRouter.use(passportAuthorized); // what is the order
+
 instanceRouter.get('/initializeStash', passport.authenticate('jwt', { session: false }), initializeStash);
 instanceRouter.get('/initializeEquipment', passportAuthorized, initializeEquipment);
 instanceRouter.get('/instanceActionOnPosition/:position', isAuthorized, instanceActionOnPosition);

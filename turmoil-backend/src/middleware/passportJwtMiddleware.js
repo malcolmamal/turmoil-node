@@ -1,7 +1,5 @@
 import passport from 'passport';
 
-const passportAuthorized = (req, res, next) => {
-  passport.authenticate('jwt', { session: false })(req, res, next);
-};
+const passportAuthorized = passport.authenticate('jwt', { session: false });
 
 export default passportAuthorized;
