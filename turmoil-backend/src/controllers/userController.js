@@ -3,8 +3,11 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 import { secretKey } from '../configs/passport/passport.js';
+import sleep from '../utils/sleep.js';
 
 export const createUser = async (req, res, next) => {
+  await sleep(1000);
+
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const error = new Error('Validation failed.');
@@ -46,12 +49,16 @@ export const createUser = async (req, res, next) => {
 };
 
 export const loginUser = async (req, res, next) => {
+  console.log('in the loginUser');
+  await sleep(1000);
+
   const { user } = req;
   try {
     const token = await jwt.sign(
       { email: user.email, name: user.name, id: user.id },
       secretKey,
       { expiresIn: '2h' },
+      null,
     );
 
     res.status(200).json(

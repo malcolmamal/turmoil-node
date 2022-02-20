@@ -20,6 +20,11 @@ import soundMediumArmor from '../media/audio/change_medium_002.wav';
 import soundWeapon from '../media/audio/change_weapon_004.wav';
 import Consts from './core/turmoil-consts';
 
+// axios
+import initAxios from './core/turmoil-axios';
+
+initAxios();
+
 window.debug = true;
 window.debugPopup = true;
 
