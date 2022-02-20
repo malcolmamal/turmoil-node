@@ -1,6 +1,7 @@
 import axios from 'axios';
 import ErrorHandler, { GenericError } from './turmoil-error';
 import Layout from './turmoil-layout';
+import Permissions from './turmoil-permissions';
 
 const getAuthHeader = () => `Bearer ${localStorage.getItem('token')}`;
 
@@ -22,18 +23,14 @@ const initAxios = () => {
 
   axios.interceptors.response.use(
     (response) => {
-      console.log('response finished');
       Layout.hideSpinner();
+
       return response;
     },
     (error) => {
-      if (error.response) {
-        console.log('error in response', [error.request, error.response]);
-      } else if (error.request) {
-        console.log('no response :(', error.request);
-      }
-
       Layout.hideSpinner();
+
+      Permissions.enableActions();
 
       const err = new GenericError(error.response.statusText);
       err.errorObject = error;
@@ -46,7 +43,19 @@ const initAxios = () => {
 export const Axios = {
   METHOD_GET: 'GET',
   METHOD_POST: 'POST',
+  blockNextAction: false,
   async axios(method, url, data) {
+    if (this.blockNextAction) {
+      if (!Permissions.areActionsAllowed()) {
+        window.turmoil.logDebug('Actions are currently blocked', data);
+
+        return null;
+      }
+
+      Permissions.blockActions();
+    }
+    this.blockNextAction = false;
+
     let resolvedResponse;
 
     try {
@@ -70,6 +79,11 @@ export const Axios = {
   },
   async post(url, data) {
     return this.axios(this.METHOD_POST, url, data);
+  },
+  block() {
+    this.blockNextAction = true;
+
+    return this;
   },
 };
 

@@ -1,11 +1,9 @@
-import Fetch from '../core/turmoil-fetch';
+import { Axios } from '../core/turmoil-axios';
 
 const WindowStats = {
-  updateStats(callBackFunction) {
-    Fetch.get({
-      path: 'character/state',
-      onSuccess: callBackFunction,
-    }).then();
+  async updateStats(callBackFunction) {
+    const response = await Axios.get('character/state');
+    callBackFunction(response.data);
   },
 };
 

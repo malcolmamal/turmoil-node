@@ -5,8 +5,7 @@ import WindowStats from '../../../js/windows/window-stats';
 import Tooltip from '../../../js/core/turmoil-tooltip';
 import Sound from '../../../js/core/turmoil-sound';
 import Permissions from '../../../js/core/turmoil-permissions';
-import Fetch from '../../../js/core/turmoil-fetch';
-import Logger from '../../../js/utils/logger';
+import { Axios } from '../../../js/core/turmoil-axios';
 
 function ItemSlotStash(props) {
   const dispatch = useDispatch();
@@ -45,23 +44,18 @@ function ItemSlotStash(props) {
     Permissions.enableActions();
   };
 
-  const actionRightClickOnStashedItem = (itemId) => {
+  const actionRightClickOnStashedItem = async (itemId) => {
     Tooltip.hideAllTooltips();
 
-    Fetch.get({
-      path: `character/equip/${itemId}`,
-      onSuccess: finalizeRightClickOnStashedItem,
-      onSuccessThis: updateItems,
-      blockActions: true,
-    }).then(() => {
-      WindowStats.updateStats(updateCharacterStats);
-    }).catch((error) => { Logger.error(error); });
+    const response = await Axios.block().get(`character/equip/${itemId}`);
+    finalizeRightClickOnStashedItem(response.data, updateItems);
+    await WindowStats.updateStats(updateCharacterStats);
   };
 
   const onContextMenuHandler = (event, itemId) => {
     event.preventDefault();
 
-    actionRightClickOnStashedItem(itemId);
+    actionRightClickOnStashedItem(itemId).then();
   };
 
   // const iconItemSize = 'big'; // default // TODO: size

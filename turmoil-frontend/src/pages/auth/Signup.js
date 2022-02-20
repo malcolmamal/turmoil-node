@@ -3,9 +3,8 @@ import { useNavigate } from 'react-router';
 import Input from '../../components/form/input/Input';
 import Button from '../../components/button/Button';
 import { required, length, email } from '../../js/utils/validators';
-import Error from '../../components/layout/Error';
 import Logger from '../../js/utils/logger';
-import {Axios} from "../../js/core/turmoil-axios";
+import { Axios } from '../../js/core/turmoil-axios';
 
 function Signup() {
   const navigate = useNavigate();

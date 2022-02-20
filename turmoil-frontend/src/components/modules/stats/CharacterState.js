@@ -12,8 +12,8 @@ function CharacterState() {
     dispatch(ReduxActions.updateCharacterStatsAction(characterState));
   };
 
-  useEffect(() => {
-    WindowStats.updateStats(updateCharacterStats);
+  useEffect(async () => {
+    await WindowStats.updateStats(updateCharacterStats);
   }, []);
 
   const { characterState } = stateData;

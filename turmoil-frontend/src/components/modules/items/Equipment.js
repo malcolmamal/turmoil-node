@@ -3,10 +3,10 @@ import { connect, useDispatch, useSelector } from 'react-redux';
 import Window from '../../Window';
 import ItemSlotEquipment from './ItemSlotEquipment';
 import ReduxActions from '../../../js/redux/actions';
-import Fetch from '../../../js/core/turmoil-fetch';
 import Windows from '../../../js/core/turmoil-windows';
 import { addDraggable } from '../../../js/core/turmoil-draggable-sortable-resizable';
 import Tooltip from '../../../js/core/turmoil-tooltip';
+import { Axios } from '../../../js/core/turmoil-axios';
 
 function Equipment() {
   const stateData = useSelector((state) => state);
@@ -25,7 +25,7 @@ function Equipment() {
     dispatch(ReduxActions.updateItemsInEquipmentAction({ wornItems: content }));
   };
 
-  useEffect(() => {
+  useEffect(async () => {
     Object.keys(window.turmoil.equipment.defaultItems).forEach((item) => {
       addDraggable(`#${item}`, {
         revert: true,
@@ -38,10 +38,8 @@ function Equipment() {
       });
     });
 
-    Fetch.get({
-      path: 'instance/initializeEquipment',
-      onSuccess: wornItems,
-    }).then();
+    const response = await Axios.get('instance/initializeEquipment');
+    wornItems(response.data);
 
     Windows.initWindow('equipment', true);
   }, []);
