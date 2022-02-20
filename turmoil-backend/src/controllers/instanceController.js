@@ -1,16 +1,17 @@
+import { StatusCodes } from 'http-status-codes';
 import Logger from '../utils/logger.js';
 import JavaServerService from '../services/javaServerService.js';
 
 export const initializeStash = async (req, res) => {
   const result = await JavaServerService.initializeStash();
 
-  res.status(201).send(result);
+  res.status(StatusCodes.CREATED).send(result);
 };
 
 export const initializeEquipment = async (req, res) => {
   const result = await JavaServerService.initializeEquipment();
 
-  res.status(201).send(result);
+  res.status(StatusCodes.CREATED).send(result);
 };
 
 export const instanceActionOnPosition = async (req, res, next) => {
@@ -18,23 +19,23 @@ export const instanceActionOnPosition = async (req, res, next) => {
   const { position } = req.params;
   if (!position) {
     const error = new Error('instanceActionOnPosition -> position param is missing');
-    error.statusCode = 401;
+    error.statusCode = StatusCodes.UNAUTHORIZED;
     return next(error);
   }
 
   const result = await JavaServerService.instanceActionOnPosition(position);
 
-  return res.status(201).send(result);
+  return res.status(StatusCodes.CREATED).send(result);
 };
 
 export const initializeEnemyUnits = async (req, res) => {
   const result = await JavaServerService.initializeEnemyUnits();
 
-  res.status(201).send(result);
+  res.status(StatusCodes.CREATED).send(result);
 };
 
 export const initializeFriendlyUnits = async (req, res) => {
   const result = await JavaServerService.initializeFriendlyUnits();
 
-  res.status(201).send(result);
+  res.status(StatusCodes.CREATED).send(result);
 };
