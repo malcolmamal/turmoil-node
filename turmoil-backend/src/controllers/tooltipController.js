@@ -1,7 +1,8 @@
 import JavaServerService from '../services/javaServerService.js';
+import Logger from '../utils/logger.js';
 
 const tooltip = async (req, res, next) => {
-  console.log('in the tooltip');
+  Logger.log('in the tooltip');
   const { type, ident } = req.params;
   if (!type || !ident) {
     const error = new Error('tooltip -> type or ident param is missing');
@@ -14,7 +15,7 @@ const tooltip = async (req, res, next) => {
 
     return res.status(201).send(result);
   } catch (err) {
-    console.log('throwing from tooltip');
+    Logger.log('throwing from tooltip');
     return next(err);
   }
 };

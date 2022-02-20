@@ -2,7 +2,7 @@ import { validationResult } from 'express-validator';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
-import Logger from '../utils/logger.js';
+import { secretKey } from '../configs/passport/passport.js';
 
 export const createUser = async (req, res, next) => {
   const errors = validationResult(req);
@@ -46,36 +46,19 @@ export const createUser = async (req, res, next) => {
 };
 
 export const loginUser = async (req, res, next) => {
-  const { email } = req.body;
-  const { password } = req.body;
-  let loadedUser;
+  const { user } = req;
   try {
-    const user = await User.findAll({ where: { email } });
-    if (!user || !user.length) {
-      const error = new Error('A user with this email could not be found.');
-      error.statusCode = 401;
-      return next(error);
-    }
-    [loadedUser] = user;
-    Logger.log('user', loadedUser.email, loadedUser.password);
-    const isEqual = await bcrypt.compare(password, loadedUser.password);
-    if (!isEqual) {
-      const error = new Error('Wrong password!');
-      error.statusCode = 401;
-      return next(error);
-    }
-
     const token = await jwt.sign(
-      { email: loadedUser.email, name: loadedUser.name, id: loadedUser.id },
-      'turmoil-secret-key',
+      { email: user.email, name: user.name, id: user.id },
+      secretKey,
       { expiresIn: '2h' },
     );
 
     res.status(200).json(
       {
         token,
-        userId: loadedUser.id.toString(),
-        userName: loadedUser.email,
+        userId: user.id.toString(),
+        userName: user.email,
       },
     );
   } catch (err) {

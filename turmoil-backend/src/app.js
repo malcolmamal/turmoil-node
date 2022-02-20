@@ -8,6 +8,7 @@ import instanceRouter from './routes/instanceRoutes.js';
 import characterRouter from './routes/characterRoutes.js';
 import Logger from './utils/logger.js';
 import createErrorMiddleware from './middleware/errorMiddleware.js';
+import initializePassport from './configs/passport/passport.js';
 
 // in case of doubled request, favicon workaround
 // app.get('/favicon.ico', (req, res) => res.sendStatus(204));
@@ -24,6 +25,8 @@ const startServer = async (port, hostname) => {
 
     return;
   }
+
+  initializePassport();
 
   const app = express();
 
