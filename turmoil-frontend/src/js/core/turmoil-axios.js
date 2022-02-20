@@ -15,7 +15,7 @@ const handleError = (error) => {
   err.errorObject = error;
   err.errorObject.originalData = errorSource.data;
 
-  ErrorHandler.handleAxiosError(error.config.method, error.config.url, error.config.data, err.errorObject);
+  ErrorHandler.handleError(error.config.method, error.config.url, error.config.data, err.errorObject);
 
   return null;
 };

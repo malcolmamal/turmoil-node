@@ -45,6 +45,9 @@
       "react/prop-types": [
         0
       ],
+      "no-return-await": [
+        0
+      ],
       "jsx-a11y/anchor-is-valid": [
         0
       ],

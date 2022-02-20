@@ -4,6 +4,7 @@ import Input from '../../components/form/input/Input';
 import Button from '../../components/button/Button';
 import { required, length, email } from '../../js/utils/validators';
 import { Axios } from '../../js/core/turmoil-axios';
+import {loginAction} from "../../js/api/services/user-service";
 
 function Login(props) {
   const navigate = useNavigate();
@@ -78,10 +79,7 @@ function Login(props) {
 
     setAuthLoading(true);
 
-    const response = await Axios.post('/user/login', {
-      email: authData.email,
-      password: authData.password,
-    });
+    const response = await loginAction(authData.email, authData.password);
 
     setAuthLoading(false);
 
