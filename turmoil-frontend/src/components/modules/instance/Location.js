@@ -8,8 +8,8 @@ import ReduxActions from '../../../js/redux/actions';
 import WindowLocation from '../../../js/windows/window-location';
 import '../../../stylesheets/window-location.css';
 import Logger from '../../../js/utils/logger';
-import Fetch from '../../../js/core/turmoil-fetch';
 import Windows from '../../../js/core/turmoil-windows';
+import { Axios } from '../../../js/core/turmoil-axios';
 
 function Location() {
   const stateData = useSelector((state) => state);
@@ -17,7 +17,7 @@ function Location() {
 
   const { enemyUnits, friendlyUnits } = stateData;
 
-  useEffect(() => {
+  useEffect(async () => {
     document.querySelectorAll('.instancePolygon').forEach((item) => {
       item.addEventListener('click', () => {
         WindowLocation.actionOnPolygon(item);
@@ -32,15 +32,11 @@ function Location() {
       dispatch(ReduxActions.updateFriendlyUnitsAction(units));
     };
 
-    Fetch.post({
-      path: 'instance/initializeEnemyUnits',
-      onSuccess: updateEnemyUnits,
-    }).then();
+    let response = await Axios.post('instance/initializeEnemyUnits');
+    updateEnemyUnits(response.data);
 
-    Fetch.post({
-      path: 'instance/initializeFriendlyUnits',
-      onSuccess: updateFriendlyUnits,
-    }).then();
+    response = await Axios.post('instance/initializeFriendlyUnits');
+    updateFriendlyUnits(response.data);
 
     if (window.debug) {
       Logger.log('Location initialized...');

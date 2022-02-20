@@ -6,7 +6,7 @@ import Tooltip from '../../../js/core/turmoil-tooltip';
 import Sound from '../../../js/core/turmoil-sound';
 import WindowLocation from '../../../js/windows/window-location';
 import Permissions from '../../../js/core/turmoil-permissions';
-import Fetch from '../../../js/core/turmoil-fetch';
+import { Axios } from '../../../js/core/turmoil-axios';
 import Logger from '../../../js/utils/logger';
 
 function ItemSlotEquipment(props) {
@@ -46,25 +46,20 @@ function ItemSlotEquipment(props) {
     dispatch(ReduxActions.updateCharacterStatsAction(characterState));
   };
 
-  const actionRightClickOnEquipment = (item) => {
+  const actionRightClickOnEquipment = async (item) => {
     Tooltip.hideAllTooltips();
 
     if (item.ident) {
-      Fetch.get({
-        path: `character/unequip/${item.ident}`,
-        onSuccess: finalizeRightClickOnEquipment,
-        onSuccessThis: updateItems,
-        blockActions: true,
-      }).then(() => {
-        WindowStats.updateStats(updateCharacterStats);
-      }).catch((err) => Logger.error(err));
+      const response = await Axios.block().get(`character/unequip/${item.ident}`);
+      finalizeRightClickOnEquipment(response.data, updateItems);
+      await WindowStats.updateStats(updateCharacterStats);
     }
   };
 
   const onContextMenuHandler = (event, item) => {
     event.preventDefault();
     if (item.ident) {
-      actionRightClickOnEquipment(item);
+      actionRightClickOnEquipment(item).catch(Logger.error);
     }
   };
 

@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router';
 import Input from '../../components/form/input/Input';
 import Button from '../../components/button/Button';
 import { required, length, email } from '../../js/utils/validators';
-import Error from '../../components/layout/Error';
 import Logger from '../../js/utils/logger';
+import { Axios } from '../../js/core/turmoil-axios';
 
 function Signup() {
   const navigate = useNavigate();
@@ -67,49 +67,28 @@ function Signup() {
     setSignupForm(updatedForm);
   };
 
-  const signupHandler = (event, authData) => {
+  const signupHandler = async (event, authData) => {
     /**
      * TODO: fetch only if form data are valid
      */
 
     event.preventDefault();
+
     setAuthLoading(true);
 
-    // axios -> intercept errors (interceptors)
+    const response = await Axios.post('/user/create', {
+      email: authData.signupForm.email.value,
+      password: authData.signupForm.password.value,
+      name: authData.signupForm.name.value,
+    });
 
-    fetch('http://localhost:3030/user/create', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: authData.signupForm.email.value,
-        password: authData.signupForm.password.value,
-        name: authData.signupForm.name.value,
-      }),
-    })
-      .then((res) => {
-        if (res.status === 422) {
-          throw new Error(
-            "Validation failed. Make sure the email address isn't used yet!",
-          );
-        }
-        if (res.status !== 200 && res.status !== 201) {
-          Logger.log('Error!');
-          throw new Error('Creating a user failed!');
-        }
-        return res.json();
-      })
-      .then((resData) => {
-        Logger.log(resData);
-        setAuthLoading(false);
+    setAuthLoading(false);
 
-        navigate('/login');
-      })
-      .catch((err) => {
-        Logger.log(err);
-        setAuthLoading(false);
-      });
+    if (response) {
+      Logger.log(response.data);
+
+      navigate('/login');
+    }
   };
 
   const inputBlurHandlerName = () => { inputBlurHandler('name'); };

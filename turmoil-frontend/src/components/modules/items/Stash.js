@@ -5,9 +5,9 @@ import ItemSlotStash from './ItemSlotStash';
 import ReduxActions from '../../../js/redux/actions';
 import '../../../stylesheets/window-stash.css';
 import Logger from '../../../js/utils/logger';
-import Fetch from '../../../js/core/turmoil-fetch';
 import Windows from '../../../js/core/turmoil-windows';
 import { addSortable } from '../../../js/core/turmoil-draggable-sortable-resizable';
+import { Axios } from '../../../js/core/turmoil-axios';
 
 function Stash() {
   const stateData = useSelector((state) => state);
@@ -17,17 +17,15 @@ function Stash() {
     dispatch(ReduxActions.updateItemsInStashAction({ stashItems: content }));
   };
 
-  useEffect(() => {
+  useEffect(async () => {
     addSortable('#stashItemListContainer', '#stashItemContainer');
 
     if (window.debug) {
       Logger.log('Stash initialized...');
     }
 
-    Fetch.get({
-      path: 'instance/initializeStash',
-      onSuccess: stashedItems,
-    }).then();
+    const response = await Axios.get('instance/initializeStash');
+    stashedItems(response.data);
 
     Windows.initWindow('stash', true);
   }, []);

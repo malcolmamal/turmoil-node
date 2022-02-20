@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router';
 import Input from '../../components/form/input/Input';
 import Button from '../../components/button/Button';
 import { required, length, email } from '../../js/utils/validators';
-import Error from '../../components/layout/Error';
-import Logger from '../../js/utils/logger';
+import { Axios } from '../../js/core/turmoil-axios';
 
 function Login(props) {
   const navigate = useNavigate();
@@ -71,7 +70,7 @@ function Login(props) {
     }, milliseconds);
   };
 
-  const loginHandler = (event, authData) => {
+  const loginHandler = async (event, authData) => {
     /**
      * TODO: fetch only if form data are valid
      */
@@ -79,48 +78,26 @@ function Login(props) {
 
     setAuthLoading(true);
 
-    fetch('http://localhost:3030/user/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: authData.email,
-        password: authData.password,
-      }),
-    })
-      .then((res) => {
-        if (res.status === 422) {
-          throw new Error('Validation failed.');
-        }
-        if (res.status !== 200 && res.status !== 201) {
-          Logger.log('Error, could not log in!');
-          throw new Error('Could not authenticate you!');
-        }
-        return res.json();
-      })
-      .then((resData) => {
-        Logger.log(resData);
-        setAuthLoading(false);
+    const response = await Axios.post('/user/login', {
+      email: authData.email,
+      password: authData.password,
+    });
 
-        localStorage.setItem('token', resData.token);
-        localStorage.setItem('userId', resData.userId);
-        localStorage.setItem('userName', resData.userName);
-        const remainingMilliseconds = 60 * 60 * 1000;
-        const expiryDate = new Date(
-          new Date().getTime() + remainingMilliseconds,
-        );
-        localStorage.setItem('expiryDate', expiryDate.toISOString());
-        setAutoLogout(remainingMilliseconds);
+    setAuthLoading(false);
 
-        navigate('/logged');
-      })
-      .catch((err) => {
-        setAuthLoading(false);
+    if (response) {
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('userId', response.data.userId);
+      localStorage.setItem('userName', response.data.userName);
+      const remainingMilliseconds = 60 * 60 * 1000;
+      const expiryDate = new Date(
+        new Date().getTime() + remainingMilliseconds,
+      );
+      localStorage.setItem('expiryDate', expiryDate.toISOString());
+      setAutoLogout(remainingMilliseconds);
 
-        Logger.error('problem logging in');
-        Logger.error(err);
-      });
+      navigate('/logged');
+    }
   };
 
   return (

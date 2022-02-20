@@ -2,7 +2,7 @@ import jQuery from 'jquery';
 import 'jquery-ui/ui/widgets/tooltip';
 import '../../stylesheets/turmoil-tooltip.css';
 import Logger from '../utils/logger';
-import Fetch from './turmoil-fetch';
+import { Axios } from './turmoil-axios';
 
 const Tooltip = {
   emptyContent: "<div id='something-_ID_'>_CONTENT_</div>",
@@ -53,13 +53,8 @@ const Tooltip = {
       // hide all the other existing tooltips
       Tooltip.hideAllTooltips();
 
-      Fetch.post({
-        path: `tooltip/${type}/${ident}`,
-        contentType: 'text',
-      }).then((data) => {
-        Tooltip.prepareTooltip(ident, data);
-
-        // in case the tooltip will be partially outside the viewport, it has to be closed and opened again for jqueryui to reposition the tooltip
+      Axios.post(`tooltip/${type}/${ident}`).then((response) => {
+        Tooltip.prepareTooltip(ident, response.data);
         setTimeout(() => {
           Tooltip.reopenTooltipIfNotVisible(element, `#something-${ident}`);
         }, 10);

@@ -1,5 +1,7 @@
 import passport from 'passport';
 
-const passportAuthorized = passport.authenticate('jwt', { session: false });
+// authorize fills req.account
+
+const passportAuthorized = passport.authorize('jwt', { session: false }, null);
 
 export default passportAuthorized;

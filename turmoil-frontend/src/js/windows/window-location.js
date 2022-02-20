@@ -3,25 +3,21 @@ import Animations from '../core/turmoil-animations';
 import Logger from '../utils/logger';
 import Consts from '../core/turmoil-consts';
 import Permissions from '../core/turmoil-permissions';
-import Fetch from '../core/turmoil-fetch';
+import { Axios } from '../core/turmoil-axios';
 
 const WindowLocation = {
   getPolygonForUnit(unit) {
     return document.querySelector(`#${unit.dataset.previousPolygonId}`);
   },
-  actionOnPolygon(polygon, unit, callbacks) {
+  async actionOnPolygon(polygon, unit, callbacks) {
     if (!polygon) {
       window.turmoil.logDebug('Wrong polygon parameter', polygon, unit, callbacks);
 
       return;
     }
 
-    Fetch.get({
-      path: `instance/instanceActionOnPosition/${polygon.getAttribute('id')}`,
-      onSuccess: WindowLocation.finalizeActionsOnPolygon,
-      onSuccessThis: callbacks,
-      blockActions: true,
-    }).then();
+    const response = await Axios.block().get(`instance/instanceActionOnPosition/${polygon.getAttribute('id')}`);
+    WindowLocation.finalizeActionsOnPolygon(response.data, callbacks);
   },
   actionOnUnit(unitId, callbacks) {
     const unit = document.querySelector(`#${unitId}`);

@@ -4,7 +4,7 @@ import passportLogin from '../middleware/passportLoginMiddleware.js';
 
 const userRouter = express.Router();
 
-userRouter.put('/create', createUser);
+userRouter.post('/create', createUser);
 userRouter.post('/login', passportLogin, loginUser);
 
 export default userRouter;

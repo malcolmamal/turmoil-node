@@ -15,16 +15,16 @@ import initializePassport from './configs/passport/passport.js';
 // or instead: res.status(204).end()
 // https://stackoverflow.com/questions/35408729/express-js-prevent-get-favicon-ico/35408810#35408810
 
-const startServer = async (port, hostname) => {
-  try {
-    await sequelize.authenticate();
-
-    Logger.log('Connection has been established successfully.');
-  } catch (error) {
-    Logger.log('Unable to connect to the database', error);
-
-    return;
-  }
+const createApp = () => {
+  (async () => {
+    try {
+      await sequelize.authenticate();
+      Logger.log('Connection has been established successfully.');
+      await sequelize.sync({ force: false });
+    } catch (err) {
+      Logger.log('Database error', err);
+    }
+  })();
 
   initializePassport();
 
@@ -46,15 +46,9 @@ const startServer = async (port, hostname) => {
 
   app.use(createErrorMiddleware({ logger: { error: console.error, log: Logger.log } }));
 
-  // app.use((err, req, res, next) => {
-  //   console.error(err.stack);
-  //   res.status(500).send('Something broke!');
-  // });
-
-  await sequelize.sync({ force: false });
-  app.listen(port, hostname);
-
   Logger.log('JavaServerService started');
+
+  return app;
 };
 
-export default startServer;
+export default createApp;
