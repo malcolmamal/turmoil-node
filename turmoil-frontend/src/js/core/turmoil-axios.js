@@ -5,21 +5,39 @@ import Permissions from './turmoil-permissions';
 
 const getAuthHeader = () => `Bearer ${localStorage.getItem('token')}`;
 
+const handleError = (error) => {
+  Layout.hideSpinner();
+  Permissions.enableActions();
+
+  const errorSource = error.response ? error.response : error.request;
+
+  const err = new GenericError(errorSource.statusText);
+  err.errorObject = error;
+  err.errorObject.originalData = errorSource.data;
+
+  ErrorHandler.handleAxiosError(error.config.method, error.config.url, error.config.data, err.errorObject);
+
+  return null;
+};
+
 const initAxios = () => {
   axios.defaults.baseURL = 'http://localhost:3030/';
 
-  axios.interceptors.request.use((config) => {
-    Layout.showSpinner();
-    const localConfig = config;
+  axios.interceptors.request.use(
+    (config) => {
+      Layout.showSpinner();
+      const localConfig = config;
 
-    if (config.url === '/user/login' || config.url === '/user/signup') {
+      if (config.url === '/user/login' || config.url === '/user/signup') {
+        return localConfig;
+      }
+
+      localConfig.headers.Authorization = getAuthHeader();
+
       return localConfig;
-    }
-
-    localConfig.headers.Authorization = getAuthHeader();
-
-    return localConfig;
-  });
+    },
+    (error) => handleError(error),
+  );
 
   axios.interceptors.response.use(
     (response) => {
@@ -27,16 +45,7 @@ const initAxios = () => {
 
       return response;
     },
-    (error) => {
-      Layout.hideSpinner();
-
-      Permissions.enableActions();
-
-      const err = new GenericError(error.response.statusText);
-      err.errorObject = error;
-      err.errorObject.originalData = error.response.data;
-      throw err;
-    },
+    (error) => handleError(error),
   );
 };
 
@@ -58,21 +67,15 @@ export const Axios = {
 
     let resolvedResponse;
 
-    try {
-      if (method === this.METHOD_GET) {
-        resolvedResponse = await axios.get(url, data);
-      }
-
-      if (method === this.METHOD_POST) {
-        resolvedResponse = await axios.post(url, data);
-      }
-
-      return resolvedResponse;
-    } catch (err) {
-      ErrorHandler.handleAxiosError(method, url, data, err.errorObject);
+    if (method === this.METHOD_GET) {
+      resolvedResponse = await axios.get(url, data);
     }
 
-    return null;
+    if (method === this.METHOD_POST) {
+      resolvedResponse = await axios.post(url, data);
+    }
+
+    return resolvedResponse;
   },
   async get(url, data) {
     return this.axios(this.METHOD_GET, url, data);
