@@ -75,6 +75,8 @@ function Signup() {
     event.preventDefault();
     setAuthLoading(true);
 
+    // axios -> intercept errors (interceptors)
+
     fetch('http://localhost:3030/user/create', {
       method: 'PUT',
       headers: {

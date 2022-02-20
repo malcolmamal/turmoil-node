@@ -25,7 +25,7 @@ const isAuthorized = (req, res, next) => {
     throw error;
   }
   req.userId = decodedToken.id;
-  Logger.log('decoded email', decodedToken.email, decodedToken.name, token);
+  Logger.log('decoded email', decodedToken.email, decodedToken.name);
 
   next();
 };
