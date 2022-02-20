@@ -2,7 +2,6 @@ import bcrypt from 'bcrypt';
 import User from '../models/User.js';
 
 const loginCallback = async (email, password, done) => {
-  console.log('in the logincallback');
   let user;
   try {
     user = await User.findAll({ where: { email } });
