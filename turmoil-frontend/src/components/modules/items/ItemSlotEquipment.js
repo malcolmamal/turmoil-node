@@ -7,6 +7,7 @@ import Sound from '../../../js/core/turmoil-sound';
 import WindowLocation from '../../../js/windows/window-location';
 import Permissions from '../../../js/core/turmoil-permissions';
 import { Axios } from '../../../js/core/turmoil-axios';
+import Logger from "../../../js/utils/logger";
 
 function ItemSlotEquipment(props) {
   const dispatch = useDispatch();
@@ -58,7 +59,7 @@ function ItemSlotEquipment(props) {
   const onContextMenuHandler = (event, item) => {
     event.preventDefault();
     if (item.ident) {
-      actionRightClickOnEquipment(item).then();
+      actionRightClickOnEquipment(item).catch(Logger.error);
     }
   };
 
