@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import { StatusCodes } from 'http-status-codes';
 import User from '../models/User.js';
 
 const loginCallback = async (email, password, done) => {
@@ -17,7 +18,7 @@ const loginCallback = async (email, password, done) => {
   const isEqual = await bcrypt.compare(password, loadedUser.password);
   if (!isEqual) {
     const err = new Error('Wrong password!');
-    err.statusCode = 401;
+    err.statusCode = StatusCodes.UNAUTHORIZED;
     return done(err);
   }
 
