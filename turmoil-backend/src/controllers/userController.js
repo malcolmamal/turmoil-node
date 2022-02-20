@@ -49,7 +49,6 @@ export const createUser = async (req, res, next) => {
 };
 
 export const loginUser = async (req, res, next) => {
-  console.log('in the loginUser');
   await sleep(1000);
 
   const { user } = req;
