@@ -1,5 +1,7 @@
 import passport from 'passport';
 
-const passportLogin = passport.authenticate('local', { session: false });
+// authorize fills req.user
+
+const passportLogin = passport.authenticate('local', { session: false }, null);
 
 export default passportLogin;
