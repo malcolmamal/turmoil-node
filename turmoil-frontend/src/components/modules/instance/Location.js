@@ -9,7 +9,7 @@ import WindowLocation from '../../../js/windows/window-location';
 import '../../../stylesheets/window-location.css';
 import Logger from '../../../js/utils/logger';
 import Windows from '../../../js/core/turmoil-windows';
-import { Axios } from '../../../js/core/turmoil-axios';
+import { initializeEnemyUnitsAction, initializeFriendlyUnitsAction } from '../../../js/api/services/instance-service';
 
 function Location() {
   const stateData = useSelector((state) => state);
@@ -32,10 +32,10 @@ function Location() {
       dispatch(ReduxActions.updateFriendlyUnitsAction(units));
     };
 
-    let response = await Axios.post('instance/initializeEnemyUnits');
+    let response = await initializeEnemyUnitsAction();
     updateEnemyUnits(response.data);
 
-    response = await Axios.post('instance/initializeFriendlyUnits');
+    response = await initializeFriendlyUnitsAction();
     updateFriendlyUnits(response.data);
 
     if (window.debug) {

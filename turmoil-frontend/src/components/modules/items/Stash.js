@@ -7,7 +7,7 @@ import '../../../stylesheets/window-stash.css';
 import Logger from '../../../js/utils/logger';
 import Windows from '../../../js/core/turmoil-windows';
 import { addSortable } from '../../../js/core/turmoil-draggable-sortable-resizable';
-import { Axios } from '../../../js/core/turmoil-axios';
+import { initializeStashAction } from '../../../js/api/services/instance-service';
 
 function Stash() {
   const stateData = useSelector((state) => state);
@@ -24,7 +24,7 @@ function Stash() {
       Logger.log('Stash initialized...');
     }
 
-    const response = await Axios.get('instance/initializeStash');
+    const response = await initializeStashAction();
     stashedItems(response.data);
 
     Windows.initWindow('stash', true);

@@ -1,8 +1,8 @@
-import { Axios } from '../core/turmoil-axios';
+import { stateAction } from '../api/services/character-service';
 
 const WindowStats = {
   async updateStats(callBackFunction) {
-    const response = await Axios.get('character/state');
+    const response = await stateAction();
     callBackFunction(response.data);
   },
 };

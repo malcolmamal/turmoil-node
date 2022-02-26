@@ -5,7 +5,7 @@ import WindowStats from '../../../js/windows/window-stats';
 import Tooltip from '../../../js/core/turmoil-tooltip';
 import Sound from '../../../js/core/turmoil-sound';
 import Permissions from '../../../js/core/turmoil-permissions';
-import { Axios } from '../../../js/core/turmoil-axios';
+import { equipAction } from '../../../js/api/services/character-service';
 
 function ItemSlotStash(props) {
   const dispatch = useDispatch();
@@ -44,18 +44,18 @@ function ItemSlotStash(props) {
     Permissions.enableActions();
   };
 
-  const actionRightClickOnStashedItem = async (itemId) => {
+  const actionRightClickOnStashedItem = async (itemIdent) => {
     Tooltip.hideAllTooltips();
 
-    const response = await Axios.block().get(`character/equip/${itemId}`);
+    const response = await equipAction(itemIdent);
     finalizeRightClickOnStashedItem(response.data, updateItems);
     await WindowStats.updateStats(updateCharacterStats);
   };
 
-  const onContextMenuHandler = (event, itemId) => {
+  const onContextMenuHandler = (event, itemIdent) => {
     event.preventDefault();
 
-    actionRightClickOnStashedItem(itemId).then();
+    actionRightClickOnStashedItem(itemIdent).then();
   };
 
   // const iconItemSize = 'big'; // default // TODO: size
@@ -64,7 +64,7 @@ function ItemSlotStash(props) {
     item, fileCode, rarity, filePath,
   } = props;
 
-  const itemId = item;
+  const itemIdent = item;
   const itemFileCode = fileCode;
   const itemRarityClass = rarity;
   const itemImageFile = `url('${filePath}'`;
@@ -72,14 +72,14 @@ function ItemSlotStash(props) {
   return (
     <li
       className="stashItemListEntry"
-      id={`stash_item_${itemId}`}
-      item={itemId}
-      onContextMenu={(event) => { onContextMenuHandler(event, itemId); }}
+      id={`stash_item_${itemIdent}`}
+      item={itemIdent}
+      onContextMenu={(event) => { onContextMenuHandler(event, itemIdent); }}
     >
       <a
         className={`slot slot-mainHand${Tooltip.tooltipClass}`}
-        id={`tooltip_${itemFileCode}_${itemId}`}
-        data-ident={itemId}
+        id={`tooltip_${itemFileCode}_${itemIdent}`}
+        data-ident={itemIdent}
         data-tooltip-type="item"
       >
         <span className={`stashItem d3-icon d3-icon-item stash-icon-item-large d3-icon-item-${itemRarityClass}`}>

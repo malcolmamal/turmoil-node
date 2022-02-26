@@ -3,7 +3,7 @@ import Animations from '../core/turmoil-animations';
 import Logger from '../utils/logger';
 import Consts from '../core/turmoil-consts';
 import Permissions from '../core/turmoil-permissions';
-import { Axios } from '../core/turmoil-axios';
+import { onPolygonAction } from '../api/services/instance-service';
 
 const WindowLocation = {
   getPolygonForUnit(unit) {
@@ -16,7 +16,7 @@ const WindowLocation = {
       return;
     }
 
-    const response = await Axios.block().get(`instance/instanceActionOnPosition/${polygon.getAttribute('id')}`);
+    const response = await onPolygonAction(polygon.getAttribute('id'));
     WindowLocation.finalizeActionsOnPolygon(response.data, callbacks);
   },
   actionOnUnit(unitId, callbacks) {

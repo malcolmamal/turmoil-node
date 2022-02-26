@@ -6,7 +6,7 @@ import ReduxActions from '../../../js/redux/actions';
 import Windows from '../../../js/core/turmoil-windows';
 import { addDraggable } from '../../../js/core/turmoil-draggable-sortable-resizable';
 import Tooltip from '../../../js/core/turmoil-tooltip';
-import { Axios } from '../../../js/core/turmoil-axios';
+import { initializeEquipmentAction } from '../../../js/api/services/instance-service';
 
 function Equipment() {
   const stateData = useSelector((state) => state);
@@ -38,7 +38,7 @@ function Equipment() {
       });
     });
 
-    const response = await Axios.get('instance/initializeEquipment');
+    const response = await initializeEquipmentAction();
     wornItems(response.data);
 
     Windows.initWindow('equipment', true);

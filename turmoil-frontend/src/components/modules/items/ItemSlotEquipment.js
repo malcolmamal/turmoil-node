@@ -6,8 +6,8 @@ import Tooltip from '../../../js/core/turmoil-tooltip';
 import Sound from '../../../js/core/turmoil-sound';
 import WindowLocation from '../../../js/windows/window-location';
 import Permissions from '../../../js/core/turmoil-permissions';
-import { Axios } from '../../../js/core/turmoil-axios';
 import Logger from '../../../js/utils/logger';
+import { unequipAction } from '../../../js/api/services/character-service';
 
 function ItemSlotEquipment(props) {
   const dispatch = useDispatch();
@@ -50,7 +50,7 @@ function ItemSlotEquipment(props) {
     Tooltip.hideAllTooltips();
 
     if (item.ident) {
-      const response = await Axios.block().get(`character/unequip/${item.ident}`);
+      const response = await unequipAction(item.ident);
       finalizeRightClickOnEquipment(response.data, updateItems);
       await WindowStats.updateStats(updateCharacterStats);
     }

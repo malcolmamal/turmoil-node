@@ -4,8 +4,7 @@ import Input from '../../components/form/input/Input';
 import Button from '../../components/button/Button';
 import { required, length, email } from '../../js/utils/validators';
 import Logger from '../../js/utils/logger';
-import { Axios } from '../../js/core/turmoil-axios';
-import {signupAction} from "../../js/api/services/user-service";
+import { signupAction } from '../../js/api/services/user-service';
 
 function Signup() {
   const navigate = useNavigate();
