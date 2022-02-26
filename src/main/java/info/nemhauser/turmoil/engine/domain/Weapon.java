@@ -7,7 +7,7 @@ import info.nemhauser.turmoil.engine.templates.WeaponTemplate;
 
 public class Weapon extends Item
 {
-	private WeaponType weaponType;
+	public WeaponType weaponType;
 	public DamageType damageType;
 
 	public Integer minDamage = 1;
@@ -15,6 +15,11 @@ public class Weapon extends Item
 
 	public String toString() {
 		return itemName;
+	}
+
+	public Weapon()
+	{
+		super();
 	}
 
 	public Weapon(WeaponTemplate template)

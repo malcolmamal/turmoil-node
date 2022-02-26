@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import sequelize from './configs/database.js';
 import userRouter from './routes/userRoutes.js';
+import jsonRouter from './routes/json-routes.js';
 import tooltipRouter from './routes/tooltipRoutes.js';
 import instanceRouter from './routes/instanceRoutes.js';
 import characterRouter from './routes/characterRoutes.js';
@@ -40,6 +41,7 @@ const createApp = () => {
   }));
 
   app.use('/user', userRouter);
+  app.use('/json', jsonRouter);
   app.use('/tooltip', tooltipRouter);
   app.use('/instance', instanceRouter);
   app.use('/character', characterRouter);

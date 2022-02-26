@@ -15,24 +15,29 @@ public class Item
 	public String itemName;
 	public Integer level = 1;
 
-	Integer durability = 1;
-	Integer priceValue = 1;
+	public Integer durability = 1;
+	public Integer priceValue = 1;
 
 	public ItemType itemType;
 	public ItemRarity rarity = ItemRarity.COMMON;
 
-	Boolean isCrafted = false;
-	Boolean isEquipped = false;
-	Boolean isStashed = false;
+	public Boolean isCrafted = false;
+	public Boolean isEquipped = false;
+	public Boolean isStashed = false;
 
-	Stash stash;
+	public Stash stash;
 
-	Character craftedBy;
-	Account owner;
+	public Character craftedBy;
+	public Account owner;
 
-	ItemSlot itemSlot;
+	public ItemSlot itemSlot;
 
 	public Attribute[] attributes;
+
+	public Item()
+	{
+
+	}
 
 	public Item(ItemTemplate template)
 	{

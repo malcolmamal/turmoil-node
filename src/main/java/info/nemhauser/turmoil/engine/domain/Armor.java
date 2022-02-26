@@ -6,9 +6,14 @@ import info.nemhauser.turmoil.engine.templates.ArmorTemplate;
 
 public class Armor extends Item
 {
-	private ArmorType armorType;
+	public ArmorType armorType;
 
 	public Integer armorValue = 0;
+
+	public Armor()
+	{
+		super();
+	}
 
 	public Armor(ArmorTemplate template)
 	{

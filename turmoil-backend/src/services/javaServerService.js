@@ -84,6 +84,31 @@ class JavaServerService {
 
     return result.json();
   };
+
+  static itemToStash = async (body) => {
+    const result = await fetch(
+      `${API_PATH}/json/jsonItemToStash`,
+      { method: 'POST', body },
+    );
+
+    return result.json();
+  };
+
+  static generateItem = async (boost) => {
+    const result = await fetch(
+      `${API_PATH}/json/jsonGenerateItem/${boost || 0}`,
+    );
+
+    return result.json();
+  };
+
+  static fetchItem = async (itemIdent) => {
+    const result = await fetch(
+      `${API_PATH}/json/jsonFetchItem/${itemIdent}`,
+    );
+
+    return result.json();
+  };
 }
 
 export default JavaServerService;

@@ -491,7 +491,7 @@ public class ItemAttributeGenerator
 				possibleAttributeTypes.remove(attributeType);
 			}
 
-			return new Attribute(item, attributeType, primaryValue, secondaryValue, tertiaryValue);
+			return new Attribute(attributeType, primaryValue, secondaryValue, tertiaryValue); // item,
 		}
 		return null;
 	}

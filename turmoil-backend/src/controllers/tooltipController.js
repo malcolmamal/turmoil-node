@@ -2,7 +2,6 @@ import { StatusCodes } from 'http-status-codes';
 import JavaServerService from '../services/javaServerService.js';
 import Logger from '../utils/logger.js';
 
-
 const tooltip = async (req, res, next) => {
   Logger.log('in the tooltip');
   const { type, ident } = req.params;

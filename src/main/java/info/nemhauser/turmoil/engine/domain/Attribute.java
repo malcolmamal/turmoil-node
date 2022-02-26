@@ -4,7 +4,7 @@ import info.nemhauser.turmoil.engine.enums.AttributeType;
 
 public class Attribute
 {
-	Item item;
+	// public Item item;
 
 	public AttributeType type;
 
@@ -12,9 +12,14 @@ public class Attribute
 	public double secondaryValue = 0;
 	public double tertiaryValue = 0;
 
-	public Attribute(Item item, AttributeType attributeType, double primaryValue, double secondaryValue, double tertiaryValue)
+	public Attribute()
 	{
-		this.item = item;
+
+	}
+
+	public Attribute(AttributeType attributeType, double primaryValue, double secondaryValue, double tertiaryValue) // Item item,
+	{
+		// this.item = item;
 		this.type = attributeType;
 		this.primaryValue = primaryValue;
 		this.secondaryValue = secondaryValue;
@@ -35,8 +40,8 @@ public class Attribute
 				" ]";
 	}
 
-	public double[] getValues()
-	{
-		return new double[] {primaryValue, secondaryValue, tertiaryValue};
-	}
+//	public double[] getValues()
+//	{
+//		return new double[] {primaryValue, secondaryValue, tertiaryValue};
+//	}
 }

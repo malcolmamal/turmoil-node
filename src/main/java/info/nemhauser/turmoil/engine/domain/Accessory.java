@@ -6,7 +6,12 @@ import info.nemhauser.turmoil.engine.templates.AccessoryTemplate;
 
 public class Accessory extends Item
 {
-	private AccessoryType accessoryType;
+	public AccessoryType accessoryType;
+
+	public Accessory()
+	{
+		super();
+	}
 
 	public Accessory(AccessoryTemplate template)
 	{
