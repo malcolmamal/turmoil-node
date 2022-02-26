@@ -1,11 +1,13 @@
 import { Axios } from '../../core/turmoil-axios';
 
-export const initializeEnemyUnitsAction = async () => await Axios.post('instance/initializeEnemyUnits');
+const servicePrefix = 'instance';
 
-export const initializeFriendlyUnitsAction = async () => await Axios.post('instance/initializeFriendlyUnits');
+export const initializeEnemyUnitsAction = async () => await Axios.post(`${servicePrefix}/initializeEnemyUnits`);
 
-export const initializeEquipmentAction = async () => await Axios.get('instance/initializeEquipment');
+export const initializeFriendlyUnitsAction = async () => await Axios.post(`${servicePrefix}/initializeFriendlyUnits`);
 
-export const initializeStashAction = async () => await Axios.get('instance/initializeStash');
+export const initializeEquipmentAction = async () => await Axios.get(`${servicePrefix}/initializeEquipment`);
 
-export const onPolygonAction = async (polygonId) => await Axios.block().get(`instance/instanceActionOnPosition/${polygonId}`);
+export const initializeStashAction = async () => await Axios.get(`${servicePrefix}/initializeStash`);
+
+export const onPolygonAction = async (polygonId) => await Axios.block().get(`${servicePrefix}/instanceActionOnPosition/${polygonId}`);
