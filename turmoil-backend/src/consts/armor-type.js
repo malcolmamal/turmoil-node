@@ -1,0 +1,10 @@
+export default {
+  HELM: 'HELM',
+  CHEST: 'CHEST',
+  BELT: 'BELT',
+  GLOVES: 'GLOVES',
+  PANTS: 'PANTS',
+  BOOTS: 'BOOTS',
+  BRACERS: 'BRACERS',
+  PAULDRONS: 'PAULDRONS',
+};

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import info.nemhauser.turmoil.TurmoilApplication;
+import info.nemhauser.turmoil.config.Logger;
 import info.nemhauser.turmoil.engine.domain.Accessory;
 import info.nemhauser.turmoil.engine.domain.Armor;
 import info.nemhauser.turmoil.engine.domain.Item;
@@ -60,23 +61,40 @@ public class JSONController {
 
         try
         {
-            if (jsonString.contains("\"itemType\": \"WEAPON\""))
+            Logger.log("Adding item to stash");
+            Logger.log(jsonString);
+            Item item = null;
+
+            if (jsonString.contains("\"itemType\": \"WEAPON\"") || jsonString.contains("\"itemType\":\"WEAPON\""))
             {
+                Logger.log("Adding weapon");
                 Weapon newItem = mapper.readValue(jsonString, Weapon.class);
                 TurmoilApplication.getServerState().addItem(newItem);
+                item = newItem;
             }
-            else if (jsonString.contains("\"itemType\": \"ARMOR\""))
+            else if (jsonString.contains("\"itemType\": \"ARMOR\"") || jsonString.contains("\"itemType\":\"ARMOR\""))
             {
+                Logger.log("Adding armor");
                 Armor newItem = mapper.readValue(jsonString, Armor.class);
                 TurmoilApplication.getServerState().addItem(newItem);
+                item = newItem;
             }
-            else if (jsonString.contains("\"itemType\": \"ACCESSORY\""))
+            else if (jsonString.contains("\"itemType\": \"ACCESSORY\"") || jsonString.contains("\"itemType\":\"ACCESSORY\""))
             {
+                Logger.log("Adding accessory");
                 Accessory newItem = mapper.readValue(jsonString, Accessory.class);
                 TurmoilApplication.getServerState().addItem(newItem);
+                item = newItem;
             }
 
             object.put("status", true);
+            object.put("jsonString", jsonString);
+            if (item != null)
+            {
+                object.put("id", item.id);
+                object.put("itemName", item.itemName);
+                object.put("itemCode", item.itemCode);
+            }
         } catch (JsonProcessingException e) {
             e.printStackTrace();
 

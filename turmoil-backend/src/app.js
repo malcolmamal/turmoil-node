@@ -1,7 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import sequelize from './configs/database.js';
 import userRouter from './routes/userRoutes.js';
 import jsonRouter from './routes/json-routes.js';
 import tooltipRouter from './routes/tooltipRoutes.js';
@@ -10,6 +9,8 @@ import characterRouter from './routes/characterRoutes.js';
 import Logger from './utils/logger.js';
 import createErrorMiddleware from './middleware/errorMiddleware.js';
 import initializePassport from './configs/passport/passport.js';
+import itemRouter from './routes/item-routes.js';
+import initializeSequelize from './provider/db/sequelize.js';
 
 // in case of doubled request, favicon workaround
 // app.get('/favicon.ico', (req, res) => res.sendStatus(204));
@@ -17,16 +18,7 @@ import initializePassport from './configs/passport/passport.js';
 // https://stackoverflow.com/questions/35408729/express-js-prevent-get-favicon-ico/35408810#35408810
 
 const createApp = () => {
-  (async () => {
-    try {
-      await sequelize.authenticate();
-      Logger.log('Connection has been established successfully.');
-      await sequelize.sync({ force: false });
-    } catch (err) {
-      Logger.log('Database error', err);
-    }
-  })();
-
+  initializeSequelize();
   initializePassport();
 
   const app = express();
@@ -41,11 +33,13 @@ const createApp = () => {
   }));
 
   app.use('/user', userRouter);
+  app.use('/item', itemRouter);
   app.use('/json', jsonRouter);
   app.use('/tooltip', tooltipRouter);
   app.use('/instance', instanceRouter);
   app.use('/character', characterRouter);
 
+  // eslint-disable-next-line no-console
   app.use(createErrorMiddleware({ logger: { error: console.error, log: Logger.log } }));
 
   Logger.log('JavaServerService started');

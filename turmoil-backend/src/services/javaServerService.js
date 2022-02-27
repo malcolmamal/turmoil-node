@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 
-const API_PATH = 'http://localhost:8080';
+export const API_PATH = 'http://localhost:8080';
 
 // TODO: wrap each fetch and check for errors
 

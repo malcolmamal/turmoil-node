@@ -1,0 +1,5 @@
+export default {
+  NORMAL: 'NORMAL',
+  CRITICAL: 'CRITICAL',
+  DEVASTATE: 'DEVASTATE',
+};
