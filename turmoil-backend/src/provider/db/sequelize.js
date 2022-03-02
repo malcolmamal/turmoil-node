@@ -10,16 +10,14 @@ Attribute.belongsTo(Item, {
 Item.hasMany(Attribute);
 // Item.hasOne(User);
 
-const initializeSequelize = () => {
-  (async () => {
-    try {
-      await sequelize.authenticate();
-      Logger.log('Connection has been established successfully.');
-      await sequelize.sync({ force: false });
-    } catch (err) {
-      Logger.log('Database error', err);
-    }
-  })();
+const initializeSequelize = async () => {
+  try {
+    await sequelize.authenticate();
+    Logger.log('Connection has been established successfully.');
+    await sequelize.sync({ force: false });
+  } catch (err) {
+    Logger.log('Database error', err);
+  }
 };
 
 export default initializeSequelize;

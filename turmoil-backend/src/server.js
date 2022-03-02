@@ -21,9 +21,9 @@ function setupGracefulShutdown(server) {
   process.on('uncaughtException', () => process.exit());
 }
 
-export function startServer(host = 'localhost', port = 3030, options = {}) {
+async function startServer(host = 'localhost', port = 3030, options = {}) {
   const server = http.createServer(
-    createApp(),
+    await createApp(),
   );
 
   server.listen(port, host, () => {

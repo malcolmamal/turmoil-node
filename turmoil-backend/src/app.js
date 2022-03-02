@@ -17,8 +17,8 @@ import initializeSequelize from './provider/db/sequelize.js';
 // or instead: res.status(204).end()
 // https://stackoverflow.com/questions/35408729/express-js-prevent-get-favicon-ico/35408810#35408810
 
-const createApp = () => {
-  initializeSequelize();
+const createApp = async () => {
+  await initializeSequelize();
   initializePassport();
 
   const app = express();

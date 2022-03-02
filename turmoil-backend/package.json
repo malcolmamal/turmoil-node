@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "lint": "node ./node_modules/eslint/bin/eslint.js src --ext=js",
     "lint:fix": "npm run lint -- --fix"
   },
@@ -29,9 +29,13 @@
     "sequelize": "^6.13.0"
   },
   "devDependencies": {
+    "@jest/globals": "^27.5.1",
     "eslint": "^8.7.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.4",
-    "nodemon": "^2.0.15"
+    "eslint-plugin-jest": "^26.1.1",
+    "jest": "^27.5.1",
+    "nodemon": "^2.0.15",
+    "supertest": "^6.2.2"
   }
 }
