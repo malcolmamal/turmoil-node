@@ -129,11 +129,6 @@ th:hover, tr:hover {
 	color: white;
 }
 
-.ui-tooltip {
-	max-width: 353px;
-	width: 353px;
-}
-
 .icons {
 	height: 24px;
 	width: 24px;

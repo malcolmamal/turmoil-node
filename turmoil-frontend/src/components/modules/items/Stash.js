@@ -6,7 +6,6 @@ import ReduxActions from '../../../js/redux/actions';
 import '../../../stylesheets/window-stash.css';
 import Logger from '../../../js/utils/logger';
 import Windows from '../../../js/core/turmoil-windows';
-import { addSortable } from '../../../js/core/turmoil-draggable-sortable-resizable';
 import { initializeStashAction } from '../../../js/api/services/instance-service';
 
 function Stash() {
@@ -18,7 +17,7 @@ function Stash() {
   };
 
   useEffect(async () => {
-    addSortable('#stashItemListContainer', '#stashItemContainer');
+    // addSortable('#stashItemListContainer', '#stashItemContainer');
 
     if (window.debug) {
       Logger.log('Stash initialized...');

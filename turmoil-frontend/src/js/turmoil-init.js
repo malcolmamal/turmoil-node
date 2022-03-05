@@ -1,5 +1,4 @@
 import moment from 'moment';
-import 'jquery-ui/themes/base/all.css';
 import Utils from './core/turmoil-utils';
 import Logger from './utils/logger';
 

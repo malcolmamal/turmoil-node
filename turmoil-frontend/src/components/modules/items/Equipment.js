@@ -4,8 +4,6 @@ import Window from '../../Window';
 import ItemSlotEquipment from './ItemSlotEquipment';
 import ReduxActions from '../../../js/redux/actions';
 import Windows from '../../../js/core/turmoil-windows';
-import { addDraggable } from '../../../js/core/turmoil-draggable-sortable-resizable';
-import Tooltip from '../../../js/core/turmoil-tooltip';
 import { initializeEquipmentAction } from '../../../js/api/services/instance-service';
 
 function Equipment() {
@@ -26,18 +24,6 @@ function Equipment() {
   };
 
   useEffect(async () => {
-    Object.keys(window.turmoil.equipment.defaultItems).forEach((item) => {
-      addDraggable(`#${item}`, {
-        revert: true,
-        start() {
-          Tooltip.hideAllTooltips();
-        },
-        stop() {
-          Tooltip.hideAllTooltips();
-        },
-      });
-    });
-
     const response = await initializeEquipmentAction();
     wornItems(response.data);
 

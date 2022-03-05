@@ -18,7 +18,6 @@ import Layout from '../js/core/turmoil-layout';
 import Utils from '../js/core/turmoil-utils';
 import Windows from '../js/core/turmoil-windows';
 import Tooltip from '../js/core/turmoil-tooltip';
-import { addDraggable } from '../js/core/turmoil-draggable-sortable-resizable';
 
 function Turmoil() {
   const navigate = useNavigate();
@@ -39,11 +38,6 @@ function Turmoil() {
       Logger.log('location redirection from', location.pathname, 'to ', 'login');
       navigate('/login');
     }
-
-    // TODO: probably move it to WindowIcon
-    document.querySelectorAll('.windowIcon').forEach((icon) => addDraggable(`#${icon.id}`, {
-      revert: true,
-    }));
 
     Layout.setLayout();
     Utils.addEvent(window, 'resize', Layout.resizeEvent);
@@ -80,13 +74,13 @@ function Turmoil() {
       <Route
         path="/logged"
         element={(
-          <div>
+          <>
             <Console />
             <Equipment />
             <Stash />
             <Stats />
             <Location />
-          </div>
+          </>
           )}
       />
       <Route

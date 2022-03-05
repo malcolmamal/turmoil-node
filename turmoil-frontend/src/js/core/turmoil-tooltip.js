@@ -1,5 +1,6 @@
 import jQuery from 'jquery';
 import 'jquery-ui/ui/widgets/tooltip';
+import 'jquery-ui/themes/base/all.css';
 import '../../stylesheets/turmoil-tooltip.css';
 import Logger from '../utils/logger';
 import { Axios } from './turmoil-axios';

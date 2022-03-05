@@ -1,4 +1,6 @@
 .ui-tooltip {
+	max-width: 353px;
+	width: 353px;
 	padding: 0 !important;
 }
 

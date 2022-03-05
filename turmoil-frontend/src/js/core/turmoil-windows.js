@@ -1,6 +1,5 @@
 import Tooltip from './turmoil-tooltip';
 import Layout from './turmoil-layout';
-import { addDraggable, addResizable } from './turmoil-draggable-sortable-resizable';
 
 const Windows = {
   windowSizes: {
@@ -31,48 +30,48 @@ const Windows = {
 
     const windowResizerIdent = `#window_${windowType}_resizer`;
     const windowResizer = document.querySelector(windowResizerIdent);
-    addDraggable(windowResizerIdent, {
-      handle: `#handle_${windowType}_container`,
-      containment: '.turmoilBody',
-      stack: '.windowResizer',
-      snap: '.windowResizer',
-      snapMode: 'outer',
-      start() {
-        Tooltip.hideAllTooltips();
-      },
-      stop() {
-        Tooltip.hideAllTooltips();
+    // addDraggable(windowResizerIdent, {
+    //   handle: `#handle_${windowType}_container`,
+    //   containment: '.turmoilBody',
+    //   stack: '.windowResizer',
+    //   snap: '.windowResizer',
+    //   snapMode: 'outer',
+    //   start() {
+    //     Tooltip.hideAllTooltips();
+    //   },
+    //   stop() {
+    //     Tooltip.hideAllTooltips();
+    //
+    //     window.turmoil.windowSettings[windowType].left = windowResizer.style.left;
+    //     window.turmoil.windowSettings[windowType].top = windowResizer.style.top;
+    //     Windows.saveWindowsPositions();
+    //   },
+    // });
 
-        window.turmoil.windowSettings[windowType].left = windowResizer.style.left;
-        window.turmoil.windowSettings[windowType].top = windowResizer.style.top;
-        Windows.saveWindowsPositions();
-      },
-    });
-
-    addResizable(windowResizerIdent, {
-      aspectRatio: true,
-      helper: 'ui-resizable-helper',
-      start() {
-        Tooltip.hideAllTooltips();
-      },
-      stop() {
-        Tooltip.hideAllTooltips();
-
-        const keyWidth = `${windowType}Width`;
-        if (isScalable && Windows.windowSizes[keyWidth] !== 0) {
-          const scale = document.querySelector(`#window_${windowType}_resizer`).offsetWidth / Windows.windowSizes[keyWidth];
-          Windows.setWindowScale(scale, windowType);
-
-          // fixing the horizontal alignment
-          Windows.fixHorizontalAlignment(`window_${windowType}_resizer`, `window_${windowType}_wrapper`);
-
-          // TODO: save changes with fetch
-
-          window.turmoil.windowSettings[windowType].scale = scale;
-          Windows.saveWindowsPositions();
-        }
-      },
-    });
+    // addResizable(windowResizerIdent, {
+    //   aspectRatio: true,
+    //   helper: 'ui-resizable-helper',
+    //   start() {
+    //     Tooltip.hideAllTooltips();
+    //   },
+    //   stop() {
+    //     Tooltip.hideAllTooltips();
+    //
+    //     const keyWidth = `${windowType}Width`;
+    //     if (isScalable && Windows.windowSizes[keyWidth] !== 0) {
+    //       const scale = document.querySelector(`#window_${windowType}_resizer`).offsetWidth / Windows.windowSizes[keyWidth];
+    //       Windows.setWindowScale(scale, windowType);
+    //
+    //       // fixing the horizontal alignment
+    //       Windows.fixHorizontalAlignment(`window_${windowType}_resizer`, `window_${windowType}_wrapper`);
+    //
+    //       // TODO: save changes with fetch
+    //
+    //       window.turmoil.windowSettings[windowType].scale = scale;
+    //       Windows.saveWindowsPositions();
+    //     }
+    //   },
+    // });
 
     if (isVisible) {
       if (!verticalPos || !horizontalPos) {
