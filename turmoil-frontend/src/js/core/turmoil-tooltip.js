@@ -1,99 +1,57 @@
-import jQuery from 'jquery';
-import 'jquery-ui/ui/widgets/tooltip';
-import 'jquery-ui/themes/base/all.css';
+import tippy, { hideAll } from 'tippy.js';
 import '../../stylesheets/turmoil-tooltip.css';
 import Logger from '../utils/logger';
 import { Axios } from './turmoil-axios';
 
 const Tooltip = {
   emptyContent: "<div id='something-_ID_'>_CONTENT_</div>",
-  tooltipClass: ' tooltip itemTooltip',
   tooltipContents: {},
 
   hideAllTooltips() {
-    jQuery('.ui-tooltip').hide();
+    // TODO: might not be needed after changing to tippy
+    hideAll({ duration: 0 });
   },
   prepareTooltip: function prepareTooltip(id, data) {
     Tooltip.tooltipContents[id] = Tooltip.emptyContent.replace('_CONTENT_', data).replace('_ID_', id);
     document.querySelector(`#something-${id}`).innerHTML = data;
   },
-  isElementVisibleOrAlreadyGone: function isElementVisibleOrAlreadyGone(element) {
-    if (jQuery(element).length === 0) {
-      // element is already gone so no need to do anything
-      return true;
+  initForIdent: (ident) => {
+    if (!ident) {
+      return;
     }
+    const element = document.querySelectorAll(`[data-ident="${ident}"]`)[0];
+    const type = element.dataset.tooltipType;
 
-    const topView = jQuery(window).scrollTop();
-    const bottomView = topView + jQuery(window).height();
-    const topElement = jQuery(element).offset().top;
-    const bottomElement = topElement + jQuery(element).height();
-
-    return ((bottomElement <= bottomView) && (topElement >= topView));
-  },
-  reopenTooltipIfNotVisible: function reopenTooltipIfNotVisible(element, tooltipId) {
-    if (!Tooltip.isElementVisibleOrAlreadyGone(tooltipId)) {
-      element.tooltip().mouseout();
-      setTimeout(() => { element.tooltip().mouseover(); }, 10);
-    }
-  },
-  handleItemTooltipContent: function handleItemTooltipContent(element) {
-    const ident = element.data('ident');
-    const type = element.data('tooltip-type');
-
-    Logger.log('shift', window.pressedKeys.shift);
-
-    if (type === 'monster' && !window.pressedKeys.shift) {
-      return '';
-    }
-
-    let content = Tooltip.emptyContent.replace('_CONTENT_', '').replace('_ID_', ident);
-    if (type !== 'monster' && Tooltip.tooltipContents[ident]) {
-      // TODO: low priority but it would be nice to figure out if we actually need to fetch monster tooltip every time
-      content = Tooltip.tooltipContents[ident];
-    } else {
-      // hide all the other existing tooltips
-      Tooltip.hideAllTooltips();
-
-      Axios.post(`tooltip/${type}/${ident}`).then((response) => {
-        Tooltip.prepareTooltip(ident, response.data);
-        setTimeout(() => {
-          Tooltip.reopenTooltipIfNotVisible(element, `#something-${ident}`);
-        }, 10);
-      }).catch((err) => {
-        Logger.log('Tooltip error', ident, err);
-      });
-    }
-
-    return content;
-  },
-  init: () => {
-    jQuery(document).tooltip({
-      items: '.tooltip',
-      hide: false,
-      show: false,
-      tooltipClass: 'fancyTooltip',
-      position: { my: 'left+15 top', at: 'right center' },
-      content() {
-        let content;
-        if (jQuery(this).hasClass('itemTooltip')) {
-          content = Tooltip.handleItemTooltipContent(jQuery(this));
-        } else {
-          content = jQuery(this).prop('title');
+    tippy(element, {
+      content: `Loading tooltip for ${type}:${ident}...`,
+      placement: 'right-start',
+      arrow: true,
+      allowHTML: true,
+      duration: [100, 0],
+      onShow(instance) {
+        if (type === 'monster' && !window.pressedKeys.shift) {
+          instance.setContent(null);
+          return;
         }
 
-        return content;
-      },
-      open(event, ui) {
-        // closing current tooltip after 20 seconds
-        setTimeout(() => {
-          jQuery(ui.tooltip).hide();
-        }, 20000 * 100);
+        let content = Tooltip.emptyContent.replace('_CONTENT_', '').replace('_ID_', ident);
+        if (type !== 'monster' && Tooltip.tooltipContents[ident]) {
+          // TODO: low priority but it would be nice to figure out if we actually need to fetch monster tooltip every time
+          content = Tooltip.tooltipContents[ident];
+        } else {
+          // hide all the other existing tooltips
+          Tooltip.hideAllTooltips();
+
+          Axios.post(`tooltip/${type}/${ident}`).then((response) => {
+            Tooltip.prepareTooltip(ident, response.data);
+          }).catch((err) => {
+            Logger.log('Tooltip error', ident, err);
+          });
+        }
+
+        instance.setContent(content);
       },
     });
-
-    if (window.debug) {
-      Logger.log('Tooltip initialized...');
-    }
   },
 };
 

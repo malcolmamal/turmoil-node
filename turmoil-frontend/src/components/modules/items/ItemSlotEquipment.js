@@ -106,7 +106,9 @@ function ItemSlotEquipment(props) {
   WindowLocation.setAttackType(item);
 
   return (
-    <div onContextMenu={(event) => { onContextMenuHandler(event, item); }}>
+    <div
+      onContextMenu={(event) => { onContextMenuHandler(event, item); }}
+    >
       {rightHandEffect}
       {leftHandEffect}
 

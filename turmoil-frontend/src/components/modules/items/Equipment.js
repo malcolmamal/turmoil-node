@@ -5,6 +5,7 @@ import ItemSlotEquipment from './ItemSlotEquipment';
 import ReduxActions from '../../../js/redux/actions';
 import Windows from '../../../js/core/turmoil-windows';
 import { initializeEquipmentAction } from '../../../js/api/services/instance-service';
+import Logger from '../../../js/utils/logger';
 
 function Equipment() {
   const stateData = useSelector((state) => state);
@@ -28,6 +29,10 @@ function Equipment() {
     wornItems(response.data);
 
     Windows.initWindow('equipment', true);
+
+    if (window.debug) {
+      Logger.log('Equipment initialized...', response.data);
+    }
   }, []);
 
   const { equipmentItems } = stateData;

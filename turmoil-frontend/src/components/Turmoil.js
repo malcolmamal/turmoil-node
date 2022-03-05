@@ -17,7 +17,6 @@ import Logger from '../js/utils/logger';
 import Layout from '../js/core/turmoil-layout';
 import Utils from '../js/core/turmoil-utils';
 import Windows from '../js/core/turmoil-windows';
-import Tooltip from '../js/core/turmoil-tooltip';
 
 function Turmoil() {
   const navigate = useNavigate();
@@ -41,10 +40,6 @@ function Turmoil() {
 
     Layout.setLayout();
     Utils.addEvent(window, 'resize', Layout.resizeEvent);
-
-    Tooltip.init();
-
-    Logger.log('Turmoil container mounted at', location.pathname);
   });
 
   const testButton = (e) => {

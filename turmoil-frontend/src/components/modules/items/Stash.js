@@ -19,14 +19,14 @@ function Stash() {
   useEffect(async () => {
     // addSortable('#stashItemListContainer', '#stashItemContainer');
 
-    if (window.debug) {
-      Logger.log('Stash initialized...');
-    }
-
     const response = await initializeStashAction();
     stashedItems(response.data);
 
     Windows.initWindow('stash', true);
+
+    if (window.debug) {
+      Logger.log('Stash initialized...');
+    }
   }, []);
 
   const background = {
@@ -41,19 +41,15 @@ function Stash() {
     <Window ident="stash" background={background}>
       <div id="stashItemContainerWrapper">
         <div id="stashItemContainer" className="stashItemContainer">
-          <ul id="stashItemListContainer">
-
-            {stashItems.map((item) => (
-              <ItemSlotStash
-                item={item.ident}
-                rarity={item.rarity}
-                key={item.ident}
-                filePath={item.filePath}
-                fileCode={item.fileCode}
-              />
-            ))}
-
-          </ul>
+          {stashItems.map((item) => (
+            <ItemSlotStash
+              item={item.ident}
+              rarity={item.rarity}
+              key={item.ident}
+              filePath={item.filePath}
+              fileCode={item.fileCode}
+            />
+          ))}
         </div>
       </div>
     </Window>

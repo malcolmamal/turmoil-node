@@ -71,7 +71,7 @@ function ItemSlotStash(props) {
   const className = `stashItem d3-icon d3-icon-item stash-icon-item-large d3-icon-item-${rarity}`;
 
   return (
-    <li
+    <div
       className="stashItemListEntry"
       id={`stash_item_${itemIdent}`}
       item={itemIdent}
@@ -84,7 +84,7 @@ function ItemSlotStash(props) {
         iconClass="stash-icon-item-default"
         className={className}
       />
-    </li>
+    </div>
   );
 }
 

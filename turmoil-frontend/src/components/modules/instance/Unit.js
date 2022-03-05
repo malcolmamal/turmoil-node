@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Tooltip from '../../../js/core/turmoil-tooltip';
 
 function Unit(props) {
@@ -13,11 +13,14 @@ function Unit(props) {
   const imageClass = enemy ? ' instancePortraitFlipped instanceEnemy instanceEnemyCursor' : '';
   const mainDivClass = enemy ? ' enemyUnit' : '';
   const tooltipType = enemy ? 'monster' : '';
-  const tooltipClass = enemy ? Tooltip.tooltipClass : '';
 
   window.turmoil.instance.units[ident] = {
     movement,
   };
+
+  useEffect(async () => {
+    Tooltip.initForIdent(ident);
+  });
 
   return (
     <div className={`instanceElement${mainDivClass}`} id={ident} onClick={() => onClick(ident)}>
@@ -26,7 +29,7 @@ function Unit(props) {
       </div>
       <img
         alt={unitAlt}
-        className={`instancePortrait${imageClass}${tooltipClass}`}
+        className={`instancePortrait${imageClass}`}
         src={`/images/portraits/${portrait}`}
         data-ident={ident}
         data-tooltip-type={tooltipType}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Tooltip from '../../../js/core/turmoil-tooltip';
 
 function Item(props) {
@@ -7,7 +7,10 @@ function Item(props) {
   } = props;
 
   const opacity = ident ? 1 : 0.85;
-  const tooltipClass = ident ? Tooltip.tooltipClass : '';
+
+  useEffect(async () => {
+    Tooltip.initForIdent(ident);
+  });
 
   return (
     <div style={slotStyle}>
@@ -18,7 +21,7 @@ function Item(props) {
         <span className="icon-item-gradient">
           <span
             id={tooltipId}
-            className={`icon-item-inner ${iconClass} ${tooltipClass}`}
+            className={`icon-item-inner ${iconClass}`}
             style={{ backgroundImage }}
             data-ident={ident}
             data-tooltip-type="item"
