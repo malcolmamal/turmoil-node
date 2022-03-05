@@ -1,4 +1,4 @@
-const loginAsUserWithPassword = async (page, user, password) => {
+export const loginAsUserWithPassword = async (page, user, password) => {
   await page.focus('#email');
   await page.keyboard.type(user);
 
@@ -12,8 +12,6 @@ const loginAsUserWithPassword = async (page, user, password) => {
   });
 };
 
-const logout = async (page) => {
+export const logout = async (page) => {
   await page.click('#logout');
 };
-
-module.exports = { loginAsUserWithPassword, logout };

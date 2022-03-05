@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer');
+import puppeteer from 'puppeteer';
 
 const pageWidth = 1800;
 const pageHeight = 1012;
@@ -20,4 +20,4 @@ const initializeBrowserAndPage = async (headless) => {
   return [browser, page];
 };
 
-module.exports = initializeBrowserAndPage;
+export default initializeBrowserAndPage;

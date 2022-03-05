@@ -1,6 +1,6 @@
-const initializeBrowserAndPage = require('../helpers/puppeteer-init');
-const baseUrl = require('../helpers/consts');
-const { loginAsUserWithPassword, logout } = require('../actions/login-action');
+import initializeBrowserAndPage from '../helpers/puppeteer-init';
+import baseUrl from '../helpers/consts';
+import { loginAsUserWithPassword, logout } from '../actions/login-action';
 
 let browser;
 let page;
