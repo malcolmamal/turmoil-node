@@ -9,43 +9,18 @@
 	height: 216px !important;
 }
 
-.ui-widget {
-	font-size: 13px;
-}
-
-.ui-widget-header {
-	background: none;
-	border: 0;
-	padding: 0;
+.react-tabs__tab-list-console {
+	padding-inline-start: 0;
 	margin: 0;
+	padding-top: 5px;
 }
 
-.ui-tabs .ui-tabs-nav .ui-tabs-anchor {
-	padding: 0;
-}
-
-.ui-tabs .ui-tabs-nav {
-	margin: 0;
-	padding: 0;
-	border-bottom: 1px solid #666666;
-}
-
-.ui-tabs .ui-tabs-panel {
-	padding: 4px 4px;
-	background: none;
-}
-
-.ui-widget-content {
-	color: #ffffff;
-}
-
-.ui-widget-header .ui-tab {
-	background: #b88957 !important;
-	border: 1px solid #bdafa6 !important;
-}
-
-.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
-	border: 1px solid #b3ada1 !important;
+.react-tabs__tab-list-console li {
+	display:inline;
+	padding: 3px;
+	margin-left: 3px;
+	border: 2px solid black;
+	border-bottom: 1px solid black;
 }
 
 .consoleTab {

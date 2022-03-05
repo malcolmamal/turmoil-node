@@ -136,16 +136,21 @@ window.turmoil.log = (content, targetParam) => {
       currentDate += ` (${difference}ms) `;
     }
 
+    /**
+     * TODO: do not create divs, use store
+     */
+
     const div = document.createElement('div');
     div.append(`${currentDate + content}`);
 
     const consoleTargetContent = document.querySelector(`#console-${target}`);
     consoleTargetContent.prepend(div);
 
-    if (target !== 'all') {
-      const allConsoleTargetContent = document.querySelector('#console-all');
-      allConsoleTargetContent.prepend(div.cloneNode(true));
-    }
+    // temporarily commented out till store is added for tabs
+    // if (target !== 'all') {
+    //   const allConsoleTargetContent = document.querySelector('#console-all');
+    //   allConsoleTargetContent.prepend(div.cloneNode(true));
+    // }
 
     window.turmoil.lastLogDate = currentDateObject;
   } else {
