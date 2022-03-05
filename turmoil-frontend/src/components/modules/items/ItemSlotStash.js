@@ -67,9 +67,8 @@ function ItemSlotStash(props) {
 
   const itemIdent = item;
   const itemFileCode = fileCode;
-  const itemRarityClass = rarity;
   const itemImageFile = `url('${filePath}'`;
-  const className = `stashItem d3-icon d3-icon-item stash-icon-item-large d3-icon-item-${itemRarityClass}`;
+  const className = `stashItem d3-icon d3-icon-item stash-icon-item-large d3-icon-item-${rarity}`;
 
   return (
     <li
