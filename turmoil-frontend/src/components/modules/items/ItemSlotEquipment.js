@@ -8,6 +8,7 @@ import WindowLocation from '../../../js/windows/window-location';
 import Permissions from '../../../js/core/turmoil-permissions';
 import Logger from '../../../js/utils/logger';
 import { unequipAction } from '../../../js/api/services/character-service';
+import Item from './Item';
 
 function ItemSlotEquipment(props) {
   const dispatch = useDispatch();
@@ -67,7 +68,6 @@ function ItemSlotEquipment(props) {
     item: propItem,
     iconItemSize: propIconItemSize,
     top, left,
-    slot,
   } = props;
   const item = propItem || {};
 
@@ -75,12 +75,11 @@ function ItemSlotEquipment(props) {
   const itemIdent = item.ident ? item.ident : '';
 
   const tooltipId = item.ident ? `tooltip_${item.fileCode}_${item.ident}` : '';
-  const tooltipClass = item.ident ? Tooltip.tooltipClass : '';
 
   const iconItemSize = propIconItemSize || 'default';
   const itemBackgroundImage = item.filePath ? `url(${item.filePath})` : '';
   const positionStyle = { position: 'absolute', top: `${top}px`, left: `${left}px` };
-  const opacity = item.ident ? 1 : 0.85;
+  const className = `d3-icon d3-icon-item d3-icon-item-large d3-icon-item-${rarity}`;
 
   const rightHandEffect = (item.slot === 'slot_right_hand' && item.damageType)
     ? (
@@ -107,27 +106,18 @@ function ItemSlotEquipment(props) {
   WindowLocation.setAttackType(item);
 
   return (
-    <div>
+    <div onContextMenu={(event) => { onContextMenuHandler(event, item); }}>
       {rightHandEffect}
       {leftHandEffect}
 
-      <div className="slot-link" id={slot} style={positionStyle}>
-        <span
-          className={`d3-icon d3-icon-item d3-icon-item-large d3-icon-item-${rarity}`}
-          style={{ opacity }}
-          onContextMenu={(event) => { onContextMenuHandler(event, item); }}
-        >
-          <span className="icon-item-gradient">
-            <span
-              id={tooltipId}
-              className={`icon-item-inner icon-item-${iconItemSize}${tooltipClass}`}
-              style={{ backgroundImage: itemBackgroundImage }}
-              data-ident={itemIdent}
-              data-tooltip-type="item"
-            />
-          </span>
-        </span>
-      </div>
+      <Item
+        ident={itemIdent}
+        tooltipId={tooltipId}
+        backgroundImage={itemBackgroundImage}
+        iconClass={`icon-item-${iconItemSize}`}
+        className={className}
+        slotStyle={positionStyle}
+      />
     </div>
   );
 }

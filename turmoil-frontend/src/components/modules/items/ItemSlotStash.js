@@ -6,6 +6,7 @@ import Tooltip from '../../../js/core/turmoil-tooltip';
 import Sound from '../../../js/core/turmoil-sound';
 import Permissions from '../../../js/core/turmoil-permissions';
 import { equipAction } from '../../../js/api/services/character-service';
+import Item from './Item';
 
 function ItemSlotStash(props) {
   const dispatch = useDispatch();
@@ -68,6 +69,7 @@ function ItemSlotStash(props) {
   const itemFileCode = fileCode;
   const itemRarityClass = rarity;
   const itemImageFile = `url('${filePath}'`;
+  const className = `stashItem d3-icon d3-icon-item stash-icon-item-large d3-icon-item-${itemRarityClass}`;
 
   return (
     <li
@@ -76,21 +78,13 @@ function ItemSlotStash(props) {
       item={itemIdent}
       onContextMenu={(event) => { onContextMenuHandler(event, itemIdent); }}
     >
-      <a
-        className={`slot slot-mainHand${Tooltip.tooltipClass}`}
-        id={`tooltip_${itemFileCode}_${itemIdent}`}
-        data-ident={itemIdent}
-        data-tooltip-type="item"
-      >
-        <span className={`stashItem d3-icon d3-icon-item stash-icon-item-large d3-icon-item-${itemRarityClass}`}>
-          <span className="icon-item-gradient">
-            <span
-              className="icon-item-inner stash-icon-item-default"
-              style={{ backgroundImage: itemImageFile }}
-            />
-          </span>
-        </span>
-      </a>
+      <Item
+        ident={itemIdent}
+        tooltipId={`tooltip_${itemFileCode}_${itemIdent}`}
+        backgroundImage={itemImageFile}
+        iconClass="stash-icon-item-default"
+        className={className}
+      />
     </li>
   );
 }
