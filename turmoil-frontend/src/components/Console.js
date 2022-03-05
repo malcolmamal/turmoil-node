@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react';
 import jQuery from 'jquery';
 import 'jquery-ui/ui/widgets/tabs';
-import 'jquery-mousewheel';
-import 'malihu-custom-scrollbar-plugin';
 import Window from './Window';
-import 'malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css';
 import '../stylesheets/window-console.css';
 import Logger from '../js/utils/logger';
 import Windows from '../js/core/turmoil-windows';
@@ -12,18 +9,6 @@ import Windows from '../js/core/turmoil-windows';
 function Console() {
   useEffect(() => {
     jQuery('#consoleTabs').tabs();
-
-    /**
-     * TODO: maybe replace it with https://scotch.io/tutorials/implementing-smooth-scrolling-in-react
-     */
-    const scrollableContainer = jQuery('.scrollableContainer');
-    if (scrollableContainer.length) {
-      if (jQuery.isFunction(jQuery().mCustomScrollbar)) {
-        scrollableContainer.mCustomScrollbar({ theme: 'dark' });
-      } else if (window.debug) {
-        Logger.log('scrollableContainer found, but custom-scrollbar module is not active...');
-      }
-    }
 
     if (window.debug) {
       Logger.log('Tabs initialized...');
@@ -62,6 +47,73 @@ function Console() {
           <div id="console-errors" className="scrollableContainer consoleTab" />
           <div id="console-chat" className="scrollableContainer consoleTab">
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpal.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpal.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpal.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpal.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpal.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpal.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
             tincidunt ut laoreet dolore magna aliquam erat volutpat.
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
             tincidunt ut laoreet dolore magna aliquam erat volutpat.

@@ -139,11 +139,11 @@ window.turmoil.log = (content, targetParam) => {
     const div = document.createElement('div');
     div.append(`${currentDate + content}`);
 
-    const consoleTargetContent = document.querySelector(`#console-${target} .mCSB_container`);
+    const consoleTargetContent = document.querySelector(`#console-${target}`);
     consoleTargetContent.prepend(div);
 
     if (target !== 'all') {
-      const allConsoleTargetContent = document.querySelector('#console-all .mCSB_container');
+      const allConsoleTargetContent = document.querySelector('#console-all');
       allConsoleTargetContent.prepend(div.cloneNode(true));
     }
 

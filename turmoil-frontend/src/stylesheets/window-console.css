@@ -44,7 +44,31 @@
 	border: 1px solid #bdafa6 !important;
 }
 
-.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active
-{
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
 	border: 1px solid #b3ada1 !important;
+}
+
+.consoleTab {
+	color: #ffffff;
+	overflow-y: scroll;
+}
+
+/* width */
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: #a48055;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: rgba(100, 82, 59, 0.53);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #000000;
 }
