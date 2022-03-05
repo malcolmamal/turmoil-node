@@ -13,20 +13,20 @@ afterEach(async () => {
   await browser.close();
 });
 
-test('Check if login button exists', async () => {
+it('should be possible to see the login button', async () => {
   const text = await page.$eval('button.button', (el) => el.textContent);
 
   expect(text).toEqual('Login');
 });
 
-test('Testing the login action', async () => {
+it('should be possible to login', async () => {
   await loginAsUserWithPassword(page, 'aaa@aaa.pl', 'nopass');
 
   const url = await page.url();
   expect(url).toEqual(`${baseUrl}/logged`);
 });
 
-test('Testing the logout action', async () => {
+it('should be possible to use the logout action', async () => {
   await loginAsUserWithPassword(page, 'aaa@aaa.pl', 'nopass');
 
   const logoutText = await page.$eval('#logout', (el) => el.innerHTML);
