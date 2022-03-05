@@ -26,6 +26,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "jest": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "eject": "react-scripts eject",
     "lint": "node ./node_modules/eslint/bin/eslint.js src --ext=js",
     "lint:fix": "npm run lint -- --fix"
@@ -72,11 +73,16 @@
     ]
   },
   "devDependencies": {
+    "@jest/globals": "^27.5.1",
     "eslint": "^8.7.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jest": "^26.1.1",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.28.0",
-    "eslint-plugin-react-hooks": "^4.3.0"
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "jest": "^27.5.1",
+    "puppeteer": "^13.4.1",
+    "supertest": "^6.2.2"
   }
 }

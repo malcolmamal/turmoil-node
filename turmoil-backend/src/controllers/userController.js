@@ -6,7 +6,7 @@ import { secretKey } from '../configs/passport/passport.js';
 import sleep from '../utils/sleep.js';
 
 export const createUser = async (req, res, next) => {
-  await sleep(1000);
+  await sleep(500);
 
   const { email } = req.body;
   const { name } = req.body;
@@ -33,7 +33,7 @@ export const createUser = async (req, res, next) => {
 };
 
 export const loginUser = async (req, res, next) => {
-  await sleep(1000);
+  await sleep(500);
 
   const { user } = req;
   try {

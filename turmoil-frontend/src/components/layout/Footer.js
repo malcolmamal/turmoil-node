@@ -13,7 +13,7 @@ function Footer(props) {
   if (localStorage.getItem('userName')) {
     logoutBox = (
       <div>
-        <Link onClick={logout} to="/login">
+        <Link onClick={logout} to="/login" id="logout">
           <FormattedMessage id="turmoil.footer.logout" />
           {' '}
           - (logged as
