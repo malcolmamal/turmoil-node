@@ -49,6 +49,7 @@ const Sound = {
   audioReady() {
     // TODO: investigate if some sound loading is required (the previous "canplay" or maybe preloading?)
     // https://www.npmjs.com/package/use-sound
+    // or maybe https://howlerjs.com/
 
     return Promise.resolve();
   },
