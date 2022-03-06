@@ -1,4 +1,6 @@
 import moment from 'moment';
+
+// utils
 import Utils from './core/turmoil-utils';
 import Logger from './utils/logger';
 
@@ -17,6 +19,9 @@ import soundAttackBow3 from '../media/audio/attack_bow_003.wav';
 import soundAccessoryJewellery from '../media/audio/change_bling_004.wav';
 import soundMediumArmor from '../media/audio/change_medium_002.wav';
 import soundWeapon from '../media/audio/change_weapon_004.wav';
+import Sound from './core/turmoil-sound';
+
+// consts
 import Consts from './core/turmoil-consts';
 
 // axios
@@ -191,20 +196,6 @@ function checkKeys(e) {
 window.onkeyup = checkKeys;
 window.onkeydown = checkKeys;
 
-function audioReady() {
-  return Promise.resolve();
-
-  // TODO: investigate if some sound loading is required (the previous "canplay")
-
-  // TODO: this code seems to not do what it's supposed to do? there are no audio elements found to do anything there
-  // also - remove jquery...
-  // return jQuery.when.apply(jQuery, jQuery('audio').map(() => {
-  //   const ready = new jQuery.Deferred();
-  //   jQuery(this).one('canplay', ready.resolve);
-  //   return ready.promise();
-  // }));
-}
-
-audioReady().then(() => {
+Sound.audioReady().then(() => {
   Logger.log('Audio assets initialized...');
 });

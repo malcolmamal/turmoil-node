@@ -46,6 +46,12 @@ const Sound = {
       window.turmoil.soundLoops[`${ident}_loop`] = false;
     }
   },
+  audioReady() {
+    // TODO: investigate if some sound loading is required (the previous "canplay" or maybe preloading?)
+    // https://www.npmjs.com/package/use-sound
+
+    return Promise.resolve();
+  },
 };
 
 export default Sound;
