@@ -4,7 +4,9 @@ const Sound = {
   playAudio(audio) {
     const sound = new Audio(window.turmoil.sounds[audio]);
     sound.load();
-    sound.play().then();
+    sound.play().then().catch((err) => {
+      sound.pause(); Logger.log('Due to an error had to stop the sound prematurely', err);
+    });
   },
   playAudioLoop(audio, suffix) {
     const ident = `${audio}_${suffix}`;
@@ -32,8 +34,10 @@ const Sound = {
         playPromise.then(() => {
           sound.pause();
         })
-          .catch((error) => {
-            Logger.log('sound pause catch', error);
+          .catch((err) => {
+            if (!err.toString().includes('failed because the user didn\'t interact with the document')) {
+              Logger.log('sound pause catch', err);
+            }
           });
       }
 
