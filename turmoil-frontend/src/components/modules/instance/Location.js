@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import Window from '../../Window';
 import Field from './Field';
@@ -10,6 +10,7 @@ import '../../../stylesheets/window-location.css';
 import Logger from '../../../js/utils/logger';
 import Windows from '../../../js/core/turmoil-windows';
 import { initializeEnemyUnitsAction, initializeFriendlyUnitsAction } from '../../../js/api/services/instance-service';
+import useAfterPaintEffect from '../../../js/react/hooks/after-paint-effect';
 
 function Location() {
   const stateData = useSelector((state) => state);
@@ -17,7 +18,7 @@ function Location() {
 
   const { enemyUnits, friendlyUnits } = stateData;
 
-  useEffect(async () => {
+  useAfterPaintEffect(async () => {
     document.querySelectorAll('.instancePolygon').forEach((item) => {
       item.addEventListener('click', () => {
         WindowLocation.actionOnPolygon(item);

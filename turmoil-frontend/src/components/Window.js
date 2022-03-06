@@ -68,26 +68,20 @@ function Window(props) {
                       }}
                       title="maximize"
                       onClick={() => Windows.actionMaximize(ident)}
-                    >
-&nbsp;
-                    </div>
+                    />
                     <div
                       id={`${ident}ButtonMinimize`}
                       className="icons iconMinimize"
                       style={{ position: 'absolute', top: '7px', right: '33px' }}
                       title="minimize"
                       onClick={() => Windows.actionMinimize(ident)}
-                    >
-&nbsp;
-                    </div>
+                    />
                     <div
                       className="icons iconClose"
                       style={{ position: 'absolute', top: '7px', right: '8px' }}
                       title="close"
                       onClick={() => Windows.actionClose(ident)}
-                    >
-&nbsp;
-                    </div>
+                    />
                   </div>
                 </div>
               </div>

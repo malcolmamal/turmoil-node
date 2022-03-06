@@ -17,9 +17,13 @@ const Tooltip = {
   },
   initForIdent: (ident) => {
     if (!ident) {
+      //   console.log('wtf is this tipping for', ident);
       return;
     }
-    const element = document.querySelectorAll(`[data-ident="${ident}"]`)[0];
+
+    const elements = document.querySelectorAll(`[data-ident="${ident}"]`);
+    const element = elements[0];
+
     const type = element.dataset.tooltipType;
 
     tippy(element, {
@@ -36,19 +40,19 @@ const Tooltip = {
 
         let content = Tooltip.emptyContent.replace('_CONTENT_', '').replace('_ID_', ident);
         if (type !== 'monster' && Tooltip.tooltipContents[ident]) {
-          // TODO: low priority but it would be nice to figure out if we actually need to fetch monster tooltip every time
+        // TODO: low priority but it would be nice to figure out if we actually need to fetch monster tooltip every time
           content = Tooltip.tooltipContents[ident];
         } else {
-          // hide all the other existing tooltips
+        // hide all the other existing tooltips
           Tooltip.hideAllTooltips();
 
           Axios.post(`tooltip/${type}/${ident}`).then((response) => {
             Tooltip.prepareTooltip(ident, response.data);
           }).catch((err) => {
-            Logger.log('Tooltip error', ident, err);
+            // Logger.log('Tooltip error', ident, err);
+          // TODO: dont forget to uncomment this
           });
         }
-
         instance.setContent(content);
       },
     });
