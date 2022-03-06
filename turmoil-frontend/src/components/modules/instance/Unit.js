@@ -13,7 +13,7 @@ function Unit(props) {
   const unitAlt = title || 'unit';
   const imageClass = enemy ? ' instancePortraitFlipped instanceEnemy instanceEnemyCursor' : '';
   const mainDivClass = enemy ? ' enemyUnit' : '';
-  const tooltipType = enemy ? 'monster' : '';
+  const tooltipType = enemy ? 'monster' : 'friend';
 
   window.turmoil.instance.units[ident] = {
     movement,

@@ -8,28 +8,30 @@ const Tooltip = {
   tooltipContents: {},
 
   hideAllTooltips() {
-    // TODO: might not be needed after changing to tippy
+    // TODO: might not be needed after changing to tippy, need to check and/or remove usages
     hideAll({ duration: 0 });
   },
   prepareTooltip: function prepareTooltip(id, data) {
     Tooltip.tooltipContents[id] = Tooltip.emptyContent.replace('_CONTENT_', data).replace('_ID_', id);
-    document.querySelector(`#something-${id}`).innerHTML = data;
+    const contentArea = document.querySelector(`#something-${id}`);
+    if (contentArea) {
+      contentArea.innerHTML = data;
+    }
   },
   initForIdent: (ident) => {
     if (!ident) {
-      //   console.log('wtf is this tipping for', ident);
+      console.trace('Tooltip should not be called for this trace');
+
       return;
     }
 
-    const elements = document.querySelectorAll(`[data-ident="${ident}"]`);
-    const element = elements[0];
-
+    const element = document.querySelector(`[data-ident="${ident}"]`);
     const type = element.dataset.tooltipType;
 
     tippy(element, {
       content: `Loading tooltip for ${type}:${ident}...`,
       placement: 'right-start',
-      arrow: true,
+      arrow: true, // the arrow currently does not show
       allowHTML: true,
       duration: [100, 0],
       onShow(instance) {
@@ -43,16 +45,13 @@ const Tooltip = {
         // TODO: low priority but it would be nice to figure out if we actually need to fetch monster tooltip every time
           content = Tooltip.tooltipContents[ident];
         } else {
-        // hide all the other existing tooltips
-          Tooltip.hideAllTooltips();
-
           Axios.post(`tooltip/${type}/${ident}`).then((response) => {
             Tooltip.prepareTooltip(ident, response.data);
           }).catch((err) => {
-            // Logger.log('Tooltip error', ident, err);
-          // TODO: dont forget to uncomment this
+            Logger.log('Tooltip error', ident, err);
           });
         }
+
         instance.setContent(content);
       },
     });

@@ -31,7 +31,7 @@ function Equipment() {
     Windows.initWindow('equipment', true);
 
     if (window.debug) {
-      Logger.log('Equipment initialized...', response.data);
+      Logger.log('Equipment initialized...');
     }
   }, []);
 

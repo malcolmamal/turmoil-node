@@ -116,6 +116,11 @@ abstract public class Person
 		return getPortrait();
 	}
 
+	public String getFullImagePath()
+	{
+		return getImagePath() + getFileCode();
+	}
+
 	public Integer getLevel()
 	{
 		return level;

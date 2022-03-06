@@ -1,8 +1,10 @@
 package info.nemhauser.turmoil.controller;
 
 import info.nemhauser.turmoil.TurmoilApplication;
+import info.nemhauser.turmoil.engine.domain.Character;
 import info.nemhauser.turmoil.engine.domain.Item;
 import info.nemhauser.turmoil.engine.domain.Monster;
+import info.nemhauser.turmoil.engine.domain.Person;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -55,6 +57,22 @@ public class TooltipController
 		}
 
 		model.addAttribute("monster", monsterForTooltip);
+
+		return "tooltip/monster";
+	}
+
+	@RequestMapping("/tooltip/friend/{friend}")
+	public String getTooltipForFriend(@PathVariable String friend, Model model) throws Exception
+	{
+		//TODO: handle not found
+
+		Character characterForTooltip = TurmoilApplication.getCharacter("fox");
+		if (characterForTooltip == null)
+		{
+			throw new Exception("Tried to find monster but failed, for code:" + friend);
+		}
+
+		model.addAttribute("monster", characterForTooltip);
 
 		return "tooltip/monster";
 	}

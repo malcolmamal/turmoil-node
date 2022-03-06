@@ -10,7 +10,9 @@ function Item(props) {
   const opacity = ident ? 1 : 0.85;
 
   useAfterPaintEffect(() => {
-    Tooltip.initForIdent(ident);
+    if (ident) {
+      Tooltip.initForIdent(ident);
+    }
   });
 
   return (

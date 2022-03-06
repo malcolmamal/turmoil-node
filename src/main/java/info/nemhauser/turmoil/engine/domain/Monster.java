@@ -41,11 +41,6 @@ public class Monster extends Person
 		this.damageType = damageType;
 	}
 
-	public String getFullImagePath()
-	{
-		return getImagePath() + getFileCode();
-	}
-
 	@Override
 	public DamageType getDamageType()
 	{
