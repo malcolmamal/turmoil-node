@@ -5,4 +5,5 @@ export default {
   },
   coveragePathIgnorePatterns: ['node_modules', 'src/server.js', 'tests'],
   transform: {},
+  setupFilesAfterEnv: ['./tests/setupTests.js'],
 };
