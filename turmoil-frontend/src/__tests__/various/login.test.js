@@ -1,42 +1,43 @@
-import initializeBrowserAndPage from '../helpers/puppeteer-init';
+import Page from '../helpers/puppeteer-init';
 import baseUrl from '../helpers/consts';
-import { loginAsUserWithPassword, logout } from '../actions/login-action';
 
-let browser;
 let page;
 
 beforeEach(async () => {
-  [browser, page] = await initializeBrowserAndPage(false);
+  page = await Page.build(false);
+  await page.goto('http://localhost:3000', { waitUntil: 'networkidle2' });
 });
 
 afterEach(async () => {
-  await browser.close();
+  await page.close();
 });
 
 it('should be possible to see the login button', async () => {
-  const text = await page.$eval('button.button', (el) => el.textContent);
+  const text = await page.getTextContent('button.button');
 
   expect(text).toEqual('Login');
 });
 
-it('should be possible to login', async () => {
-  await loginAsUserWithPassword(page, 'aaa@aaa.pl', 'nopass');
+describe('when logged in', () => {
+  beforeEach(async () => {
+    await page.login('aaa@aaa.pl', 'nopass');
+  });
 
-  const url = await page.url();
-  expect(url).toEqual(`${baseUrl}/logged`);
-});
+  it('should be on the logged in page', async () => {
+    const url = await page.url();
+    expect(url).toEqual(`${baseUrl}/logged`);
+  });
 
-it('should be possible to use the logout action', async () => {
-  await loginAsUserWithPassword(page, 'aaa@aaa.pl', 'nopass');
+  it('should be possible to use the logout action', async () => {
+    const logoutText = await page.getInnerHTMLContent('#logout');
+    expect(logoutText).toEqual('Logout - (logged as aaa@aaa.pl)');
 
-  const logoutText = await page.$eval('#logout', (el) => el.innerHTML);
-  expect(logoutText).toEqual('Logout - (logged as aaa@aaa.pl)');
+    const logoutElement = await page.getContent('#logout');
+    expect(logoutElement).toBeUndefined();
 
-  const logoutElement = await page.$eval('#logout', (el) => el);
-  expect(logoutElement).toBeUndefined();
+    await page.logout();
 
-  await logout(page);
-
-  const url = await page.url();
-  expect(url).toEqual(`${baseUrl}/login`);
+    const url = await page.url();
+    expect(url).toEqual(`${baseUrl}/login`);
+  });
 });
