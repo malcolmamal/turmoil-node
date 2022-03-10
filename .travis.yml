@@ -1,6 +1,5 @@
 language: java
 jdk:
-  - oraclejdk14
   - openjdk14
 node_js:
   - "17.3"
@@ -15,10 +14,15 @@ cache:
     - turmoil-backend/node_modules
     - turmoil-frontend/node_modules
 before_install:
+  - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+  - export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")" [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  - command -v nvm
+  - nvm --version;
   - nvm install $NODE_VERSION
   - pwd
   - ls -la
   - chmod +x ./gradlew
+  - sed -i -e 's/\r$//' ./gradlew
 install:
   - npm run install:backend
   - npm run build:frontend
