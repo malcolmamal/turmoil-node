@@ -11,6 +11,7 @@ class Page {
       args: [
         '--lang=en',
         `--window-size=${pageWidth + 13},${pageHeight + 131}`,
+        '--no-sandbox', // for travis
       ],
     });
     const page = await browser.newPage();

@@ -1,0 +1,26 @@
+{
+  "name": "turmoil",
+  "version": "1.0.0",
+  "description": "\"# turmoil-java\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test --prefix turmoil-frontend",
+    "install:frontend": "npm install --prefix turmoil-frontend",
+    "install:backend": "npm install --prefix turmoil-backend",
+    "build:java": "gradlew build",
+    "build:frontend": "npm run install:frontend && npm run build --prefix turmoil-frontend",
+    "start:frontend": "npm start --prefix turmoil-frontend",
+    "start:backend": "npm start --prefix turmoil-backend",
+    "start": "npm start:backend & && npm start:frontend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/malcolmamal/turmoil-node.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/malcolmamal/turmoil-node/issues"
+  },
+  "homepage": "https://github.com/malcolmamal/turmoil-node#readme"
+}

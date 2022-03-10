@@ -32,6 +32,12 @@ const createApp = async () => {
     extended: false,
   }));
 
+  if (['prod', 'ci'].includes(process.env.NODE_ENV)) {
+    app.use(express.static('../turmoil/frontend-build'));
+
+    // the rest in 132 (s.grider) at 11:20
+  }
+
   app.use('/user', userRouter);
   app.use('/item', itemRouter);
   app.use('/json', jsonRouter);

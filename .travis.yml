@@ -1,0 +1,27 @@
+language: node_js
+node_js:
+  - "17.3"
+dist: trusty
+services:
+  - postgresql
+  - docker
+env:
+  - NODE_ENV=ci DB_NAME=turmoil DB_USERNAME=postgres DB_PASSWORD=nopass DB_HOST=127.0.0.1 APP_SECRET=turmoil-secret-key
+cache:
+  directories:
+    - turmoil-backend/node_modules
+    - turmoil-frontend/node_modules
+before_install:
+  - docker build --build-arg JAR_FILE=build/*.jar -t nemhauser/turmoil-java .
+  - docker run -d -p 127.0.0.1:8080:8080 nemhauser/turmoil-java /bin/sh -c "java --jar /app.jar;"
+install:
+  - npm install:backend
+  - npm run build:frontend
+  - npm run build:java
+before_script:
+  - psql -c 'create database turmoil;' -U postgres
+script:
+  - nohup npm run start &
+  - sleep 5
+  - npm test
+
