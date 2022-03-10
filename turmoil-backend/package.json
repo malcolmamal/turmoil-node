@@ -11,7 +11,8 @@
     "lint": "node ./node_modules/eslint/bin/eslint.js src --ext=js",
     "lint:fix": "npm run lint -- --fix",
     "migrate": "npx sequelize-cli db:migrate",
-    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
+    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
+    "create-migration": "node src/utils/create-initial-migration.js"
   },
   "author": "",
   "license": "ISC",
@@ -22,6 +23,7 @@
     "express": "^4.17.2",
     "http-status-codes": "^2.2.0",
     "joi": "^17.6.0",
+    "js-beautify": "^1.14.0",
     "jsonwebtoken": "^8.5.1",
     "node-fetch": "^3.1.1",
     "passport": "^0.5.2",
@@ -39,6 +41,7 @@
     "eslint-plugin-jest": "^26.1.1",
     "jest": "^27.5.1",
     "nodemon": "^2.0.15",
+    "sequelize-auto-migrations-v2": "^1.2.1",
     "supertest": "^6.2.2"
   }
 }
