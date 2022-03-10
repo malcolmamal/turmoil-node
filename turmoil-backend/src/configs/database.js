@@ -1,5 +1,11 @@
-import sequelizePostgres from './database-postgres.js';
+import { Sequelize } from 'sequelize';
+import { dbConfig } from './application.js';
 
-const sequelize = sequelizePostgres;
+const sequelize = new Sequelize(
+  dbConfig.database,
+  dbConfig.username,
+  dbConfig.password,
+  dbConfig.options,
+);
 
 export default sequelize;

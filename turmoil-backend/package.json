@@ -7,8 +7,11 @@
   "scripts": {
     "start": "nodemon index.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "pretest": "npm run db:reset",
     "lint": "node ./node_modules/eslint/bin/eslint.js src --ext=js",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "migrate": "npx sequelize-cli db:migrate",
+    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
   },
   "author": "",
   "license": "ISC",
