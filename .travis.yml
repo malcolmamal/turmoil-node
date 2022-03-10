@@ -15,10 +15,11 @@ before_install:
   - pwd
   - ls -la
   - chmod +x ./gradlew
+  - ls -la
 install:
   - npm run install:backend
   - npm run build:frontend
-  - npm run build:java
+  - ./gradlew build
 before_script:
   - docker build --build-arg JAR_FILE=build/*.jar -t nemhauser/turmoil-java .
   - docker run -d -p 127.0.0.1:8080:8080 nemhauser/turmoil-java /bin/sh -c "java --jar /app.jar;"
