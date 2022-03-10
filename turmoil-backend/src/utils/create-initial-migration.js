@@ -39,14 +39,6 @@ if (migration.commandsUp.length === 0) {
   process.exit(0);
 }
 
-// backup _current file
-if (fs.existsSync(path.join(migrationsDir, '_current.json'))) {
-  fs.writeFileSync(
-    path.join(migrationsDir, '_current_bak.json'),
-    fs.readFileSync(path.join(migrationsDir, '_current.json')),
-  );
-}
-
 // save current state
 currentState.revision = previousState.revision + 1;
 
