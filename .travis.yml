@@ -27,8 +27,7 @@ before_script:
   - docker run -d -p 127.0.0.1:8080:8080 nemhauser/turmoil-java /bin/sh -c "java --jar /app.jar;"
   - psql -c 'create database turmoil;' -U postgres
 script:
-  - nohup npm run start:backend
-  - nohup npm run start:frontend
+  - nohup npm run start:backend &
+  - nohup npm run start:frontend &
   - sleep 10
   - npm test
-
