@@ -4,7 +4,7 @@ import baseUrl from '../helpers/consts';
 let page;
 
 beforeEach(async () => {
-  page = await Page.build(false);
+  page = await Page.build(true);
   await page.goto('http://localhost:3000', { waitUntil: 'networkidle2' });
 });
 
