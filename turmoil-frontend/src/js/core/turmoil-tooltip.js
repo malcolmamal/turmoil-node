@@ -11,12 +11,12 @@ const Tooltip = {
     // TODO: might not be needed after changing to tippy, need to check and/or remove usages
     hideAll({ duration: 0 });
   },
-  prepareTooltip: function prepareTooltip(id, data) {
-    Tooltip.tooltipContents[id] = Tooltip.emptyContent.replace('_CONTENT_', data).replace('_ID_', id);
-    const contentArea = document.querySelector(`#something-${id}`);
-    if (contentArea) {
-      contentArea.innerHTML = data;
+  cacheTooltip: (ident, data) => {
+    if (Tooltip.tooltipContents[ident]) {
+      return;
     }
+
+    Tooltip.tooltipContents[ident] = data;
   },
   initForIdent: (ident) => {
     if (!ident) {
@@ -24,6 +24,8 @@ const Tooltip = {
 
       return;
     }
+
+    // TODO: queryselector => ref
 
     const element = document.querySelector(`[data-ident="${ident}"]`);
     const type = element.dataset.tooltipType;
@@ -46,13 +48,12 @@ const Tooltip = {
           content = Tooltip.tooltipContents[ident];
         } else {
           Axios.post(`tooltip/${type}/${ident}`).then((response) => {
-            Tooltip.prepareTooltip(ident, response.data);
+            Tooltip.cacheTooltip(ident, response.data);
+            instance.setContent(Tooltip.tooltipContents[ident]);
           }).catch((err) => {
             Logger.log('Tooltip error', ident, err);
           });
         }
-
-        instance.setContent(content);
       },
     });
   },

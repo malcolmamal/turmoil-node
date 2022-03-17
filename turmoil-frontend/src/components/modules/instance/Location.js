@@ -13,10 +13,10 @@ import { initializeEnemyUnitsAction, initializeFriendlyUnitsAction } from '../..
 import useAfterPaintEffect from '../../../js/react/hooks/after-paint-effect';
 
 function Location() {
-  const stateData = useSelector((state) => state);
-  const dispatch = useDispatch();
+  const enemyUnits = useSelector((state) => state.enemyUnits);
+  const friendlyUnits = useSelector((state) => state.friendlyUnits);
 
-  const { enemyUnits, friendlyUnits } = stateData;
+  const dispatch = useDispatch();
 
   useAfterPaintEffect(async () => {
     document.querySelectorAll('.instancePolygon').forEach((item) => {
