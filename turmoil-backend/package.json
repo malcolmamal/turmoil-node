@@ -10,7 +10,7 @@
     "pretest": "npm run db:reset",
     "lint": "node ./node_modules/eslint/bin/eslint.js src --ext=js",
     "lint:fix": "npm run lint -- --fix",
-    "migrate": "npx sequelize-cli db:migrate",
+    "db:migrate": "npx sequelize-cli db:migrate",
     "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
     "create-migration": "node src/utils/create-initial-migration.js"
   },

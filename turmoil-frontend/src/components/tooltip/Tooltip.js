@@ -45,7 +45,7 @@ function Tooltip(props) {
     }
   });
 
-  return '';
+  return null;
 }
 
 export default Tooltip;

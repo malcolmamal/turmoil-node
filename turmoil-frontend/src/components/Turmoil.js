@@ -17,6 +17,7 @@ import Logger from '../js/utils/logger';
 import Layout from '../js/core/turmoil-layout';
 import Utils from '../js/core/turmoil-utils';
 import Windows from '../js/core/turmoil-windows';
+import ResponseInterceptor from "./interceptor/ResponseInterceptor";
 
 function Turmoil() {
   const navigate = useNavigate();
@@ -99,6 +100,7 @@ function Turmoil() {
     <div>
       <Error />
       <Header />
+      <ResponseInterceptor />
 
       <div className="turmoilContainer">
         <div id="turmoilBody" className="turmoilBody">

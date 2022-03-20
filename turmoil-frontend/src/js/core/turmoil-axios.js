@@ -5,7 +5,7 @@ import Permissions from './turmoil-permissions';
 
 const getAuthHeader = () => `Bearer ${localStorage.getItem('token')}`;
 
-const handleError = (error) => {
+export const handleError = (error) => {
   Layout.hideSpinner();
   Permissions.enableActions();
 
@@ -16,9 +16,36 @@ const handleError = (error) => {
   err.errorObject.originalData = errorSource.data;
 
   ErrorHandler.handleError(error.config.method, error.config.url, error.config.data, err.errorObject);
-
-  return null;
 };
+
+export const responseInterceptor = (navigate, location) => {
+  return axios.interceptors.response.use((response) => {
+    Layout.hideSpinner();
+    return response;
+  }, (error) => {
+    switch (error.response.status) {
+      case 404:
+        Layout.hideSpinner();
+        navigate('/404');
+        break;
+      case 401:
+        Layout.hideSpinner();
+
+        if (location.pathname === '/login' || location.pathname !== '/signup') {
+          return handleError(error);
+        }
+
+        navigate('/login');
+        break;
+      default:
+        handleError(error);
+    }
+  });
+}
+
+export const responseInterceptorEject = (interceptorId) => {
+  axios.interceptors.response.eject(interceptorId);
+}
 
 const initAxios = () => {
   axios.defaults.baseURL = 'http://localhost:3030/';
@@ -39,14 +66,7 @@ const initAxios = () => {
     (error) => handleError(error),
   );
 
-  axios.interceptors.response.use(
-    (response) => {
-      Layout.hideSpinner();
-
-      return response;
-    },
-    (error) => handleError(error),
-  );
+  // response interceptor initialized from ResponseInterceptor.js due to navigate()
 };
 
 export const Axios = {
