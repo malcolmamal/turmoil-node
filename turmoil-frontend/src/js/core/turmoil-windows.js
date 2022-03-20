@@ -17,42 +17,6 @@ const Windows = {
   setWindowScale(scale, windowType) {
     document.querySelector(`#window_${windowType}_wrapper`).style.transform = `scale(${scale}, ${scale})`;
   },
-  fixHorizontalAlignment(parentId, childId) {
-    // fixing the horizontal alignment
-
-    const parent = document.querySelector(`#${parentId}`);
-    const child = document.querySelector(`#${childId}`);
-
-    child.style.left = '0px';
-
-    const properLeftPosition = parent.getBoundingClientRect().left;
-    const wrongLeftPosition = child.getBoundingClientRect().left;
-    const newPosition = Math.round(properLeftPosition - wrongLeftPosition);
-
-    child.style.left = `${newPosition}px`;
-  },
-  resizeToDefault(windowType, setToCenter) {
-    // TODO: check if it is necessary (and possible) to move the window higher (so it would not go over the footer)
-
-    Windows.actionMaximize(windowType, setToCenter);
-
-    const keyWidth = `${windowType}Width`;
-    const keyHeight = `${windowType}Height`;
-    const fullHeight = Math.round(Windows.windowSizes[keyHeight] + 40);
-
-    const windowResizer = document.querySelector(`#window_${windowType}_resizer`);
-    windowResizer.style.width = `${Windows.windowSizes[keyWidth]}px`;
-    windowResizer.style.height = `${fullHeight}px`;
-
-    const scale = 1;
-    Windows.setWindowScale(scale, windowType);
-    window.turmoil.windowSettings[windowType].scale = scale;
-
-    // fixing the horizontal alignment
-    Windows.fixHorizontalAlignment(`window_${windowType}_resizer`, `window_${windowType}_wrapper`);
-
-    return false;
-  },
   actionMaximize(windowType, setToCenter) {
     // TODO: check if it is necessary (and possible) to move the window higher (so it would not go over the footer)
 

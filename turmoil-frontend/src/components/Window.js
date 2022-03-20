@@ -67,7 +67,6 @@ function Window(props) {
                 style={{ backgroundPosition: '0 -120px' }}
                 onClick={() => Windows.bringToTheTop(ident)}
                 onDoubleClick={() => Windows.switchMinimizeMaximize(ident)}
-                onContextMenu={() => Windows.resizeToDefault(ident)}
               >
                 <div className="handleLeft" style={{ backgroundPosition: '0 -120px' }} />
                 <div className={`handleBox ${ident}HandleBox`} style={{ textTransform: 'capitalize' }}>{ident}</div>
