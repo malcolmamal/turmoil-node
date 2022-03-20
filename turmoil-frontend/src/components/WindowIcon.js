@@ -1,5 +1,4 @@
 import React from 'react';
-import Windows from '../js/core/turmoil-windows';
 
 function WindowIcon(props) {
   const { ident, onClick } = props;

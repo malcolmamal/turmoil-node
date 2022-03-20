@@ -1,6 +1,5 @@
 import React from 'react';
-import Tooltip from '../../../js/core/turmoil-tooltip';
-import useAfterPaintEffect from '../../../js/react/hooks/after-paint-effect';
+import Tooltip from '../../tooltip/Tooltip';
 
 function Unit(props) {
   const {
@@ -19,14 +18,9 @@ function Unit(props) {
     movement,
   };
 
-  // TODO: figure out why it tries to render when clicking on equipment change even though nothing changes in the Unit
-
-  useAfterPaintEffect(() => {
-    Tooltip.initForIdent(ident);
-  }, []);
-
   return (
     <div className={`instanceElement${mainDivClass}`} id={ident} onClick={() => onClick(ident)}>
+      <Tooltip ident={ident} />
       <div className="instancePortraitHealthBar">
         <div className="instancePortraitHealthBarInner" id={`${ident}Health`} style={unitStyle} />
       </div>

@@ -7,6 +7,7 @@ import Logger from './utils/logger';
 // styles
 import '../stylesheets/turmoil-general.css';
 import '../stylesheets/turmoil-windows.css';
+import '../stylesheets/turmoil-tooltip.css';
 
 // sounds
 import soundMoveLeather from '../media/audio/move_leather.wav';

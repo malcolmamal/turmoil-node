@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Draggable from 'react-draggable';
 import Windows from '../js/core/turmoil-windows';
 import WindowIcon from './WindowIcon';
-import Tooltip from '../js/core/turmoil-tooltip';
 
 function Window(props) {
   const { background: windowContainerInnerStyle, ident, children } = props;
@@ -38,7 +37,7 @@ function Window(props) {
 
     window.turmoil.windowSettings[ident].visible = !visible;
     Windows.saveWindowsPositions();
-  }
+  };
 
   useEffect(() => {
     if (!window.turmoil.windowSettings[ident]) {
@@ -53,8 +52,9 @@ function Window(props) {
 
   return (
     <>
-      <WindowIcon ident={ident} onClick={switchVisibility}/>
-      {visible && <Draggable bounds="parent" handle="strong" axis="both" onStart={onStart} onStop={onControlledDragStop} position={controlledPosition}>
+      <WindowIcon ident={ident} onClick={switchVisibility} />
+      {visible && (
+      <Draggable bounds="parent" handle="strong" axis="both" onStart={onStart} onStop={onControlledDragStop} position={controlledPosition}>
         <div
           id={`window_${ident}_resizer`}
           className={`windowResizer ${ident}WindowResizer noSelection`}
@@ -126,7 +126,8 @@ function Window(props) {
             </div>
           </div>
         </div>
-      </Draggable>}
+      </Draggable>
+      )}
     </>
 
   );

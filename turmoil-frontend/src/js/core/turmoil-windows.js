@@ -1,4 +1,3 @@
-import Tooltip from './turmoil-tooltip';
 import Layout from './turmoil-layout';
 
 const Windows = {

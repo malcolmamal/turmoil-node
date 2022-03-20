@@ -2,7 +2,6 @@ import React from 'react';
 import { connect, useDispatch } from 'react-redux';
 import ReduxActions from '../../../js/redux/actions';
 import WindowStats from '../../../js/windows/window-stats';
-import Tooltip from '../../../js/core/turmoil-tooltip';
 import Sound from '../../../js/core/turmoil-sound';
 import Permissions from '../../../js/core/turmoil-permissions';
 import { equipAction } from '../../../js/api/services/character-service';

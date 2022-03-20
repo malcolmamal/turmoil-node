@@ -5,7 +5,6 @@ import ItemSlotStash from './ItemSlotStash';
 import ReduxActions from '../../../js/redux/actions';
 import '../../../stylesheets/window-stash.css';
 import Logger from '../../../js/utils/logger';
-import Windows from '../../../js/core/turmoil-windows';
 import { initializeStashAction } from '../../../js/api/services/instance-service';
 
 function Stash() {

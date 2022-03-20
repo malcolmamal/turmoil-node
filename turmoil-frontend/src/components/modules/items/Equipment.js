@@ -3,7 +3,6 @@ import { connect, useDispatch, useSelector } from 'react-redux';
 import Window from '../../Window';
 import ItemSlotEquipment from './ItemSlotEquipment';
 import ReduxActions from '../../../js/redux/actions';
-import Windows from '../../../js/core/turmoil-windows';
 import { initializeEquipmentAction } from '../../../js/api/services/instance-service';
 import Logger from '../../../js/utils/logger';
 

@@ -1,6 +1,5 @@
 import React from 'react';
-import Tooltip from '../../../js/core/turmoil-tooltip';
-import useAfterPaintEffect from '../../../js/react/hooks/after-paint-effect';
+import Tooltip from '../../tooltip/Tooltip';
 
 function Item(props) {
   const {
@@ -9,14 +8,9 @@ function Item(props) {
 
   const opacity = ident ? 1 : 0.85;
 
-  useAfterPaintEffect(() => {
-    if (ident) {
-      Tooltip.initForIdent(ident);
-    }
-  });
-
   return (
     <div style={slotStyle}>
+      <Tooltip ident={ident} />
       <span
         className={className}
         style={{ opacity }}

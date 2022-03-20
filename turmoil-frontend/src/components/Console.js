@@ -5,7 +5,6 @@ import {
 import Window from './Window';
 import '../stylesheets/window-console.css';
 import Logger from '../js/utils/logger';
-import Windows from '../js/core/turmoil-windows';
 
 function Console() {
   useEffect(() => {

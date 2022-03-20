@@ -2,8 +2,7 @@ import React, { useEffect } from 'react';
 import Window from '../../Window';
 import CharacterState from './CharacterState';
 import '../../../stylesheets/window-stats.css';
-import Windows from '../../../js/core/turmoil-windows';
-import Logger from "../../../js/utils/logger";
+import Logger from '../../../js/utils/logger';
 
 function Stats() {
   const background = {

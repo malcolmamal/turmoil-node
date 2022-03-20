@@ -8,7 +8,6 @@ import ReduxActions from '../../../js/redux/actions';
 import WindowLocation from '../../../js/windows/window-location';
 import '../../../stylesheets/window-location.css';
 import Logger from '../../../js/utils/logger';
-import Windows from '../../../js/core/turmoil-windows';
 import { initializeEnemyUnitsAction, initializeFriendlyUnitsAction } from '../../../js/api/services/instance-service';
 import useAfterPaintEffect from '../../../js/react/hooks/after-paint-effect';
 
