@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
-import {useLocation, useNavigate} from 'react-router';
-import Layout from '../../js/core/turmoil-layout';
+import { useLocation, useNavigate } from 'react-router';
 import { responseInterceptor, responseInterceptorEject } from '../../js/core/turmoil-axios';
 
 function ResponseInterceptor() {

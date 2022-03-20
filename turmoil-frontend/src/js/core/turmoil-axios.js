@@ -18,34 +18,33 @@ export const handleError = (error) => {
   ErrorHandler.handleError(error.config.method, error.config.url, error.config.data, err.errorObject);
 };
 
-export const responseInterceptor = (navigate, location) => {
-  return axios.interceptors.response.use((response) => {
-    Layout.hideSpinner();
-    return response;
-  }, (error) => {
-    switch (error.response.status) {
-      case 404:
-        Layout.hideSpinner();
-        navigate('/404');
-        break;
-      case 401:
-        Layout.hideSpinner();
+export const responseInterceptor = (navigate, location) => axios.interceptors.response.use((response) => {
+  Layout.hideSpinner();
+  return response;
+}, (error) => {
+  switch (error.response.status) {
+    case 404:
+      Layout.hideSpinner();
+      navigate('/404');
+      break;
+    case 401:
+      Layout.hideSpinner();
 
-        if (location.pathname === '/login' || location.pathname !== '/signup') {
-          return handleError(error);
-        }
-
-        navigate('/login');
-        break;
-      default:
+      if (location.pathname === '/login' || location.pathname !== '/signup') {
         handleError(error);
-    }
-  });
-}
+        return;
+      }
+
+      navigate('/login');
+      break;
+    default:
+      handleError(error);
+  }
+});
 
 export const responseInterceptorEject = (interceptorId) => {
   axios.interceptors.response.eject(interceptorId);
-}
+};
 
 const initAxios = () => {
   axios.defaults.baseURL = 'http://localhost:3030/';
