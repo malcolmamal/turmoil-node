@@ -3,6 +3,7 @@ import Window from '../../Window';
 import CharacterState from './CharacterState';
 import '../../../stylesheets/window-stats.css';
 import Windows from '../../../js/core/turmoil-windows';
+import Logger from "../../../js/utils/logger";
 
 function Stats() {
   const background = {
@@ -12,7 +13,9 @@ function Stats() {
   };
 
   useEffect(() => {
-    Windows.initWindow('stats', true);
+    if (window.debug) {
+      Logger.log('Stats initialized...');
+    }
   }, []);
 
   return (

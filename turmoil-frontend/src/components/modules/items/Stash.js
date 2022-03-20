@@ -22,8 +22,6 @@ function Stash() {
     const response = await initializeStashAction();
     stashedItems(response.data);
 
-    Windows.initWindow('stash', true);
-
     if (window.debug) {
       Logger.log('Stash initialized...');
     }

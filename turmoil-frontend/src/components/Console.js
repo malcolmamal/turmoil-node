@@ -14,8 +14,6 @@ function Console() {
     }
 
     Logger.log('Console initialized...');
-
-    Windows.initWindow('console', true);
   }, []);
 
   const background = {

@@ -42,8 +42,6 @@ function Location() {
     if (window.debug) {
       Logger.log('Location initialized...');
     }
-
-    Windows.initWindow('location', true);
   }, []);
 
   const background = {

@@ -28,8 +28,6 @@ function Equipment() {
     const response = await initializeEquipmentAction();
     wornItems(response.data);
 
-    Windows.initWindow('equipment', true);
-
     if (window.debug) {
       Logger.log('Equipment initialized...');
     }

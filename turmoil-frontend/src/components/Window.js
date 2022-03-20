@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Draggable from 'react-draggable';
 import Windows from '../js/core/turmoil-windows';
 import WindowIcon from './WindowIcon';
@@ -7,12 +7,9 @@ import Tooltip from '../js/core/turmoil-tooltip';
 function Window(props) {
   const { background: windowContainerInnerStyle, ident, children } = props;
 
+  const [visible, setVisible] = useState(window.turmoil.windowSettings[ident]?.visible || false);
   const [positionX, setPositionX] = useState(parseInt(window.turmoil.windowSettings[ident]?.left || '0', 10));
   const [positionY, setPositionY] = useState(parseInt(window.turmoil.windowSettings[ident]?.top || '0', 10));
-
-  const windowResizerStyle = {
-    display: 'none',
-  };
 
   const onStart = () => {
     Windows.bringToTheTop(ident);
@@ -36,14 +33,31 @@ function Window(props) {
     onStop();
   };
 
+  const switchVisibility = () => {
+    setVisible(!visible);
+
+    window.turmoil.windowSettings[ident].visible = !visible;
+    Windows.saveWindowsPositions();
+  }
+
+  useEffect(() => {
+    if (!window.turmoil.windowSettings[ident]) {
+      window.turmoil.windowSettings[ident] = {};
+    }
+
+    window.turmoil.windowSettings[ident].left = positionX;
+    window.turmoil.windowSettings[ident].top = positionY;
+    window.turmoil.windowSettings[ident].visible = visible;
+    Windows.saveWindowsPositions();
+  }, []);
+
   return (
     <>
-      <WindowIcon ident={ident} />
-      <Draggable bounds="parent" handle="strong" axis="both" onStart={onStart} onStop={onControlledDragStop} position={controlledPosition}>
+      <WindowIcon ident={ident} onClick={switchVisibility}/>
+      {visible && <Draggable bounds="parent" handle="strong" axis="both" onStart={onStart} onStop={onControlledDragStop} position={controlledPosition}>
         <div
           id={`window_${ident}_resizer`}
           className={`windowResizer ${ident}WindowResizer noSelection`}
-          style={windowResizerStyle}
         >
           <div id={`window_${ident}_wrapper`} className="windowWrapper">
             <strong>
@@ -79,7 +93,7 @@ function Window(props) {
                       className="icons iconClose"
                       style={{ position: 'absolute', top: '7px', right: '8px' }}
                       title="close"
-                      onClick={() => Windows.actionClose(ident)}
+                      onClick={switchVisibility}
                     />
                   </div>
                 </div>
@@ -113,7 +127,7 @@ function Window(props) {
             </div>
           </div>
         </div>
-      </Draggable>
+      </Draggable>}
     </>
 
   );
