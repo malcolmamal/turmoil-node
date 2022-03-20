@@ -46,8 +46,6 @@ function ItemSlotStash(props) {
   };
 
   const actionRightClickOnStashedItem = async (itemIdent) => {
-    Tooltip.hideAllTooltips();
-
     const response = await equipAction(itemIdent);
     finalizeRightClickOnStashedItem(response.data, updateItems);
     await WindowStats.updateStats(updateCharacterStats);

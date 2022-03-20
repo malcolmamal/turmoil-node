@@ -48,8 +48,6 @@ function ItemSlotEquipment(props) {
   };
 
   const actionRightClickOnEquipment = async (item) => {
-    Tooltip.hideAllTooltips();
-
     if (item.ident) {
       const response = await unequipAction(item.ident);
       finalizeRightClickOnEquipment(response.data, updateItems);

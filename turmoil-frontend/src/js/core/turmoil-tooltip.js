@@ -1,16 +1,11 @@
-import tippy, { hideAll } from 'tippy.js';
+import tippy from 'tippy.js';
 import '../../stylesheets/turmoil-tooltip.css';
 import Logger from '../utils/logger';
 import { Axios } from './turmoil-axios';
 
 const Tooltip = {
-  emptyContent: "<div id='something-_ID_'>_CONTENT_</div>",
   tooltipContents: {},
 
-  hideAllTooltips() {
-    // TODO: might not be needed after changing to tippy, need to check and/or remove usages
-    hideAll({ duration: 0 });
-  },
   cacheTooltip: (ident, data) => {
     if (Tooltip.tooltipContents[ident]) {
       return;
@@ -24,8 +19,6 @@ const Tooltip = {
 
       return;
     }
-
-    // TODO: queryselector => ref
 
     const element = document.querySelector(`[data-ident="${ident}"]`);
     const type = element.dataset.tooltipType;
@@ -42,18 +35,22 @@ const Tooltip = {
           return;
         }
 
-        let content = Tooltip.emptyContent.replace('_CONTENT_', '').replace('_ID_', ident);
-        if (type !== 'monster' && Tooltip.tooltipContents[ident]) {
-        // TODO: low priority but it would be nice to figure out if we actually need to fetch monster tooltip every time
-          content = Tooltip.tooltipContents[ident];
-        } else {
-          Axios.post(`tooltip/${type}/${ident}`).then((response) => {
-            Tooltip.cacheTooltip(ident, response.data);
-            instance.setContent(Tooltip.tooltipContents[ident]);
-          }).catch((err) => {
-            Logger.log('Tooltip error', ident, err);
-          });
+        if (Tooltip.tooltipContents[ident]) {
+          instance.setContent(Tooltip.tooltipContents[ident]);
+          return;
         }
+
+        Axios.post(`tooltip/${type}/${ident}`).then((response) => {
+          if (type === 'monster' || type === 'friend') {
+            instance.setContent(response.data);
+            return;
+          }
+
+          Tooltip.cacheTooltip(ident, response.data);
+          instance.setContent(Tooltip.tooltipContents[ident]);
+        }).catch((err) => {
+          Logger.log('Tooltip error', ident, err);
+        });
       },
     });
   },

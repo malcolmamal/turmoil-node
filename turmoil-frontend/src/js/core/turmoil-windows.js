@@ -129,15 +129,12 @@ const Windows = {
     return false;
   },
   actionClose(windowType) {
-    Tooltip.hideAllTooltips();
-
     document.querySelector(`#window_${windowType}_resizer`).style.display = 'none';
     window.turmoil.windowSettings[windowType].visible = false;
 
     Windows.saveWindowsPositions();
   },
   actionShow(windowType) {
-    Tooltip.hideAllTooltips();
     Windows.bringToTheTop(windowType);
 
     document.querySelector(`#window_${windowType}_resizer`).style.display = 'block';
@@ -172,8 +169,6 @@ const Windows = {
     }
   },
   actionMinimize(windowType) {
-    Tooltip.hideAllTooltips();
-
     document.querySelector(`#window_${windowType}_content_wrapper`).style.display = 'none';
     document.querySelector(`#${windowType}ButtonMaximize`).style.display = 'block';
     document.querySelector(`#${windowType}ButtonMinimize`).style.display = 'none';
@@ -183,8 +178,6 @@ const Windows = {
     document.querySelector(`#window_${windowType}_resizer`).style.height = `${Math.round(handleHeight)}px`;
   },
   switchShowClose(windowType, setToCenter) {
-    Tooltip.hideAllTooltips();
-
     const element = document.querySelector(`#window_${windowType}_content_wrapper`);
     if (element.offsetWidth > 0 && element.offsetHeight > 0) {
       Windows.actionClose(windowType);
@@ -206,8 +199,6 @@ const Windows = {
     }
   },
   bringToTheTop(windowType) {
-    Tooltip.hideAllTooltips();
-
     let highestZIndexValue = 0;
 
     document.querySelectorAll('.windowResizer').forEach((element) => {

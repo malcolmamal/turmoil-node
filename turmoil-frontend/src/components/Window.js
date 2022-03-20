@@ -15,12 +15,11 @@ function Window(props) {
   };
 
   const onStart = () => {
-    Tooltip.hideAllTooltips();
     Windows.bringToTheTop(ident);
   };
 
   const onStop = () => {
-    Tooltip.hideAllTooltips();
+
   };
 
   const controlledPosition = {
