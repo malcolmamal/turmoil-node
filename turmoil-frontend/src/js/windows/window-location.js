@@ -20,7 +20,6 @@ const WindowLocation = {
   },
   actionOnUnit(unitId, callbacks) {
     const unit = document.querySelector(`#${unitId}`);
-    const polygonId = unit.dataset.previousPolygonId;
 
     return WindowLocation.actionOnPolygon(unit.dataset.previousPolygonId, callbacks);
   },

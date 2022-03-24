@@ -14,7 +14,6 @@ import useAfterPaintEffect from '../../../js/react/hooks/after-paint-effect';
 function Location() {
   const enemyUnits = useSelector((state) => state.enemyUnits);
   const friendlyUnits = useSelector((state) => state.friendlyUnits);
-  const locationFields = useSelector((state) => state.locationFields);
 
   const dispatch = useDispatch();
 

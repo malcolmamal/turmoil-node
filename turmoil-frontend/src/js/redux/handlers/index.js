@@ -93,7 +93,7 @@ const ReduxHandlers = {
 
     newState.friendlyUnits = [...currentState.friendlyUnits];
 
-    if (typeof payload.unitToUpdate) {
+    if (payload.unitToUpdate) {
       const { ident } = payload.unitToUpdate;
 
       newState.friendlyUnits = Utils.removeFromArrayByIdent(ident, newState.friendlyUnits);

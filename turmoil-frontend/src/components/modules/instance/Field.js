@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
-import FriendlyUnit from './FriendlyUnit';
+import React from 'react';
 import WindowLocation from '../../../js/windows/window-location';
-import ReduxActions from '../../../js/redux/actions';
 
 function Field(props) {
   const {

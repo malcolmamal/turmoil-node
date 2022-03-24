@@ -1,7 +1,6 @@
 import jQuery from 'jquery';
 import Utils from './turmoil-utils';
 import Sound from './turmoil-sound';
-import Svg from './turmoil-svg';
 import Consts from './turmoil-consts';
 
 const Animations = {
@@ -125,12 +124,6 @@ const Animations = {
       },
       250,
       () => {
-        if (unit.hasClass('enemyUnit')) {
-          // Svg.addClass(polygon, 'instancePolygonEnemy');
-        } else {
-          // Svg.addClass(polygon, 'instancePolygonActive');
-        }
-        // Svg.removeClass(polygon, 'instancePolygon');
         Sound.stopAudioLoop('soundMoveLeather', unit.attr('id'));
 
         if (window.turmoil.instance.activeUnit === unit.attr('id')) {
