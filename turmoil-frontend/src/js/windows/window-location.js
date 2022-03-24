@@ -65,7 +65,7 @@ const WindowLocation = {
           if (typeof (data.unitToMove) === 'undefined') {
             window.turmoil.logErrors('Move action failed');
           }
-          WindowLocation.handleMoveToPolygon(polygon, document.querySelector(`#${data.unitToMove}`), callbackFunctions, data);
+          WindowLocation.handleMoveToPolygon(data.polygonId, data.unitToMove, callbackFunctions, data);
         }
       }
 
@@ -103,8 +103,11 @@ const WindowLocation = {
       left: rect.left + defaultView.pageXOffset,
     };
   },
-  handleMoveToPolygon(polygon, unit, callbackFunctions, data) {
+  handleMoveToPolygon(polygonId, unitId, callbackFunctions, data) {
     WindowLocation.inactivateUnits();
+
+    const polygon = document.querySelector(`#${polygonId}`);
+    const unit = document.querySelector(`#${unitId}`);
 
     if (!polygon) {
       Logger.log('Polygon undefined');

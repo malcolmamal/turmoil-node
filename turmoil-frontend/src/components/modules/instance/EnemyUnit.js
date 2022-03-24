@@ -3,18 +3,15 @@ import { connect, useDispatch } from 'react-redux';
 import Unit from './Unit';
 import ReduxActions from '../../../js/redux/actions';
 import WindowLocation from '../../../js/windows/window-location';
+import useAfterPaintEffect from '../../../js/react/hooks/after-paint-effect';
 
 function EnemyUnit(props) {
   const dispatch = useDispatch();
 
-  const { position, locationCallbackAction } = props;
+  const { ident, position, locationCallbackAction } = props;
 
-  useEffect(() => {
-    const { ident } = props;
-
-    setTimeout(() => {
-      WindowLocation.handleMoveToPolygon(document.querySelector(`#${position}`), document.querySelector(`#${ident}`));
-    }, 125);
+  useAfterPaintEffect(() => {
+    WindowLocation.handleMoveToPolygon(position, ident);
   }, []);
 
   const updateItems = (item) => {
@@ -29,14 +26,14 @@ function EnemyUnit(props) {
     dispatch(ReduxActions.updateEnemyUnitsAction({ unitToRemove: unit }));
   };
 
-  const actionOnUnitHandler = (ident) => {
-    WindowLocation.actionOnUnit(ident, {
+  const actionOnUnitHandler = (unitIdent) => {
+    WindowLocation.actionOnUnit(unitIdent, {
       updateItems, removeEnemyUnit, addEnemyUnit, locationCallbackAction,
     });
   };
 
   const {
-    ident, portrait, healthBar, movement,
+    portrait, healthBar, movement,
   } = props;
 
   return (

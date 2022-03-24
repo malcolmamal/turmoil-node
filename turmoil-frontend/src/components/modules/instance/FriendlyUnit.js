@@ -2,20 +2,15 @@ import React, { useEffect } from 'react';
 import Unit from './Unit';
 import WindowLocation from '../../../js/windows/window-location';
 import Logger from '../../../js/utils/logger';
+import useAfterPaintEffect from '../../../js/react/hooks/after-paint-effect';
 
 function FriendlyUnit(props) {
   const {
     position, ident, portrait, healthBar, movement,
   } = props;
 
-  useEffect(() => {
-    setTimeout(() => {
-      WindowLocation.handleMoveToPolygon(document.querySelector(`#${position}`), document.querySelector(`#${ident}`));
-    }, 200);
-
-    setTimeout(() => {
-      WindowLocation.setActivePolygons();
-    }, 500);
+  useAfterPaintEffect(() => {
+    WindowLocation.handleMoveToPolygon(position, ident);
   }, []);
 
   const actionOnUnitHandler = () => {
