@@ -113,7 +113,7 @@ const Animations = {
       );
     }
   },
-  moveUnit(unitElement, polygon, positionX, positionY) {
+  moveUnit(unitElement, polygon, positionX, positionY, callbackFunctions, data) {
     Sound.playAudioLoop('soundMoveLeather', unitElement.getAttribute('id'));
 
     const unit = jQuery(unitElement);
@@ -126,15 +126,21 @@ const Animations = {
       250,
       () => {
         if (unit.hasClass('enemyUnit')) {
-          Svg.addClass(polygon, 'instancePolygonEnemy');
+          // Svg.addClass(polygon, 'instancePolygonEnemy');
         } else {
-          Svg.addClass(polygon, 'instancePolygonActive');
+          // Svg.addClass(polygon, 'instancePolygonActive');
         }
-        Svg.removeClass(polygon, 'instancePolygon');
+        // Svg.removeClass(polygon, 'instancePolygon');
         Sound.stopAudioLoop('soundMoveLeather', unit.attr('id'));
 
         if (window.turmoil.instance.activeUnit === unit.attr('id')) {
           Animations.blink(`#${unit.attr('id')}`);
+        }
+
+        if (callbackFunctions && typeof (callbackFunctions.locationCallbackAction) === 'function') {
+          callbackFunctions.locationCallbackAction({
+            actionType: 'move', polygonId: polygon.id, unitId: unit.attr('id'), polygonsInRange: data?.unit?.polygonsInRange,
+          });
         }
       },
     );

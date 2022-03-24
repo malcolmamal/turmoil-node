@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import FriendlyUnit from './FriendlyUnit';
+import WindowLocation from '../../../js/windows/window-location';
+import ReduxActions from '../../../js/redux/actions';
 
 function Field(props) {
   const {
-    column, row,
+    column, row, unit, locationCallbackAction,
   } = props;
 
   const ident = `polygon-${column}-${row}`;
   const text = `${column}:${row}`;
+
+  let className = 'instancePolygon';
+  const unitIdent = unit?.ident;
+
+  if (unitIdent) {
+    if (unitIdent.includes('Enemy')) {
+      className = 'instancePolygonEnemy';
+    } else {
+      className = 'instancePolygonActive';
+    }
+  }
 
   const baseHeight = 15;
   const baseWidth = 9;
@@ -26,7 +40,17 @@ function Field(props) {
 
   return (
     <>
-      <polygon id={ident} stroke="#4f4f4f" transform={`translate(${columnPosition}, ${rowPosition})`} className="instancePolygon" strokeWidth="0.15" points="5,-9 -5,-9 -10,0 -5,9 5,9 10,0" />
+      <polygon
+        contextMenu="none"
+        id={ident}
+        stroke="#4f4f4f"
+        transform={`translate(${columnPosition}, ${rowPosition})`}
+        className={className}
+        strokeWidth="0.15"
+        points="5,-9 -5,-9 -10,0 -5,9 5,9 10,0"
+        onClick={() => { WindowLocation.actionOnPolygon(ident, { locationCallbackAction }); }}
+        onContextMenu={(event) => { event.preventDefault(); console.log('rightclicked', ident, className, unit); }}
+      />
       <text className="locationText" x={valueX} y={valueY}>{text}</text>
     </>
   );

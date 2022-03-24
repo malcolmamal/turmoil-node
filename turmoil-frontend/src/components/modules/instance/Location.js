@@ -14,16 +14,11 @@ import useAfterPaintEffect from '../../../js/react/hooks/after-paint-effect';
 function Location() {
   const enemyUnits = useSelector((state) => state.enemyUnits);
   const friendlyUnits = useSelector((state) => state.friendlyUnits);
+  const locationFields = useSelector((state) => state.locationFields);
 
   const dispatch = useDispatch();
 
   useAfterPaintEffect(async () => {
-    document.querySelectorAll('.instancePolygon').forEach((item) => {
-      item.addEventListener('click', () => {
-        WindowLocation.actionOnPolygon(item);
-      });
-    });
-
     const updateEnemyUnits = (units) => {
       dispatch(ReduxActions.updateEnemyUnitsAction(units));
     };
@@ -42,6 +37,44 @@ function Location() {
       Logger.log('Location initialized...');
     }
   }, []);
+
+  useAfterPaintEffect(() => {
+    if (friendlyUnits[0]) {
+      const friendlyUnit = friendlyUnits[0];
+      WindowLocation.setEquipmentBackground(friendlyUnit.gender);
+
+      window.turmoil.instance.activeUnit = friendlyUnit.ident;
+      window.turmoil.instance.polygonsInRange = friendlyUnit.polygonsInRange;
+      WindowLocation.setActivePolygons();
+    }
+  });
+
+  const updateUnit = (unit) => {
+    if (unit.ident.includes('Enemy')) {
+      dispatch(ReduxActions.updateEnemyUnitsAction({ unitToUpdate: unit }));
+    } else {
+      dispatch(ReduxActions.updateFriendlyUnitsAction({ unitToUpdate: unit }));
+    }
+  };
+
+  const finalizeActionOnField = (data) => {
+    if (data && data.actionType === 'move') {
+      let unit = friendlyUnits.find((friendlyUnit) => friendlyUnit.ident === data.unitId);
+
+      if (!unit) {
+        unit = enemyUnits.find((enemyUnit) => enemyUnit.ident === data.unitId);
+      }
+
+      if (unit) {
+        unit.position = data.polygonId;
+        if (data.polygonsInRange) {
+          unit.polygonsInRange = data.polygonsInRange;
+        }
+
+        updateUnit(unit);
+      }
+    }
+  };
 
   const background = {
     backgroundImage: "url('/images/backgrounds/background_grunge_650x550.png')",
@@ -71,13 +104,19 @@ function Location() {
           position={unit.position}
           key={unit.ident}
           movement={unit.movementPoints}
-          polygonsInRange={unit.polygonsInRange}
-          gender={unit.gender}
         />
       ))}
 
       {enemyUnits.map((unit) => (
-        <EnemyUnit ident={unit.ident} portrait={unit.portrait} healthBar={unit.healthBar} position={unit.position} key={unit.ident} movement={unit.movementPoints} />
+        <EnemyUnit
+          ident={unit.ident}
+          portrait={unit.portrait}
+          healthBar={unit.healthBar}
+          position={unit.position}
+          key={unit.ident}
+          movement={unit.movementPoints}
+          locationCallbackAction={finalizeActionOnField}
+        />
       ))}
 
       <div className="instanceSvg">
@@ -88,9 +127,16 @@ function Location() {
           id="svgElement"
         >
           <g>
-            {fields.map((field) => (
-              <Field column={field.column} row={field.row} key={`polygon-${field.column}-${field.row}`} />
-            ))}
+            {fields.map((field) => {
+              const fieldIdent = `polygon-${field.column}-${field.row}`;
+              let unit = friendlyUnits.find((friendlyUnit) => friendlyUnit.position === fieldIdent);
+
+              if (!unit) {
+                unit = enemyUnits.find((enemyUnit) => enemyUnit.position === fieldIdent);
+              }
+
+              return <Field column={field.column} row={field.row} key={fieldIdent} unit={unit} locationCallbackAction={finalizeActionOnField} />;
+            })}
           </g>
         </svg>
       </div>

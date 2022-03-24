@@ -6,12 +6,11 @@ import Permissions from '../core/turmoil-permissions';
 import { onPolygonAction } from '../api/services/instance-service';
 
 const WindowLocation = {
-  getPolygonForUnit(unit) {
-    return document.querySelector(`#${unit.dataset.previousPolygonId}`);
-  },
-  async actionOnPolygon(polygon, unit, callbacks) {
+  async actionOnPolygon(polygonId, callbacks) {
+    const polygon = document.querySelector(`#${polygonId}`);
+
     if (!polygon) {
-      window.turmoil.logDebug('Wrong polygon parameter', polygon, unit, callbacks);
+      window.turmoil.logDebug('Wrong polygon parameter', polygon, callbacks);
 
       return;
     }
@@ -21,9 +20,9 @@ const WindowLocation = {
   },
   actionOnUnit(unitId, callbacks) {
     const unit = document.querySelector(`#${unitId}`);
-    const polygon = WindowLocation.getPolygonForUnit(unit);
+    const polygonId = unit.dataset.previousPolygonId;
 
-    return WindowLocation.actionOnPolygon(polygon, unit, callbacks);
+    return WindowLocation.actionOnPolygon(unit.dataset.previousPolygonId, callbacks);
   },
   finalizeActionsOnPolygon(data, callbackFunctions) {
     WindowLocation.inactivatePolygons();
@@ -67,7 +66,7 @@ const WindowLocation = {
           if (typeof (data.unitToMove) === 'undefined') {
             window.turmoil.logErrors('Move action failed');
           }
-          WindowLocation.handleMoveToPolygon(polygon, document.querySelector(`#${data.unitToMove}`));
+          WindowLocation.handleMoveToPolygon(polygon, document.querySelector(`#${data.unitToMove}`), callbackFunctions, data);
         }
       }
 
@@ -81,7 +80,11 @@ const WindowLocation = {
         if (typeof (callbackFunctions) !== 'undefined' && typeof (callbackFunctions.addEnemyUnit) === 'function') {
           callbackFunctions.addEnemyUnit(data.unitToAdd);
 
-          WindowLocation.handleMoveToPolygon(document.querySelector(`#${data.unitToAdd.position}`), document.querySelector(`#${data.unitToAdd.ident}`));
+          WindowLocation.handleMoveToPolygon(
+            document.querySelector(`#${data.unitToAdd.position}`),
+            document.querySelector(`#${data.unitToAdd.ident}`),
+            callbackFunctions,
+          );
         }
       }
 
@@ -101,7 +104,7 @@ const WindowLocation = {
       left: rect.left + defaultView.pageXOffset,
     };
   },
-  handleMoveToPolygon(polygon, unit) {
+  handleMoveToPolygon(polygon, unit, callbackFunctions, data) {
     WindowLocation.inactivateUnits();
 
     if (!polygon) {
@@ -127,7 +130,7 @@ const WindowLocation = {
     const centerX = offset.left - offsetContainer.left + 18;
     const centerY = offset.top - offsetContainer.top + 19;
 
-    Animations.moveUnit(unit, polygon, centerX, centerY);
+    Animations.moveUnit(unit, polygon, centerX, centerY, callbackFunctions, data);
 
     unit.setAttribute('data-previous-polygon-id', polygon.getAttribute('id'));
     polygon.setAttribute('data-unit', unit.getAttribute('id'));

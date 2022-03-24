@@ -7,8 +7,10 @@ import WindowLocation from '../../../js/windows/window-location';
 function EnemyUnit(props) {
   const dispatch = useDispatch();
 
+  const { position, locationCallbackAction } = props;
+
   useEffect(() => {
-    const { ident, position } = props;
+    const { ident } = props;
 
     setTimeout(() => {
       WindowLocation.handleMoveToPolygon(document.querySelector(`#${position}`), document.querySelector(`#${ident}`));
@@ -28,7 +30,9 @@ function EnemyUnit(props) {
   };
 
   const actionOnUnitHandler = (ident) => {
-    WindowLocation.actionOnUnit(ident, { updateItems, removeEnemyUnit, addEnemyUnit });
+    WindowLocation.actionOnUnit(ident, {
+      updateItems, removeEnemyUnit, addEnemyUnit, locationCallbackAction,
+    });
   };
 
   const {
@@ -36,7 +40,7 @@ function EnemyUnit(props) {
   } = props;
 
   return (
-    <Unit ident={ident} portrait={portrait} healthBar={healthBar} movement={movement} enemy onClick={actionOnUnitHandler} />
+    <Unit ident={ident} portrait={portrait} position={position} healthBar={healthBar} movement={movement} enemy onClick={actionOnUnitHandler} />
   );
 }
 

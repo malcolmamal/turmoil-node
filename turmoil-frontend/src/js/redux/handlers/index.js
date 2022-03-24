@@ -4,7 +4,7 @@ const ReduxHandlers = {
   handleUpdateItemsInEquipment(currentState, payload) {
     const newState = {};
 
-    if (typeof payload.wornItems !== 'undefined') {
+    if (payload.wornItems) {
       newState.equipmentItems = [...payload.wornItems.items];
 
       return ReduxHandlers.properResponse(currentState, newState);
@@ -12,14 +12,14 @@ const ReduxHandlers = {
 
     newState.equipmentItems = [...currentState.equipmentItems];
 
-    if (typeof payload.itemToAdd !== 'undefined') {
+    if (payload.itemToAdd) {
       const { slot } = payload.itemToAdd;
 
       newState.equipmentItems = Utils.removeFromArrayBySlot(slot, newState.equipmentItems);
       newState.equipmentItems.push(payload.itemToAdd);
     }
 
-    if (typeof payload.itemToRemove !== 'undefined') {
+    if (payload.itemToRemove) {
       const { slot } = payload.itemToRemove;
       const { ident } = payload.itemToRemove;
 
@@ -32,7 +32,7 @@ const ReduxHandlers = {
   handleUpdateItemsInStash(currentState, payload) {
     const newState = {};
 
-    if (typeof payload.stashItems !== 'undefined') {
+    if (payload.stashItems) {
       newState.stashItems = [...payload.stashItems.items];
 
       return ReduxHandlers.properResponse(currentState, newState);
@@ -40,11 +40,11 @@ const ReduxHandlers = {
 
     newState.stashItems = [...currentState.stashItems];
 
-    if (typeof payload.itemToAdd !== 'undefined') {
+    if (payload.itemToAdd) {
       newState.stashItems.push(payload.itemToAdd);
     }
 
-    if (typeof payload.itemToRemove !== 'undefined') {
+    if (payload.itemToRemove) {
       const { ident } = payload.itemToRemove;
 
       newState.stashItems = Utils.removeFromArrayByIdent(ident, newState.stashItems);
@@ -55,7 +55,7 @@ const ReduxHandlers = {
   handleUpdateEnemyUnits(currentState, payload) {
     const newState = {};
 
-    if (typeof payload.enemyUnits !== 'undefined') {
+    if (payload.enemyUnits) {
       newState.enemyUnits = [...payload.enemyUnits];
 
       return ReduxHandlers.properResponse(currentState, newState);
@@ -63,11 +63,18 @@ const ReduxHandlers = {
 
     newState.enemyUnits = [...currentState.enemyUnits];
 
-    if (typeof payload.unitToAdd !== 'undefined') {
+    if (payload.unitToAdd) {
       newState.enemyUnits.push(payload.unitToAdd);
     }
 
-    if (typeof payload.unitToRemove !== 'undefined') {
+    if (payload.unitToUpdate) {
+      const { ident } = payload.unitToUpdate;
+
+      newState.enemyUnits = Utils.removeFromArrayByIdent(ident, newState.enemyUnits);
+      newState.enemyUnits.push(payload.unitToUpdate);
+    }
+
+    if (payload.unitToRemove) {
       const { ident } = payload.unitToRemove;
 
       newState.enemyUnits = Utils.removeFromArrayByIdent(ident, newState.enemyUnits);
@@ -78,10 +85,30 @@ const ReduxHandlers = {
   handleUpdateFriendlyUnits(currentState, payload) {
     const newState = {};
 
-    if (typeof payload.friendlyUnits !== 'undefined') {
+    if (payload.friendlyUnits) {
       newState.friendlyUnits = [...payload.friendlyUnits];
 
       return ReduxHandlers.properResponse(currentState, newState);
+    }
+
+    newState.friendlyUnits = [...currentState.friendlyUnits];
+
+    if (typeof payload.unitToUpdate) {
+      const { ident } = payload.unitToUpdate;
+
+      newState.friendlyUnits = Utils.removeFromArrayByIdent(ident, newState.friendlyUnits);
+      newState.friendlyUnits.push(payload.unitToUpdate);
+    }
+
+    return ReduxHandlers.properResponse(currentState, newState);
+  },
+  handleUpdateLocationField(currentState, payload) {
+    const newState = {};
+
+    if (payload && payload.ident) {
+      newState.locationFields = { ...currentState.locationFields };
+
+      newState.locationFields[payload.ident] = payload;
     }
 
     return ReduxHandlers.properResponse(currentState, newState);

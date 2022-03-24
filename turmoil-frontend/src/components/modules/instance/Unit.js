@@ -19,7 +19,12 @@ function Unit(props) {
   };
 
   return (
-    <div className={`instanceElement${mainDivClass}`} id={ident} onClick={() => onClick(ident)}>
+    <div
+      className={`instanceElement${mainDivClass}`}
+      id={ident}
+      onClick={() => onClick(ident)}
+      onContextMenu={(event) => { event.preventDefault(); }}
+    >
       <Tooltip ident={ident} />
       <div className="instancePortraitHealthBar">
         <div className="instancePortraitHealthBarInner" id={`${ident}Health`} style={unitStyle} />
