@@ -1,5 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
-import JavaServerService from '../services/javaServerService.js';
+import JavaServerService from '../services/java-server-service.js';
 
 export const itemToStash = async (req, res) => {
   const result = await JavaServerService.itemToStash(req.body);

@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 import fetch from 'node-fetch';
-import JavaServerService, { API_PATH } from '../services/javaServerService.js';
+import JavaServerService, { API_PATH } from '../services/java-server-service.js';
 import Item from '../models/item/Item.js';
 import Attribute from '../models/item/Attribute.js';
 
@@ -12,6 +12,7 @@ export const itemGenerateAndPersist = async (req, res) => {
   const jsonResponse = await result.json();
 
   jsonResponse.id = null;
+  jsonResponse.userId = req?.account?.id || 1;
 
   const item = await Item.create(jsonResponse);
 

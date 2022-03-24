@@ -1,6 +1,6 @@
 import express from 'express';
-import { createUser, loginUser } from '../controllers/userController.js';
-import passportLogin from '../middleware/passportLoginMiddleware.js';
+import { createUser, loginUser } from '../controllers/user-controller.js';
+import passportLogin from '../middleware/passport-login-middleware.js';
 import { loginSchema, signupSchema } from '../schemas/user-schemas.js';
 import validationMiddleware from '../middleware/validation-middleware.js';
 
