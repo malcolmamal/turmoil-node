@@ -71,8 +71,6 @@ const WindowLocation = {
       if (typeof (data.unitToAdd) !== 'undefined') {
         if (typeof (callbackFunctions) !== 'undefined' && typeof (callbackFunctions.removeEnemyUnit) === 'function') {
           callbackFunctions.removeEnemyUnit(data.unitToRemove);
-          Svg.removeClass(polygon, 'instancePolygonEnemy');
-          Svg.addClass(polygon, 'instancePolygon');
         }
 
         if (typeof (callbackFunctions) !== 'undefined' && typeof (callbackFunctions.addEnemyUnit) === 'function') {
