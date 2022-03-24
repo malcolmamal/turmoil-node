@@ -30,7 +30,7 @@ export const responseInterceptor = (navigate, location) => axios.interceptors.re
     case 401:
       Layout.hideSpinner();
 
-      if (location.pathname === '/login' || location.pathname !== '/signup') {
+      if (location.pathname === '/login' || location.pathname === '/signup') {
         handleError(error);
         return;
       }
