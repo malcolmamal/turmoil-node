@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Unit from './Unit';
 import WindowLocation from '../../../js/windows/window-location';
 import Logger from '../../../js/utils/logger';
