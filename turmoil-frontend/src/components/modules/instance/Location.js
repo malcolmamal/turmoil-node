@@ -42,6 +42,9 @@ function Location() {
       const friendlyUnit = friendlyUnits[0];
       WindowLocation.setEquipmentBackground(friendlyUnit.gender);
 
+      /**
+       * this should be moved from DOM to component as well (hiding/showing component breaks it)
+       */
       window.turmoil.instance.activeUnit = friendlyUnit.ident;
       window.turmoil.instance.polygonsInRange = friendlyUnit.polygonsInRange;
       WindowLocation.setActivePolygons();

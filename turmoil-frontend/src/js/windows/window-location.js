@@ -38,7 +38,6 @@ const WindowLocation = {
         setTimeout(
           () => {
             WindowLocation.inactivateUnits();
-            WindowLocation.setActivePolygons();
             Permissions.enableActions();
           },
           window.turmoil.settings.delayBetweenActions * index + window.turmoil.settings.delayBetweenActions / 2,
