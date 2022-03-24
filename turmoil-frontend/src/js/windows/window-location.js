@@ -48,8 +48,8 @@ const WindowLocation = {
   finalizeActionOnPolygon(data, callbackFunctions) {
     if (data != null && data.success === false) {
       window.turmoil.logErrors(data.message);
-    } else if (data != null && data.success === true && typeof (data.polygonId) !== 'undefined') {
-      if (typeof (data.unit) !== 'undefined' && typeof (data.unit.polygonsInRange) !== 'undefined') {
+    } else if (data != null && data.success === true && data.polygonId) {
+      if (data.unit && data.unit.polygonsInRange) {
         window.turmoil.instance.polygonsInRange = data.unit.polygonsInRange;
       }
 
@@ -61,19 +61,19 @@ const WindowLocation = {
           }
           WindowLocation.handleAttackPolygon(polygon, document.querySelector(`#${data.attackingUnit}`), data);
         } else if (data.actionType === 'move') {
-          if (typeof (data.unitToMove) === 'undefined') {
+          if (!data.unitToMove) {
             window.turmoil.logErrors('Move action failed');
           }
           WindowLocation.handleMoveToPolygon(data.polygonId, data.unitToMove, callbackFunctions, data);
         }
       }
 
-      if (typeof (data.unitToAdd) !== 'undefined') {
-        if (typeof (callbackFunctions) !== 'undefined' && typeof (callbackFunctions.removeEnemyUnit) === 'function') {
+      if (data.unitToAdd) {
+        if (callbackFunctions && typeof (callbackFunctions.removeEnemyUnit) === 'function') {
           callbackFunctions.removeEnemyUnit(data.unitToRemove);
         }
 
-        if (typeof (callbackFunctions) !== 'undefined' && typeof (callbackFunctions.addEnemyUnit) === 'function') {
+        if (callbackFunctions && typeof (callbackFunctions.addEnemyUnit) === 'function') {
           callbackFunctions.addEnemyUnit(data.unitToAdd);
 
           WindowLocation.handleMoveToPolygon(
@@ -84,8 +84,8 @@ const WindowLocation = {
         }
       }
 
-      if (typeof (data.itemForStash) !== 'undefined') {
-        if (typeof (callbackFunctions) !== 'undefined' && typeof (callbackFunctions.updateItems) === 'function') {
+      if (data.itemForStash) {
+        if (callbackFunctions && typeof (callbackFunctions.updateItems) === 'function') {
           callbackFunctions.updateItems(data.itemForStash);
         }
       }

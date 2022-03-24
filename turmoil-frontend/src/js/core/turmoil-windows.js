@@ -77,7 +77,7 @@ const Windows = {
   },
   saveWindowsPositions(forceSaveParam) {
     let forceSave = forceSaveParam;
-    if (typeof (forceSave) === 'undefined') {
+    if (!forceSave) {
       forceSave = false;
     }
 
