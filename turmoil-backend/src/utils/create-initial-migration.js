@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import migrate from 'sequelize-auto-migrations-v2';
+import migrate from 'sequelize-automated-migrations';
 import fs from 'fs';
 import path from 'path';
 import beautify from 'js-beautify';
