@@ -9,19 +9,17 @@ function Footer(props) {
     display: 'none',
   };
 
-  let logoutBox = '';
+  let logoutBox = null;
   if (localStorage.getItem('userName')) {
     logoutBox = (
-      <div>
-        <Link onClick={logout} to="/login" id="logout">
-          <FormattedMessage id="turmoil.footer.logout" />
-          {' '}
-          - (logged as
-          {' '}
-          {localStorage.getItem('userName')}
-          )
-        </Link>
-      </div>
+      <Link onClick={logout} to="/login" id="logout">
+        <FormattedMessage id="turmoil.footer.logout" />
+        {' '}
+        - (logged as
+        {' '}
+        {localStorage.getItem('userName')}
+        )
+      </Link>
     );
   }
 
@@ -29,6 +27,8 @@ function Footer(props) {
     <div id="turmoilFooter" className="turmoilFooter" role="contentinfo">
       <div className="footerBlock">
         {logoutBox}
+        {logoutBox && ' | '}
+        {props.children}
       </div>
       <div id="spinner" className="spinner" style={spinnerDisplayStyle} title={`${useIntl().formatMessage({ id: 'turmoil.footer.loading' })}...`} />
     </div>

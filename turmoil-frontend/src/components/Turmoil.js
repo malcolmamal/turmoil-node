@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Navigate, useNavigate } from 'react-router';
 import { Route, Link, useLocation } from 'react-router-dom';
 import { useHotkeys } from 'react-hotkeys-hook';
@@ -12,7 +12,6 @@ import Stats from './modules/stats/Stats';
 import Location from './modules/instance/Location';
 import SignupPage from '../pages/auth/Signup';
 import LoginPage from '../pages/auth/Login';
-import Button from './button/Button';
 import Logger from '../js/utils/logger';
 import Layout from '../js/core/turmoil-layout';
 import Utils from '../js/core/turmoil-utils';
@@ -22,6 +21,7 @@ import ResponseInterceptor from './interceptor/ResponseInterceptor';
 function Turmoil() {
   const navigate = useNavigate();
   const location = useLocation();
+  const [isLogged, setIsLogged] = useState(false);
 
   const keyMapping = [
     ['i', 'equipment'], ['c', 'stats'], ['s', 'stash'], ['l', 'location'], ['o', 'console'],
@@ -39,13 +39,13 @@ function Turmoil() {
       navigate('/login');
     }
 
+    if (localStorage.getItem('token')) {
+      setIsLogged(true);
+    }
+
     Layout.setLayout();
     Utils.addEvent(window, 'resize', Layout.resizeEvent);
   });
-
-  const testButton = (e) => {
-    Logger.log('clicked!', e);
-  };
 
   const logoutHandler = () => {
     localStorage.removeItem('token');
@@ -96,6 +96,9 @@ function Turmoil() {
     </Routes>
   );
 
+  const className = `turmoilBody ${(location.pathname === '/login'
+    || location.pathname === '/signup') ? 'turmoilBodyCenterFlex' : ''}`;
+
   return (
     <div>
       <Error />
@@ -103,7 +106,7 @@ function Turmoil() {
       <ResponseInterceptor />
 
       <div className="turmoilContainer">
-        <div id="turmoilBody" className="turmoilBody">
+        <div id="turmoilBody" className={className}>
           <div id="shadows">
             <div className="shadowTop" />
             <div className="shadowLeft" />
@@ -111,24 +114,18 @@ function Turmoil() {
             <div className="shadowBottom" />
           </div>
 
-          <Link to="/logged">Main</Link>
-          {' | '}
-          <Link to="/signup">Signup</Link>
-          {' | '}
-          <Link to="/login">Login</Link>
-
           {routes}
-
-          <form>
-            <Button design="raised" type="button" onClick={(e) => testButton(e)}>
-              Test me!
-            </Button>
-          </form>
 
         </div>
       </div>
 
-      <Footer logout={logoutHandler} />
+      <Footer logout={logoutHandler}>
+        {isLogged && <Link to="/logged">Main</Link>}
+        {isLogged && ' | '}
+        {<Link to="/signup">Signup</Link>}
+        {' | '}
+        {<Link to="/login">Login</Link>}
+      </Footer>
     </div>
   );
 }

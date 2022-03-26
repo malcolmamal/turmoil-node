@@ -5,6 +5,7 @@ import Button from '../../components/button/Button';
 import { required, length, email } from '../../js/utils/validators';
 import Logger from '../../js/utils/logger';
 import { signupAction } from '../../js/api/services/user-service';
+import './Signup.css';
 
 function Signup() {
   const navigate = useNavigate();
@@ -96,44 +97,48 @@ function Signup() {
   const inputBlurHandlerPassword = () => { inputBlurHandler('password'); };
 
   return (
-    <form onSubmit={(e) => signupHandler(e, { signupForm })}>
-      <Input
-        id="email"
-        label="Your E-Mail"
-        type="email"
-        control="input"
-        onChange={inputChangeHandler}
-        onBlur={inputBlurHandlerEmail}
-        value={signupForm.email.value}
-        valid={signupForm.email.valid}
-        touched={signupForm.email.touched}
-      />
-      <Input
-        id="name"
-        label="Your Name"
-        type="text"
-        control="input"
-        onChange={inputChangeHandler}
-        onBlur={inputBlurHandlerName}
-        value={signupForm.name.value}
-        valid={signupForm.name.valid}
-        touched={signupForm.name.touched}
-      />
-      <Input
-        id="password"
-        label="Password"
-        type="password"
-        control="input"
-        onChange={inputChangeHandler}
-        onBlur={inputBlurHandlerPassword}
-        value={signupForm.password.value}
-        valid={signupForm.password.valid}
-        touched={signupForm.password.touched}
-      />
-      <Button design="raised" loading={authLoading}>
-        Signup
-      </Button>
-    </form>
+    <div className="circleMedium">
+      <div className="containerMedium">
+        <form onSubmit={(e) => signupHandler(e, { signupForm })}>
+          <Input
+            id="email"
+            label="Your E-Mail"
+            type="email"
+            control="input"
+            onChange={inputChangeHandler}
+            onBlur={inputBlurHandlerEmail}
+            value={signupForm.email.value}
+            valid={signupForm.email.valid}
+            touched={signupForm.email.touched}
+          />
+          <Input
+            id="name"
+            label="Your Name"
+            type="text"
+            control="input"
+            onChange={inputChangeHandler}
+            onBlur={inputBlurHandlerName}
+            value={signupForm.name.value}
+            valid={signupForm.name.valid}
+            touched={signupForm.name.touched}
+          />
+          <Input
+            id="password"
+            label="Password"
+            type="password"
+            control="input"
+            onChange={inputChangeHandler}
+            onBlur={inputBlurHandlerPassword}
+            value={signupForm.password.value}
+            valid={signupForm.password.valid}
+            touched={signupForm.password.touched}
+          />
+          <Button design="raised" loading={authLoading} className="centerButton">
+            Signup
+          </Button>
+        </form>
+      </div>
+    </div>
   );
 }
 

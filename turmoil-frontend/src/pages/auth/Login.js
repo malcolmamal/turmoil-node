@@ -4,6 +4,7 @@ import Input from '../../components/form/input/Input';
 import Button from '../../components/button/Button';
 import { required, length, email } from '../../js/utils/validators';
 import { loginAction } from '../../js/api/services/user-service';
+import './Login.css';
 
 function Login(props) {
   const navigate = useNavigate();
@@ -98,38 +99,42 @@ function Login(props) {
   };
 
   return (
-    <form
-      onSubmit={(e) => loginHandler(e, {
-        email: loginForm.email.value,
-        password: loginForm.password.value,
-      })}
-    >
-      <Input
-        id="email"
-        label="Your E-Mail"
-        type="email"
-        control="input"
-        onChange={inputChangeHandler}
-        onBlur={inputBlurHandlerEmail}
-        value={loginForm.email.value}
-        valid={loginForm.email.valid}
-        touched={loginForm.email.touched}
-      />
-      <Input
-        id="password"
-        label="Password"
-        type="password"
-        control="input"
-        onChange={inputChangeHandler}
-        onBlur={inputBlurHandlerPassword}
-        value={loginForm.password.value}
-        valid={loginForm.password.valid}
-        touched={loginForm.password.touched}
-      />
-      <Button design="raised" loading={authLoading}>
-        Login
-      </Button>
-    </form>
+    <div className="circleMedium">
+      <div className="containerMedium">
+        <form
+          onSubmit={(e) => loginHandler(e, {
+            email: loginForm.email.value,
+            password: loginForm.password.value,
+          })}
+        >
+          <Input
+            id="email"
+            label="Your E-Mail"
+            type="email"
+            control="input"
+            onChange={inputChangeHandler}
+            onBlur={inputBlurHandlerEmail}
+            value={loginForm.email.value}
+            valid={loginForm.email.valid}
+            touched={loginForm.email.touched}
+          />
+          <Input
+            id="password"
+            label="Password"
+            type="password"
+            control="input"
+            onChange={inputChangeHandler}
+            onBlur={inputBlurHandlerPassword}
+            value={loginForm.password.value}
+            valid={loginForm.password.valid}
+            touched={loginForm.password.touched}
+          />
+          <Button design="raised" loading={authLoading} className="centerButton">
+            Login
+          </Button>
+        </form>
+      </div>
+    </div>
   );
 }
 

@@ -4,10 +4,11 @@ import './Button.css';
 
 function Button(props) {
   const {
-    link, design, mode, onClick, disabled, loading, children,
+    link, design, mode, onClick, disabled, loading, children, className,
   } = props;
 
   return !link ? (
+    <div className={className}>
     <button
       className={[
         'button',
@@ -20,7 +21,9 @@ function Button(props) {
     >
       {loading ? 'Loading...' : children}
     </button>
+    </div>
   ) : (
+    <div className={className}>
     <Link
       className={[
         'button',
@@ -31,6 +34,7 @@ function Button(props) {
     >
       {children}
     </Link>
+    </div>
   );
 }
 

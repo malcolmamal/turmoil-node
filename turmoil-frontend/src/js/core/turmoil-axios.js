@@ -2,6 +2,7 @@ import axios from 'axios';
 import ErrorHandler, { GenericError } from './turmoil-error';
 import Layout from './turmoil-layout';
 import Permissions from './turmoil-permissions';
+import appConfig from '../../config/application';
 
 const getAuthHeader = () => `Bearer ${localStorage.getItem('token')}`;
 
@@ -47,7 +48,7 @@ export const responseInterceptorEject = (interceptorId) => {
 };
 
 const initAxios = () => {
-  axios.defaults.baseURL = 'http://localhost:3030/';
+  axios.defaults.baseURL = appConfig.baseUrl;
 
   axios.interceptors.request.use(
     (config) => {
