@@ -53,6 +53,7 @@ function Turmoil() {
     localStorage.removeItem('userId');
     localStorage.removeItem('userName');
 
+    setIsLogged(false);
     navigate('/login');
   };
 
