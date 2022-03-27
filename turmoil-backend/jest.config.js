@@ -1,5 +1,5 @@
 export default {
-  testEnvironment: 'jest-environment-node',
+  testEnvironment: './jest-node-with-timezone.js',
   testEnvironmentOptions: {
     NODE_ENV: 'test',
   },

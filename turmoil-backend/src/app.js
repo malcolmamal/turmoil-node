@@ -11,6 +11,7 @@ import createErrorMiddleware from './middleware/error-middleware.js';
 import initializePassport from './configs/passport/passport.js';
 import itemRouter from './routes/item-routes.js';
 import initializeSequelize from './provider/db/sequelize.js';
+import passportAuthorized from './middleware/passport-jwt-middleware.js';
 
 // in case of doubled request, favicon workaround
 // app.get('/favicon.ico', (req, res) => res.sendStatus(204));
@@ -44,6 +45,21 @@ const createApp = async () => {
   app.use('/tooltip', tooltipRouter);
   app.use('/instance', instanceRouter);
   app.use('/character', characterRouter);
+
+  app.get(
+    '/healthcheck',
+    passportAuthorized,
+    (req, res) => {
+      res.sendStatus(200);
+    },
+  );
+
+  app.get(
+    '/healthcheckNoAuth',
+    (req, res) => {
+      res.sendStatus(200);
+    },
+  );
 
   // eslint-disable-next-line no-console
   app.use(createErrorMiddleware({ logger: { error: console.error, log: Logger.log } }));

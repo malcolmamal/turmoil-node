@@ -3,14 +3,21 @@ import jwt from 'jsonwebtoken';
 import { StatusCodes } from 'http-status-codes';
 import User from '../models/User.js';
 import { secretKey } from '../configs/passport/passport.js';
-import sleep from '../utils/sleep.js';
+import findUserByEmail from '../services/user-service.js';
 
 export const createUser = async (req, res, next) => {
-  await sleep(500);
-
   const { email } = req.body;
   const { name } = req.body;
   const { password } = req.body;
+
+  const userExists = (await findUserByEmail(email) !== null);
+  console.log('user ex', userExists, email);
+  if (userExists) {
+    res
+      .status(StatusCodes.FORBIDDEN)
+      .json({ error: `User with '${email}' already exists!` });
+    return;
+  }
 
   try {
     const hashedPw = await bcrypt.hash(password, 12);
@@ -21,20 +28,16 @@ export const createUser = async (req, res, next) => {
       name,
     });
     const result = await user.save();
-    res.status(StatusCodes.CREATED).json({ message: 'User created!!', userId: result.id });
+    res.status(StatusCodes.CREATED).json({ message: 'User created!', userId: result.id });
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = StatusCodes.INTERNAL_SERVER_ERROR;
     }
     next(err);
   }
-
-  return null;
 };
 
 export const loginUser = async (req, res, next) => {
-  await sleep(500);
-
   const { user } = req;
   try {
     const token = await jwt.sign(

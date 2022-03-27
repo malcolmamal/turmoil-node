@@ -15,7 +15,10 @@ const initializeSequelize = async () => {
   try {
     await sequelize.authenticate();
     Logger.log('Connection has been established successfully.');
-    await sequelize.sync({ force: false });
+    await sequelize.sync({
+      force: false,
+      logging: false,
+    });
   } catch (err) {
     Logger.log('Database error', err);
   }

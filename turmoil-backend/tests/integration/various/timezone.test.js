@@ -1,5 +1,5 @@
 describe('Timezones', () => {
-  it('should always be Central European Standard Time', () => {
-    expect(new Date().getTimezoneOffset()).toBe(-60);
+  it('should always be UTC', () => {
+    expect(new Date().getTimezoneOffset()).toBe(0);
   });
 });
