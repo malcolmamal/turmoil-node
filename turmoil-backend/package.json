@@ -8,7 +8,6 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --maxWorkers=1",
-    "pretest": "npm run db:reset",
     "lint": "node ./node_modules/eslint/bin/eslint.js src --ext=js",
     "lint:fix": "npm run lint -- --fix",
     "db:migrate": "npx sequelize-cli db:migrate",
