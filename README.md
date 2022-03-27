@@ -14,6 +14,7 @@ There is a travis file (`.travis.yml`) showing all the necessary steps to deploy
 + node (https://nodejs.org/) and npm (included with node)
 + jdk 17 (https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) 
 + gradle (https://gradle.org/install/)
++ docker (https://www.docker.com/get-started/)
 + ports 8080 for Java backend, 3030 for NodeJS backend and 3000 for ReactJS frontend 
 
 1. `npm run build:postgres` to build docker and `npm run start:postgres` to start the postgres docker image
