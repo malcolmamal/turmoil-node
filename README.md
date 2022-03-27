@@ -11,7 +11,7 @@ The idea is to migrate the Java backend into NodeJS backend, but it will take so
 There is a travis file (`.travis.yml`) showing all the necessary steps to deploy the application.
 
 # Requirements
-+ node and npm
++ node (https://nodejs.org/) and npm (included with node)
 + jdk 17 (https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) 
 + gradle (https://gradle.org/install/)
 + ports 8080 for Java backend, 3030 for NodeJS backend and 3000 for ReactJS frontend 
