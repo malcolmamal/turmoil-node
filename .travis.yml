@@ -23,7 +23,7 @@ install:
   - ls -la build/libs
 before_script:
   - docker build -t nemhauser/turmoil-java .
-  - docker run  --name="turmoil-java" -d -p 127.0.0.1:8080:8080 nemhauser/turmoil-java /bin/sh -c "java --jar /app.jar;"
+  - docker run  --name="turmoil-java" -d -p 8080:8080 nemhauser/turmoil-java /bin/sh -c "java --jar /app.jar;"
 script:
   - nohup npm run start:backend &
   - nohup npm run start:frontend &
