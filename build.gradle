@@ -59,7 +59,7 @@ dependencies {
 }
 
 group = 'info.nemhauser'
-version = '0.0.1-SNAPSHOT'
+version = '0.1.1'
 description = 'turmoil'
 java.sourceCompatibility = JavaVersion.VERSION_14
 java.targetCompatibility = JavaVersion.VERSION_14
