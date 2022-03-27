@@ -12,7 +12,7 @@ cache:
     - turmoil-backend/node_modules
     - turmoil-frontend/node_modules
 before_install:
-  - wget https://github.com/sormuras/bach/raw/master/install-jdk.sh && . ./install-jdk.sh -F 14 -L GPL
+  - wget https://github.com/sormuras/bach/raw/master/install-jdk.sh && . ./install-jdk.sh -F 17 -L GPL
   - pwd
   - chmod +x ./gradlew
 install:

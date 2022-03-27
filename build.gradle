@@ -61,8 +61,8 @@ dependencies {
 group = 'info.nemhauser'
 version = '0.1.1'
 description = 'turmoil'
-java.sourceCompatibility = JavaVersion.VERSION_14
-java.targetCompatibility = JavaVersion.VERSION_14
+java.sourceCompatibility = JavaVersion.VERSION_17
+java.targetCompatibility = JavaVersion.VERSION_17
 
 publishing {
     publications {
