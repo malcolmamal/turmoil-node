@@ -10,14 +10,9 @@ beforeAll(async () => {
 
 describe('The Base', () => {
   it('should return unsuccessful JSON response', async () => {
-
-    console.log('started base test');
-
     const response = await request(app).get('/');
 
     expect(response.statusCode).toBe(StatusCodes.NOT_FOUND);
     expect(response.body).toStrictEqual({ });
-
-    console.log('finished base test');
   });
 });
