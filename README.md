@@ -21,5 +21,8 @@ There is a travis file (`.travis.yml`) showing all the necessary steps to deploy
 3. `npm run install:backend` to build and `npm run start:backend` to start the NodeJS backend
 4. `npm run install:frontend` to build and `npm run start:frontend` to start the ReactJS frontend
  
+# Travis CI status
++ https://app.travis-ci.com/github/malcolmamal/turmoil-node
+
 # For the future
 To avoid installing gradle/jdk perhaps the jar for the Java backend will be accessible somewhere and docker will just be downloading it.
