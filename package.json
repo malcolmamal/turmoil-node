@@ -1,7 +1,7 @@
 {
   "name": "turmoil",
   "version": "1.0.0",
-  "description": "\"# turmoil-java\"",
+  "description": "turmoil",
   "main": "index.js",
   "scripts": {
     "test": "npm test --prefix turmoil-frontend",
