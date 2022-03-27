@@ -11,13 +11,15 @@ The idea is to migrate the Java backend into NodeJS backend, but it will take so
 There is a travis file (`.travis.yml`) showing all the necessary steps to deploy the application.
 
 # Requirements
-+ node and npm
++ node and npm 
 + gradle
 + jdk 1.4
++ ports 8080 for Java backend, 3030 for NodeJS backend and 3000 for ReactJS frontend 
 
-1. `npm run install:backend` to build and `npm run start:backend` to start the NodeJS backend
-2. `npm run install:frontend` to build and `npm run start:frontend` to start the ReactJS frontend
-3. `gradlew build` to build and `docker build -t nemhauser/turmoil-java .` with `docker run  --name="turmoil-java" -d -p 8080:8080 nemhauser/turmoil-java /bin/sh -c "java --jar /app.jar;"` to start the Java backend in the docker 
-
+1. `npm run build:postgres` to build docker and `npm run run:postgres` to start the postgres docker image
+2. `npm run build:java` to build java and `npm run build:java:docker` to build docker and `npm run run:java` to start the Java backend in the built docker
+3. `npm run install:backend` to build and `npm run start:backend` to start the NodeJS backend
+4. `npm run install:frontend` to build and `npm run start:frontend` to start the ReactJS frontend
+ 
 # For the future
 To avoid installing gradle/jdk perhaps the jar for the Java backend will be accessible somewhere and docker will just be downloading it.

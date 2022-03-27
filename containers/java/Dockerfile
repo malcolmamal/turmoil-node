@@ -1,6 +1,5 @@
 FROM openjdk:14
-ARG JAR_FILE=build/*.jar
-COPY ${JAR_FILE} app.jar
+COPY build/libs/turmoil-0.1.1.jar app.jar
 ADD properties properties
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","/app.jar"]
