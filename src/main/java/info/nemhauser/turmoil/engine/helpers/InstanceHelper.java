@@ -12,9 +12,8 @@ import info.nemhauser.turmoil.engine.instances.CombatState;
 public class InstanceHelper
 {
 	private static int monsterPosition = 0;
+
 	/**
-	 * @deprecated
-	 *
 	 * @return DefaultUndirectedGraph<String, DefaultEdge>
 	 */
 	public static DefaultUndirectedGraph<String, DefaultEdge> getInstanceGraph()

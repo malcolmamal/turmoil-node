@@ -19,9 +19,6 @@ import java.util.ArrayList;
 
 public class CharacterStateHelper
 {
-	/**
-	 * @deprecated
-	 */
 	public static CharacterState getCharacterState(Character character)
 	{
 		CharacterState characterState = ServerHelper.getCharacterState(character);
