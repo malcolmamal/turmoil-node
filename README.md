@@ -11,9 +11,12 @@ The idea is to migrate the Java backend into NodeJS backend, but it will take so
 There is a travis file (`.travis.yml`) showing all the necessary steps to deploy the application.
 
 # Requirements
-+ node and npm 
-+ gradle
-+ jdk 1.4
++ node and npm
++ jdk 1.4 (https://www.oracle.com/java/technologies/javase/jdk14-archive-downloads.html) 
+  + since the 1.4 JDK is old now, the official Oracle page requires a login, therefore if one does not want to create an account - there are other places where it could be downloaded without hassle, for instance:
+    + linux: https://download.java.net/java/GA/jdk14.0.2/205943a0976c4ed48cb16f1043c5c647/12/GPL/openjdk-14.0.2_linux-x64_bin.tar.gz
+    + windows: https://www.filehorse.com/download-java-development-kit-64/52936/download/
++ gradle (https://gradle.org/install/)
 + ports 8080 for Java backend, 3030 for NodeJS backend and 3000 for ReactJS frontend 
 
 1. `npm run build:postgres` to build docker and `npm run run:postgres` to start the postgres docker image
