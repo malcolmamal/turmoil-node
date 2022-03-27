@@ -25,7 +25,6 @@ describe('when logged in', () => {
 
   it('should be on the logged in page', async () => {
     const url = await page.url();
-    console.log('we are here', url);
     expect(url).toEqual(`${baseUrl}/logged`);
   });
 
