@@ -16,8 +16,8 @@ There is a travis file (`.travis.yml`) showing all the necessary steps to deploy
 + gradle (https://gradle.org/install/)
 + ports 8080 for Java backend, 3030 for NodeJS backend and 3000 for ReactJS frontend 
 
-1. `npm run build:postgres` to build docker and `npm run run:postgres` to start the postgres docker image
-2. `npm run build:java` to build java and `npm run build:java:docker` to build docker and `npm run run:java` to start the Java backend in the built docker
+1. `npm run build:postgres` to build docker and `npm run start:postgres` to start the postgres docker image
+2. `npm run build:java` to build java and `npm run build:java:docker` to build docker and `npm run start:java` to start the Java backend in the built docker
 3. `npm run install:backend` to build and `npm run start:backend` to start the NodeJS backend
 4. `npm run install:frontend` to build and `npm run start:frontend` to start the ReactJS frontend
  

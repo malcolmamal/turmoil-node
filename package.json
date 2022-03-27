@@ -11,13 +11,13 @@
     "install:backend": "npm install --prefix turmoil-backend && npm run db:reset --prefix turmoil-backend",
     "build:java": "gradlew build",
     "build:java:docker": "docker build -t nemhauser/turmoil-java .",
-    "run:java": "docker run  --name turmoil-java -d -p 8080:8080 nemhauser/turmoil-java /bin/sh -c \"java --jar /app.jar;",
+    "start:java": "docker run  --name turmoil-java -d -p 8080:8080 nemhauser/turmoil-java /bin/sh -c \"java --jar /app.jar;",
     "build:frontend": "npm run install:frontend && npm run build --prefix turmoil-frontend",
     "start:frontend": "npm start --prefix turmoil-frontend",
     "start:backend": "npm start --prefix turmoil-backend",
     "start": "npm start:backend & && npm start:frontend",
     "build:postgres": "cd containers/postgres && docker build --build-arg POSTGRES_DB=turmoil --build-arg POSTGRES_PASSWORD=nopass -t nemhauser/turmoil-postgres .",
-    "run:postgres": "cd containers/postgres && docker run -d --name turmoil-postgres -p 5432:5432 -e POSTGRES_PASSWORD=nopass postgres:alpine"
+    "start:postgres": "cd containers/postgres && docker run -d --name turmoil-postgres -p 5432:5432 -e POSTGRES_PASSWORD=nopass postgres:alpine"
   },
   "repository": {
     "type": "git",
