@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm test --prefix turmoil-frontend",
     "install:frontend": "npm install --prefix turmoil-frontend",
-    "install:backend": "npm install --prefix turmoil-backend",
+    "install:backend": "npm install --prefix turmoil-backend && npm run db:reset --prefix turmoil-backend",
     "build:java": "gradlew build",
     "build:frontend": "npm run install:frontend && npm run build --prefix turmoil-frontend",
     "start:frontend": "npm start --prefix turmoil-frontend",

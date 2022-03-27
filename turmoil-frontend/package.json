@@ -85,7 +85,9 @@
     "puppeteer": "^13.5.1"
   },
   "jest": {
-    "testMatch": [ "**/?(*.)+(test).[jt]s?(x)" ],
+    "testMatch": [
+      "**/?(*.)+(test).[jt]s?(x)"
+    ],
     "watchPathIgnorePatterns": [
       "src/__tests__/actions",
       "src/__tests__/helpers"

@@ -5,7 +5,8 @@
   "description": "turmoil-backend",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "pretest": "npm run db:reset",
     "lint": "node ./node_modules/eslint/bin/eslint.js src --ext=js",
