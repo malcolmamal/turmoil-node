@@ -27,7 +27,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --passWithNoTests",
     "eject": "react-scripts eject",
     "lint": "node ./node_modules/eslint/bin/eslint.js src --ext=js",
     "lint:fix": "npm run lint -- --fix",
@@ -85,6 +85,7 @@
     "puppeteer": "^13.5.1"
   },
   "jest": {
+    "testMatch": [ "**/?(*.)+(test).[jt]s?(x)" ],
     "watchPathIgnorePatterns": [
       "src/__tests__/actions",
       "src/__tests__/helpers"
