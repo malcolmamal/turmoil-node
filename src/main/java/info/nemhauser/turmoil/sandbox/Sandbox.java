@@ -1,35 +1,20 @@
 package info.nemhauser.turmoil.sandbox;
 
-import groovy.util.ConfigObject;
-import groovy.util.ConfigSlurper;
+
 import info.nemhauser.turmoil.TurmoilApplication;
-import info.nemhauser.turmoil.config.Logger;
-import info.nemhauser.turmoil.engine.domain.Armor;
-import info.nemhauser.turmoil.engine.domain.Attribute;
+
 import info.nemhauser.turmoil.engine.domain.Character;
 import info.nemhauser.turmoil.engine.domain.Item;
-import info.nemhauser.turmoil.engine.enums.ArmorType;
-import info.nemhauser.turmoil.engine.enums.ItemRarity;
-import info.nemhauser.turmoil.engine.enums.ItemType;
-import info.nemhauser.turmoil.engine.generators.ItemAttributeGenerator;
+
 import info.nemhauser.turmoil.engine.generators.ItemGenerator;
 import info.nemhauser.turmoil.engine.helpers.*;
 import info.nemhauser.turmoil.engine.instances.CombatState;
 
-import info.nemhauser.turmoil.engine.templates.ArmorTemplate;
-import org.jgrapht.GraphPath;
 import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
-import org.jgrapht.alg.shortestpath.KShortestSimplePaths;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DefaultUndirectedGraph;
 import org.jgrapht.graph.GraphWalk;
-import org.json.simple.JSONObject;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import net.minidev.json.JSONObject;
 
 public class Sandbox
 {
