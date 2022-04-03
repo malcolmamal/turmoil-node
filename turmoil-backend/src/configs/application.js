@@ -34,7 +34,8 @@ const testApplication = {
   },
 };
 
-const appConfig = env === 'test' ? { ...prodApplication, ...testApplication } : prodApplication;
+const appConfig =
+  env === 'test' ? { ...prodApplication, ...testApplication } : prodApplication;
 
 export const dbConfig = appConfig.db;
 export default appConfig;

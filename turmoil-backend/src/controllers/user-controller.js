@@ -10,8 +10,7 @@ export const createUser = async (req, res, next) => {
   const { name } = req.body;
   const { password } = req.body;
 
-  const userExists = (await findUserByEmail(email) !== null);
-  console.log('user ex', userExists, email);
+  const userExists = (await findUserByEmail(email)) !== null;
   if (userExists) {
     res
       .status(StatusCodes.FORBIDDEN)
@@ -28,7 +27,9 @@ export const createUser = async (req, res, next) => {
       name,
     });
     const result = await user.save();
-    res.status(StatusCodes.CREATED).json({ message: 'User created!', userId: result.id });
+    res
+      .status(StatusCodes.CREATED)
+      .json({ message: 'User created!', userId: result.id });
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = StatusCodes.INTERNAL_SERVER_ERROR;
@@ -47,13 +48,11 @@ export const loginUser = async (req, res, next) => {
       null,
     );
 
-    res.status(StatusCodes.OK).json(
-      {
-        token,
-        userId: user.id.toString(),
-        userName: user.email,
-      },
-    );
+    res.status(StatusCodes.OK).json({
+      token,
+      userId: user.id.toString(),
+      userName: user.email,
+    });
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = StatusCodes.INTERNAL_SERVER_ERROR;

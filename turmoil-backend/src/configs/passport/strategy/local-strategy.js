@@ -5,7 +5,4 @@ const options = {
   passwordField: 'password',
 };
 
-export default (loginCallback) => new Strategy(
-  options,
-  loginCallback,
-);
+export default (loginCallback) => new Strategy(options, loginCallback);

@@ -22,9 +22,7 @@ function setupGracefulShutdown(server) {
 }
 
 async function startServer(host = 'localhost', port = 3030, options = {}) {
-  const server = http.createServer(
-    await createApp(),
-  );
+  const server = http.createServer(await createApp());
 
   server.listen(port, host, () => {
     Logger.log(`Server is ready to handle connection on ${host}:${port}`);

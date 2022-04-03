@@ -1,11 +1,16 @@
 {
-  "plugins": ["jest"],
-  "extends": ["plugin:jest/recommended", "airbnb-base"],
+  "plugins": ["jest", "prettier"],
+  "extends": [
+    "plugin:jest/recommended",
+    "airbnb-base",
+    "plugin:prettier/recommended"
+  ],
   "env": {
     "jest/globals": true
   },
   "rules": {
     "import/extensions": [0],
-    "no-return-await": [0]
+    "no-return-await": [0],
+    "prettier/prettier": "error"
   }
 }

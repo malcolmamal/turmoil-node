@@ -6,9 +6,7 @@ export const API_PATH = 'http://localhost:8080';
 
 class JavaServerService {
   static tooltip = async (type, ident) => {
-    const result = await fetch(
-      `${API_PATH}/tooltip/${type}/${ident}`,
-    );
+    const result = await fetch(`${API_PATH}/tooltip/${type}/${ident}`);
 
     if (!result.ok) {
       const errorMessage = await result.text();
@@ -22,57 +20,43 @@ class JavaServerService {
   };
 
   static characterState = async () => {
-    const result = await fetch(
-      `${API_PATH}/character/state`,
-    );
+    const result = await fetch(`${API_PATH}/character/state`);
 
     return result.json();
   };
 
   static characterEquipItem = async (item) => {
-    const result = await fetch(
-      `${API_PATH}/character/equip/${item}`,
-    );
+    const result = await fetch(`${API_PATH}/character/equip/${item}`);
 
     return result.json();
   };
 
   static characterUnequipItem = async (item) => {
-    const result = await fetch(
-      `${API_PATH}/character/unequip/${item}`,
-    );
+    const result = await fetch(`${API_PATH}/character/unequip/${item}`);
 
     return result.json();
   };
 
   static initializeStash = async () => {
-    const result = await fetch(
-      `${API_PATH}/initializeStash`,
-    );
+    const result = await fetch(`${API_PATH}/initializeStash`);
 
     return result.json();
   };
 
   static initializeEquipment = async () => {
-    const result = await fetch(
-      `${API_PATH}/initializeEquipment`,
-    );
+    const result = await fetch(`${API_PATH}/initializeEquipment`);
 
     return result.json();
   };
 
   static initializeEnemyUnits = async () => {
-    const result = await fetch(
-      `${API_PATH}/instance/initializeEnemyUnits`,
-    );
+    const result = await fetch(`${API_PATH}/instance/initializeEnemyUnits`);
 
     return result.json();
   };
 
   static initializeFriendlyUnits = async () => {
-    const result = await fetch(
-      `${API_PATH}/instance/initializeFriendlyUnits`,
-    );
+    const result = await fetch(`${API_PATH}/instance/initializeFriendlyUnits`);
 
     return result.json();
   };
@@ -86,10 +70,10 @@ class JavaServerService {
   };
 
   static itemToStash = async (body) => {
-    const result = await fetch(
-      `${API_PATH}/json/jsonItemToStash`,
-      { method: 'POST', body },
-    );
+    const result = await fetch(`${API_PATH}/json/jsonItemToStash`, {
+      method: 'POST',
+      body,
+    });
 
     return result.json();
   };
@@ -103,9 +87,7 @@ class JavaServerService {
   };
 
   static fetchItem = async (itemIdent) => {
-    const result = await fetch(
-      `${API_PATH}/json/jsonFetchItem/${itemIdent}`,
-    );
+    const result = await fetch(`${API_PATH}/json/jsonFetchItem/${itemIdent}`);
 
     return result.json();
   };

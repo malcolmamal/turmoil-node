@@ -29,9 +29,11 @@ const createApp = async () => {
   // app.use(bodyParser.urlencoded()); // x-www-form-urlencoded <form>
   app.use(bodyParser.json()); // application/json
 
-  app.use(bodyParser.urlencoded({
-    extended: false,
-  }));
+  app.use(
+    bodyParser.urlencoded({
+      extended: false,
+    }),
+  );
 
   if (['prod', 'ci'].includes(process.env.NODE_ENV)) {
     app.use(express.static('../turmoil/frontend-build'));
@@ -46,23 +48,21 @@ const createApp = async () => {
   app.use('/instance', instanceRouter);
   app.use('/character', characterRouter);
 
-  app.get(
-    '/healthcheck',
-    passportAuthorized,
-    (req, res) => {
-      res.sendStatus(200);
-    },
-  );
+  app.get('/healthcheck', passportAuthorized, (req, res) => {
+    res.sendStatus(200);
+  });
 
-  app.get(
-    '/healthcheckNoAuth',
-    (req, res) => {
-      res.sendStatus(200);
-    },
-  );
+  app.get('/healthcheckNoAuth', (req, res) => {
+    res.sendStatus(200);
+  });
 
   // eslint-disable-next-line no-console
-  app.use(createErrorMiddleware({ logger: { error: console.error, log: Logger.log } }));
+  app.use(
+    createErrorMiddleware({
+      // eslint-disable-next-line no-console
+      logger: { error: console.error, log: Logger.log },
+    }),
+  );
 
   Logger.log('JavaServerService started');
 

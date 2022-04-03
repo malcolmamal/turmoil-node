@@ -29,7 +29,10 @@ if (!sequelize.models) {
 const { models } = sequelize;
 
 currentState.tables = migrate.reverseModels(sequelize, models);
-const actions = migrate.parseDifference(previousState.tables, currentState.tables);
+const actions = migrate.parseDifference(
+  previousState.tables,
+  currentState.tables,
+);
 // sort actions
 migrate.sortActions(actions);
 const migration = migrate.getMigration(actions);
@@ -42,21 +45,33 @@ if (migration.commandsUp.length === 0) {
 // save current state
 currentState.revision = previousState.revision + 1;
 
-const upValues = Object.values(currentState.tables).map((el) => `    await queryInterface.createTable('${el.tableName}', 
+const upValues = Object.values(currentState.tables).map(
+  (el) => `    await queryInterface.createTable('${el.tableName}', 
       ${JSON.stringify(el.schema, null, 2)}
-    );\n`);
+    );\n`,
+);
 
-const downValues = Object.values(currentState.tables).map((el) => `    await queryInterface.dropTable('${el.tableName}');`);
+const downValues = Object.values(currentState.tables).map(
+  (el) => `    await queryInterface.dropTable('${el.tableName}');`,
+);
 
 const template = `module.exports = {
   async up(queryInterface, DataTypes) {
-${upValues.join('\n').replaceAll('seqType', 'type')
-    .replaceAll('"Sequelize', 'DataTypes')
-    .replaceAll('"\n  }', '\n  }')
-    .replaceAll('"defaultValue": {\n      "value": 1\n    }', '"defaultValue": 1')
-    .replaceAll('"defaultValue": {\n      "value": 0\n    }', '"defaultValue": 0')
-    .replaceAll('"defaultValue": {\n      "value": false\n    }', '"default": false')
-    .replaceAll('"defaultValue": {\n      "value": true\n    }', '"default": true')}      
+${upValues
+  .join('\n')
+  .replaceAll('seqType', 'type')
+  .replaceAll('"Sequelize', 'DataTypes')
+  .replaceAll('"\n  }', '\n  }')
+  .replaceAll('"defaultValue": {\n      "value": 1\n    }', '"defaultValue": 1')
+  .replaceAll('"defaultValue": {\n      "value": 0\n    }', '"defaultValue": 0')
+  .replaceAll(
+    '"defaultValue": {\n      "value": false\n    }',
+    '"default": false',
+  )
+  .replaceAll(
+    '"defaultValue": {\n      "value": true\n    }',
+    '"default": true',
+  )}      
   },
 
   async down(queryInterface, DataTypes) {
@@ -67,4 +82,7 @@ ${downValues.join('\n')}
 
 const output = beautify(template, null, 2, 100);
 
-fs.writeFileSync(path.join(migrationsDir, '20220222222222-initial-migration.js'), output);
+fs.writeFileSync(
+  path.join(migrationsDir, '20220222222222-initial-migration.js'),
+  output,
+);

@@ -7,6 +7,11 @@ import validationMiddleware from '../middleware/validation-middleware.js';
 const userRouter = express.Router();
 
 userRouter.post('/create', validationMiddleware(signupSchema), createUser);
-userRouter.post('/login', validationMiddleware(loginSchema), passportLogin, loginUser);
+userRouter.post(
+  '/login',
+  validationMiddleware(loginSchema),
+  passportLogin,
+  loginUser,
+);
 
 export default userRouter;
