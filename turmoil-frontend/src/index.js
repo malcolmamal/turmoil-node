@@ -28,12 +28,14 @@ const language = navigator.language.split(/[-_]/)[0];
 // ========================================
 
 ReactDOM.render(
-  <Provider store={store}>
-    <IntlProvider locale={language} messages={data[language]}>
-      <BrowserRouter>
-        <Turmoil />
-      </BrowserRouter>
-    </IntlProvider>
-  </Provider>,
+  <React.StrictMode>
+    <Provider store={store}>
+      <IntlProvider locale={language} messages={data[language]}>
+        <BrowserRouter>
+          <Turmoil />
+        </BrowserRouter>
+      </IntlProvider>
+    </Provider>
+  </React.StrictMode>,
   document.getElementById('root'),
 );
