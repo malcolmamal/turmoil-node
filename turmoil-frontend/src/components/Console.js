@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  Tab, TabList, TabPanel, Tabs,
-} from 'react-tabs';
+import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import Window from './Window';
 import '../stylesheets/window-console.css';
 import Logger from '../js/utils/logger';
@@ -16,7 +14,8 @@ function Console() {
   }, []);
 
   const background = {
-    backgroundImage: "url('/images/backgrounds/background_paper_texture_1920x480.jpg')",
+    backgroundImage:
+      "url('/images/backgrounds/background_paper_texture_1920x480.jpg')",
     width: '600px',
     height: '260px',
   };
@@ -40,53 +39,76 @@ function Console() {
             </TabList>
 
             <TabPanel>
-              <div id="console-all" className="scrollableContainer consoleTab"><div>all</div></div>
-            </TabPanel>
-            <TabPanel>
-              <div id="console-combat" className="scrollableContainer consoleTab"><div>combat</div></div>
-            </TabPanel>
-            <TabPanel>
-              <div id="console-loot" className="scrollableContainer consoleTab" />
-            </TabPanel>
-            <TabPanel>
-              <div id="console-errors" className="scrollableContainer consoleTab" />
-            </TabPanel>
-            <TabPanel>
-              <div id="console-chat" className="scrollableContainer consoleTab">
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
-                tincidunt ut laoreet dolore magna aliquam erat volutpat.
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
-                tincidunt ut laoreet dolore magna aliquam erat volutpat.
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
-                tincidunt ut laoreet dolore magna aliquam erat volutpat.
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
-                tincidunt ut laoreet dolore magna aliquam erat volutpat.
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
-                tincidunt ut laoreet dolore magna aliquam erat volutpal.
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
-                tincidunt ut laoreet dolore magna aliquam erat volutpat.
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
-                tincidunt ut laoreet dolore magna aliquam erat volutpat.
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
-                tincidunt ut laoreet dolore magna aliquam erat volutpat.
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
-                tincidunt ut laoreet dolore magna aliquam erat volutpat.
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
-                tincidunt ut laoreet dolore magna aliquam erat volutpat.
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
-                tincidunt ut laoreet dolore magna aliquam erat volutpal.
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
-                tincidunt ut laoreet dolore magna aliquam erat volutpat.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
-                tincidunt ut laoreet dolore magna aliquam erat volutpat.
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
-                tincidunt ut laoreet dolore magna aliquam erat volutpat.
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
-                tincidunt ut laoreet dolore magna aliquam erat volutpat.
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumy nibh euismod
+              <div id="console-all" className="scrollableContainer consoleTab">
+                <div>all</div>
               </div>
             </TabPanel>
             <TabPanel>
-              <div id="console-other" className="scrollableContainer consoleTab" />
+              <div
+                id="console-combat"
+                className="scrollableContainer consoleTab"
+              >
+                <div>combat</div>
+              </div>
+            </TabPanel>
+            <TabPanel>
+              <div
+                id="console-loot"
+                className="scrollableContainer consoleTab"
+              />
+            </TabPanel>
+            <TabPanel>
+              <div
+                id="console-errors"
+                className="scrollableContainer consoleTab"
+              />
+            </TabPanel>
+            <TabPanel>
+              <div id="console-chat" className="scrollableContainer consoleTab">
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
+                diam nonumy nibh euismod tincidunt ut laoreet dolore magna
+                aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer
+                adipiscing elit, sed diam nonumy nibh euismod tincidunt ut
+                laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor
+                sit amet, consectetuer adipiscing elit, sed diam nonumy nibh
+                euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
+                diam nonumy nibh euismod tincidunt ut laoreet dolore magna
+                aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer
+                adipiscing elit, sed diam nonumy nibh euismod tincidunt ut
+                laoreet dolore magna aliquam erat volutpal. Lorem ipsum dolor
+                sit amet, consectetuer adipiscing elit, sed diam nonumy nibh
+                euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
+                diam nonumy nibh euismod tincidunt ut laoreet dolore magna
+                aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer
+                adipiscing elit, sed diam nonumy nibh euismod tincidunt ut
+                laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor
+                sit amet, consectetuer adipiscing elit, sed diam nonumy nibh
+                euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
+                diam nonumy nibh euismod tincidunt ut laoreet dolore magna
+                aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer
+                adipiscing elit, sed diam nonumy nibh euismod tincidunt ut
+                laoreet dolore magna aliquam erat volutpal. Lorem ipsum dolor
+                sit amet, consectetuer adipiscing elit, sed diam nonumy nibh
+                euismod tincidunt ut laoreet dolore magna aliquam erat
+                volutpat.Lorem ipsum dolor sit amet, consectetuer adipiscing
+                elit, sed diam nonumy nibh euismod tincidunt ut laoreet dolore
+                magna aliquam erat volutpat. Lorem ipsum dolor sit amet,
+                consectetuer adipiscing elit, sed diam nonumy nibh euismod
+                tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem
+                ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
+                nonumy nibh euismod tincidunt ut laoreet dolore magna aliquam
+                erat volutpat. Lorem ipsum dolor sit amet, consectetuer
+                adipiscing elit, sed diam nonumy nibh euismod
+              </div>
+            </TabPanel>
+            <TabPanel>
+              <div
+                id="console-other"
+                className="scrollableContainer consoleTab"
+              />
             </TabPanel>
           </Tabs>
         </div>

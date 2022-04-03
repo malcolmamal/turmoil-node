@@ -16,32 +16,44 @@ export const handleError = (error) => {
   err.errorObject = error;
   err.errorObject.originalData = errorSource.data;
 
-  ErrorHandler.handleError(error.config.method, error.config.url, error.config.data, err.errorObject);
+  ErrorHandler.handleError(
+    error.config.method,
+    error.config.url,
+    error.config.data,
+    err.errorObject,
+  );
 };
 
-export const responseInterceptor = (navigate, location) => axios.interceptors.response.use((response) => {
-  Layout.hideSpinner();
-  return response;
-}, (error) => {
-  switch (error.response.status) {
-    case 404:
+export const responseInterceptor = (navigate, location) =>
+  axios.interceptors.response.use(
+    (response) => {
       Layout.hideSpinner();
-      navigate('/404');
-      break;
-    case 401:
-      Layout.hideSpinner();
+      return response;
+    },
+    (error) => {
+      switch (error.response.status) {
+        case 404:
+          Layout.hideSpinner();
+          navigate('/404');
+          break;
+        case 401:
+          Layout.hideSpinner();
 
-      if (location.pathname === '/login' || location.pathname === '/signup') {
-        handleError(error);
-        return;
+          if (
+            location.pathname === '/login' ||
+            location.pathname === '/signup'
+          ) {
+            handleError(error);
+            return;
+          }
+
+          navigate('/login');
+          break;
+        default:
+          handleError(error);
       }
-
-      navigate('/login');
-      break;
-    default:
-      handleError(error);
-  }
-});
+    },
+  );
 
 export const responseInterceptorEject = (interceptorId) => {
   axios.interceptors.response.eject(interceptorId);

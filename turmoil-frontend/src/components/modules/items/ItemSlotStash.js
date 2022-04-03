@@ -27,7 +27,7 @@ function ItemSlotStash(props) {
         }
       }
 
-      if (typeof (callbackFunction) === 'function') {
+      if (typeof callbackFunction === 'function') {
         callbackFunction(data.itemForStash, data.itemForEquipment);
       }
     }
@@ -38,8 +38,17 @@ function ItemSlotStash(props) {
   };
 
   const updateItems = (itemForStash, itemForEquipment) => {
-    dispatch(ReduxActions.updateItemsInStashAction({ itemToAdd: itemForStash, itemToRemove: itemForEquipment }));
-    dispatch(ReduxActions.updateItemsInEquipmentAction({ itemToAdd: itemForEquipment }));
+    dispatch(
+      ReduxActions.updateItemsInStashAction({
+        itemToAdd: itemForStash,
+        itemToRemove: itemForEquipment,
+      }),
+    );
+    dispatch(
+      ReduxActions.updateItemsInEquipmentAction({
+        itemToAdd: itemForEquipment,
+      }),
+    );
 
     Permissions.enableActions();
   };
@@ -58,9 +67,7 @@ function ItemSlotStash(props) {
 
   // const iconItemSize = 'big'; // default // TODO: size
 
-  const {
-    item, fileCode, rarity, filePath,
-  } = props;
+  const { item, fileCode, rarity, filePath } = props;
 
   const itemIdent = item;
   const itemFileCode = fileCode;
@@ -72,7 +79,9 @@ function ItemSlotStash(props) {
       className="stashItemListEntry"
       id={`stash_item_${itemIdent}`}
       item={itemIdent}
-      onContextMenu={(event) => { onContextMenuHandler(event, itemIdent); }}
+      onContextMenu={(event) => {
+        onContextMenuHandler(event, itemIdent);
+      }}
     >
       <Item
         ident={itemIdent}

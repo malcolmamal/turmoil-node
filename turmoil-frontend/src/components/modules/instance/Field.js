@@ -3,9 +3,7 @@ import WindowLocation from '../../../js/windows/window-location';
 import Logger from '../../../js/utils/logger';
 
 function Field(props) {
-  const {
-    column, row, unit, locationCallbackAction,
-  } = props;
+  const { column, row, unit, locationCallbackAction } = props;
 
   const ident = `polygon-${column}-${row}`;
   const text = `${column}:${row}`;
@@ -31,11 +29,12 @@ function Field(props) {
   const rowFixed = row * 2 - 1;
   const offset = (column + rowFixed + 1) % 2;
 
-  const columnPosition = ((column - 1) * baseHeight) + verticalOffset;
-  const rowPosition = ((rowFixed + offset) * baseWidth) + horizontalOffset;
+  const columnPosition = (column - 1) * baseHeight + verticalOffset;
+  const rowPosition = (rowFixed + offset) * baseWidth + horizontalOffset;
 
-  const valueX = ((column - 1) * baseHeight) + verticalOffset;
-  const valueY = ((rowFixed + offset) * baseWidth) + textHeightOffset + horizontalOffset;
+  const valueX = (column - 1) * baseHeight + verticalOffset;
+  const valueY =
+    (rowFixed + offset) * baseWidth + textHeightOffset + horizontalOffset;
 
   return (
     <>
@@ -47,10 +46,17 @@ function Field(props) {
         className={className}
         strokeWidth="0.15"
         points="5,-9 -5,-9 -10,0 -5,9 5,9 10,0"
-        onClick={() => { WindowLocation.actionOnPolygon(ident, { locationCallbackAction }); }}
-        onContextMenu={(event) => { event.preventDefault(); Logger.log('rightclicked', ident, className, unit); }}
+        onClick={() => {
+          WindowLocation.actionOnPolygon(ident, { locationCallbackAction });
+        }}
+        onContextMenu={(event) => {
+          event.preventDefault();
+          Logger.log('rightclicked', ident, className, unit);
+        }}
       />
-      <text className="locationText" x={valueX} y={valueY}>{text}</text>
+      <text className="locationText" x={valueX} y={valueY}>
+        {text}
+      </text>
     </>
   );
 }

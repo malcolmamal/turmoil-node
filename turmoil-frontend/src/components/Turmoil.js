@@ -24,7 +24,11 @@ function Turmoil() {
   const [isLogged, setIsLogged] = useState(false);
 
   const keyMapping = [
-    ['i', 'equipment'], ['c', 'stats'], ['s', 'stash'], ['l', 'location'], ['o', 'console'],
+    ['i', 'equipment'],
+    ['c', 'stats'],
+    ['s', 'stash'],
+    ['l', 'location'],
+    ['o', 'console'],
   ];
 
   keyMapping.forEach(([key, target]) => {
@@ -33,10 +37,17 @@ function Turmoil() {
   });
 
   useEffect(() => {
-    if (!localStorage.getItem('token')
-        && location.pathname !== '/login'
-        && location.pathname !== '/signup') {
-      Logger.log('location redirection from', location.pathname, 'to ', 'login');
+    if (
+      !localStorage.getItem('token') &&
+      location.pathname !== '/login' &&
+      location.pathname !== '/signup'
+    ) {
+      Logger.log(
+        'location redirection from',
+        location.pathname,
+        'to ',
+        'login',
+      );
       navigate('/login');
     }
 
@@ -62,16 +73,16 @@ function Turmoil() {
     <Routes>
       <Route
         path="/test"
-        element={(
+        element={
           <div>
             test
             <Navigate to="/login" />
           </div>
-          )}
+        }
       />
       <Route
         path="/logged"
-        element={(
+        element={
           <>
             <Console />
             <Equipment />
@@ -79,27 +90,18 @@ function Turmoil() {
             <Stats />
             <Location />
           </>
-          )}
+        }
       />
-      <Route
-        path="/signup"
-        element={(
-          <SignupPage />
-          )}
-      />
-      <Route
-        path="/login"
-        element={(
-          <LoginPage
-            logout={logoutHandler}
-          />
-          )}
-      />
+      <Route path="/signup" element={<SignupPage />} />
+      <Route path="/login" element={<LoginPage logout={logoutHandler} />} />
     </Routes>
   );
 
-  const className = `turmoilBody ${(location.pathname === '/login'
-    || location.pathname === '/signup') ? 'turmoilBodyCenterFlex' : ''}`;
+  const className = `turmoilBody ${
+    location.pathname === '/login' || location.pathname === '/signup'
+      ? 'turmoilBodyCenterFlex'
+      : ''
+  }`;
 
   return (
     <div>
@@ -117,7 +119,6 @@ function Turmoil() {
           </div>
 
           {routes}
-
         </div>
       </div>
 

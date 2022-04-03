@@ -22,17 +22,17 @@ const Animations = {
       element.dataset.variable = variable.toString();
 
       const newTop = `${parseInt(element.style.top || '0', 10) - 2}px`;
-      const newLeft = `${parseFloat(element.style.left || '0') - parseFloat(element.dataset.variable || 0)}px`;
+      const newLeft = `${
+        parseFloat(element.style.left || '0') -
+        parseFloat(element.dataset.variable || 0)
+      }px`;
 
       element.style.setProperty('top', newTop);
       element.style.setProperty('left', newLeft);
 
-      setTimeout(
-        () => {
-          Animations.animateToTop(id);
-        },
-        25,
-      );
+      setTimeout(() => {
+        Animations.animateToTop(id);
+      }, 25);
     }
   },
   animateIndicator(id) {
@@ -90,29 +90,33 @@ const Animations = {
     // TODO: check attack type per attacking unit
     const targetUnit = document.querySelector(`#${unitId}`);
 
-    if (window.turmoil.instance.attackType === Consts.ATTACK_TYPE_BOW && targetUnit.classList.contains('enemyUnit')) {
+    if (
+      window.turmoil.instance.attackType === Consts.ATTACK_TYPE_BOW &&
+      targetUnit.classList.contains('enemyUnit')
+    ) {
       effect.classList.add('attackArrow');
       Sound.playAudio(`soundAttackBow${Utils.randomInt(3)}`);
 
-      setTimeout(
-        () => {
-          effect.classList.remove('attackArrow');
-        },
-        500,
-      );
+      setTimeout(() => {
+        effect.classList.remove('attackArrow');
+      }, 500);
     } else {
       effect.classList.add('attackSwing');
       Sound.playAudio(`soundAttackMelee${Utils.randomInt(3)}`);
 
-      setTimeout(
-        () => {
-          effect.classList.remove('attackSwing');
-        },
-        500,
-      );
+      setTimeout(() => {
+        effect.classList.remove('attackSwing');
+      }, 500);
     }
   },
-  moveUnit(unitElement, polygon, positionX, positionY, callbackFunctions, data) {
+  moveUnit(
+    unitElement,
+    polygon,
+    positionX,
+    positionY,
+    callbackFunctions,
+    data,
+  ) {
     Sound.playAudioLoop('soundMoveLeather', unitElement.getAttribute('id'));
 
     const unit = jQuery(unitElement);
@@ -130,9 +134,15 @@ const Animations = {
           Animations.blink(`#${unit.attr('id')}`);
         }
 
-        if (callbackFunctions && typeof (callbackFunctions.locationCallbackAction) === 'function') {
+        if (
+          callbackFunctions &&
+          typeof callbackFunctions.locationCallbackAction === 'function'
+        ) {
           callbackFunctions.locationCallbackAction({
-            actionType: 'move', polygonId: polygon.id, unitId: unit.attr('id'), polygonsInRange: data?.unit?.polygonsInRange,
+            actionType: 'move',
+            polygonId: polygon.id,
+            unitId: unit.attr('id'),
+            polygonsInRange: data?.unit?.polygonsInRange,
           });
         }
       },

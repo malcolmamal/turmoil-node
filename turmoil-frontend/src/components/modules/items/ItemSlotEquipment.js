@@ -28,7 +28,7 @@ function ItemSlotEquipment(props) {
           default:
         }
 
-        if (typeof (callbackFunction) === 'function') {
+        if (typeof callbackFunction === 'function') {
           callbackFunction(data.itemForStash);
         }
       }
@@ -61,11 +61,7 @@ function ItemSlotEquipment(props) {
     }
   };
 
-  const {
-    item: propItem,
-    iconItemSize: propIconItemSize,
-    top, left,
-  } = props;
+  const { item: propItem, iconItemSize: propIconItemSize, top, left } = props;
   const item = propItem || {};
 
   const rarity = item.rarity ? item.rarity : 'gray';
@@ -75,36 +71,54 @@ function ItemSlotEquipment(props) {
 
   const iconItemSize = propIconItemSize || 'default';
   const itemBackgroundImage = item.filePath ? `url(${item.filePath})` : '';
-  const positionStyle = { position: 'absolute', top: `${top}px`, left: `${left}px` };
+  const positionStyle = {
+    position: 'absolute',
+    top: `${top}px`,
+    left: `${left}px`,
+  };
   const className = `d3-icon d3-icon-item d3-icon-item-large d3-icon-item-${rarity}`;
 
-  const rightHandEffect = (item.slot === 'slot_right_hand' && item.damageType)
-    ? (
+  const rightHandEffect =
+    item.slot === 'slot_right_hand' && item.damageType ? (
       <span
         id="slot_right_hand_effect"
         className={`item-weapon-bg-${item.damageType}`}
         style={{
-          position: 'absolute', top: '150px', left: '67px', width: '150px', height: '210px',
+          position: 'absolute',
+          top: '150px',
+          left: '67px',
+          width: '150px',
+          height: '210px',
         }}
       />
-    ) : '';
+    ) : (
+      ''
+    );
 
-  const leftHandEffect = (item.slot === 'slot_left_hand' && item.damageType)
-    ? (
+  const leftHandEffect =
+    item.slot === 'slot_left_hand' && item.damageType ? (
       <span
         id="slot_left_hand_effect"
         className={`item-weapon-bg-${item.damageType}`}
         style={{
-          position: 'absolute', top: '77px', left: '602px', width: '150px', height: '210px',
+          position: 'absolute',
+          top: '77px',
+          left: '602px',
+          width: '150px',
+          height: '210px',
         }}
       />
-    ) : '';
+    ) : (
+      ''
+    );
 
   WindowLocation.setAttackType(item);
 
   return (
     <div
-      onContextMenu={(event) => { onContextMenuHandler(event, item); }}
+      onContextMenu={(event) => {
+        onContextMenuHandler(event, item);
+      }}
     >
       {rightHandEffect}
       {leftHandEffect}

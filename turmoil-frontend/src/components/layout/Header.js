@@ -12,7 +12,12 @@ function Header() {
   };
 
   return (
-    <div role="banner" id="turmoilHeader" className="turmoilHeader" style={headerBannerStyle}>
+    <div
+      role="banner"
+      id="turmoilHeader"
+      className="turmoilHeader"
+      style={headerBannerStyle}
+    >
       <div style={languageSelectorStyle}>
         {/* bring back language selector */}
       </div>

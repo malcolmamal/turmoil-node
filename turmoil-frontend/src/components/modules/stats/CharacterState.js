@@ -30,9 +30,8 @@ function CharacterState() {
         </tr>
         <tr>
           <td className="statsLabel">
-            <FormattedMessage id="turmoil.stats.label.experience" />
-            {' '}
-            (TODO: out of and %)
+            <FormattedMessage id="turmoil.stats.label.experience" /> (TODO: out
+            of and %)
           </td>
           <td className="statsValue">{characterState.experience}</td>
         </tr>
@@ -82,21 +81,13 @@ function CharacterState() {
           <td className="statsLabel">
             <FormattedMessage id="turmoil.stats.label.crit.chance" />
           </td>
-          <td className="statsValue">
-            {characterState.critChance}
-            {' '}
-            %
-          </td>
+          <td className="statsValue">{characterState.critChance} %</td>
         </tr>
         <tr>
           <td className="statsLabel">
             <FormattedMessage id="turmoil.stats.label.crit.damage" />
           </td>
-          <td className="statsValue">
-            {characterState.critDamage}
-            {' '}
-            %
-          </td>
+          <td className="statsValue">{characterState.critDamage} %</td>
         </tr>
         <tr>
           <td className="statsLabel">
@@ -108,101 +99,61 @@ function CharacterState() {
           <td className="statsLabel">
             <FormattedMessage id="turmoil.stats.label.block" />
           </td>
-          <td className="statsValue">
-            {characterState.evasionBlock}
-            {' '}
-            %
-          </td>
+          <td className="statsValue">{characterState.evasionBlock} %</td>
         </tr>
         <tr>
           <td className="statsLabel">
             <FormattedMessage id="turmoil.stats.label.dodge" />
           </td>
-          <td className="statsValue">
-            {characterState.evasionDodge}
-            {' '}
-            %
-          </td>
+          <td className="statsValue">{characterState.evasionDodge} %</td>
         </tr>
         <tr>
           <td className="statsLabel">
             <FormattedMessage id="turmoil.stats.label.parry" />
           </td>
-          <td className="statsValue">
-            {characterState.evasionParry}
-            {' '}
-            %
-          </td>
+          <td className="statsValue">{characterState.evasionParry} %</td>
         </tr>
         <tr>
           <td className="statsLabel">
             <FormattedMessage id="turmoil.stats.label.resist.fire" />
           </td>
-          <td className="statsValue">
-            {characterState.resistFire}
-            {' '}
-            %
-          </td>
+          <td className="statsValue">{characterState.resistFire} %</td>
         </tr>
         <tr>
           <td className="statsLabel">
             <FormattedMessage id="turmoil.stats.label.resist.cold" />
           </td>
-          <td className="statsValue">
-            {characterState.resistCold}
-            {' '}
-            %
-          </td>
+          <td className="statsValue">{characterState.resistCold} %</td>
         </tr>
         <tr>
           <td className="statsLabel">
             <FormattedMessage id="turmoil.stats.label.resist.lightning" />
           </td>
-          <td className="statsValue">
-            {characterState.resistLightning}
-            {' '}
-            %
-          </td>
+          <td className="statsValue">{characterState.resistLightning} %</td>
         </tr>
         <tr>
           <td className="statsLabel">
             <FormattedMessage id="turmoil.stats.label.resist.poison" />
           </td>
-          <td className="statsValue">
-            {characterState.resistPoison}
-            {' '}
-            %
-          </td>
+          <td className="statsValue">{characterState.resistPoison} %</td>
         </tr>
         <tr>
           <td className="statsLabel">
             <FormattedMessage id="turmoil.stats.label.resist.arcane" />
           </td>
-          <td className="statsValue">
-            {characterState.resistArcane}
-            {' '}
-            %
-          </td>
+          <td className="statsValue">{characterState.resistArcane} %</td>
         </tr>
         <tr>
           <td className="statsLabel">
             <FormattedMessage id="turmoil.stats.label.resist.bleed" />
           </td>
-          <td className="statsValue">
-            {characterState.resistBleed}
-            {' '}
-            %
-          </td>
+          <td className="statsValue">{characterState.resistBleed} %</td>
         </tr>
         <tr>
           <td className="statsLabel">
             <FormattedMessage id="turmoil.stats.label.resist.piercing" />
           </td>
-          <td className="statsValue">
-            {characterState.resistPiercing}
-            {' '}
-            %
-          </td>
+          <td className="statsValue">{characterState.resistPiercing} %</td>
         </tr>
       </tbody>
     </table>

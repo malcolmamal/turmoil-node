@@ -1,34 +1,34 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:jest/recommended",
+    "eslint:recommended",
+    "airbnb-base",
+    "airbnb",
+    "plugin:prettier/recommended"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
     },
-    "extends": [
-        "plugin:react/recommended",
-        "plugin:react-hooks/recommended",
-        "plugin:jest/recommended",
-        "eslint:recommended",
-        "airbnb-base",
-        "airbnb"
-    ],
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": "latest",
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react"
-    ],
-    "rules": {
-        "react/jsx-filename-extension": [0],
-        "import/extensions": [0],
-        "max-len": [0],
-        "react/prop-types": [0],
-        "no-return-await": [0],
-        "jsx-a11y/anchor-is-valid": [0],
-        "jsx-a11y/click-events-have-key-events": [0],
-        "jsx-a11y/no-static-element-interactions": [0]
-    }
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["react", "prettier"],
+  "rules": {
+    "react/jsx-filename-extension": [0],
+    "import/extensions": [0],
+    "max-len": [0],
+    "react/prop-types": [0],
+    "no-return-await": [0],
+    "jsx-a11y/anchor-is-valid": [0],
+    "jsx-a11y/click-events-have-key-events": [0],
+    "jsx-a11y/no-static-element-interactions": [0],
+    "prettier/prettier": "error"
+  }
 }

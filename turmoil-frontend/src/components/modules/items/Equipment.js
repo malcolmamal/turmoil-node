@@ -48,7 +48,10 @@ function Equipment() {
           id="window_equipment"
           className="windowContent equipmentWindowContent"
           style={{
-            transform: 'scale(1)', WebkitTransform: 'scale(1)', MozTransform: 'scale(1)', OTransform: 'scale(1)',
+            transform: 'scale(1)',
+            WebkitTransform: 'scale(1)',
+            MozTransform: 'scale(1)',
+            OTransform: 'scale(1)',
           }}
         >
           <div

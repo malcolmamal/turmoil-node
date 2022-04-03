@@ -28,16 +28,25 @@ function EnemyUnit(props) {
 
   const actionOnUnitHandler = (unitIdent) => {
     WindowLocation.actionOnUnit(unitIdent, {
-      updateItems, removeEnemyUnit, addEnemyUnit, locationCallbackAction,
+      updateItems,
+      removeEnemyUnit,
+      addEnemyUnit,
+      locationCallbackAction,
     });
   };
 
-  const {
-    portrait, healthBar, movement,
-  } = props;
+  const { portrait, healthBar, movement } = props;
 
   return (
-    <Unit ident={ident} portrait={portrait} position={position} healthBar={healthBar} movement={movement} enemy onClick={actionOnUnitHandler} />
+    <Unit
+      ident={ident}
+      portrait={portrait}
+      position={position}
+      healthBar={healthBar}
+      movement={movement}
+      enemy
+      onClick={actionOnUnitHandler}
+    />
   );
 }
 

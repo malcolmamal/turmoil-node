@@ -7,7 +7,8 @@ import useAfterPaintEffect from '../../../js/react/hooks/after-paint-effect';
 
 function Stats() {
   const background = {
-    backgroundImage: "url('/images/backgrounds/background_brown_fabric_300x700.png')",
+    backgroundImage:
+      "url('/images/backgrounds/background_brown_fabric_300x700.png')",
     width: '300px',
     height: '700px',
   };

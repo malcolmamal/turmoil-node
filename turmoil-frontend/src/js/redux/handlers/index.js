@@ -15,7 +15,10 @@ const ReduxHandlers = {
     if (payload.itemToAdd) {
       const { slot } = payload.itemToAdd;
 
-      newState.equipmentItems = Utils.removeFromArrayBySlot(slot, newState.equipmentItems);
+      newState.equipmentItems = Utils.removeFromArrayBySlot(
+        slot,
+        newState.equipmentItems,
+      );
       newState.equipmentItems.push(payload.itemToAdd);
     }
 
@@ -23,7 +26,10 @@ const ReduxHandlers = {
       const { slot } = payload.itemToRemove;
       const { ident } = payload.itemToRemove;
 
-      newState.equipmentItems = Utils.removeFromArrayByIdent(ident, newState.equipmentItems);
+      newState.equipmentItems = Utils.removeFromArrayByIdent(
+        ident,
+        newState.equipmentItems,
+      );
       newState.equipmentItems.push(window.turmoil.equipment.defaultItems[slot]);
     }
 
@@ -47,7 +53,10 @@ const ReduxHandlers = {
     if (payload.itemToRemove) {
       const { ident } = payload.itemToRemove;
 
-      newState.stashItems = Utils.removeFromArrayByIdent(ident, newState.stashItems);
+      newState.stashItems = Utils.removeFromArrayByIdent(
+        ident,
+        newState.stashItems,
+      );
     }
 
     return ReduxHandlers.properResponse(currentState, newState);
@@ -70,14 +79,20 @@ const ReduxHandlers = {
     if (payload.unitToUpdate) {
       const { ident } = payload.unitToUpdate;
 
-      newState.enemyUnits = Utils.removeFromArrayByIdent(ident, newState.enemyUnits);
+      newState.enemyUnits = Utils.removeFromArrayByIdent(
+        ident,
+        newState.enemyUnits,
+      );
       newState.enemyUnits.push(payload.unitToUpdate);
     }
 
     if (payload.unitToRemove) {
       const { ident } = payload.unitToRemove;
 
-      newState.enemyUnits = Utils.removeFromArrayByIdent(ident, newState.enemyUnits);
+      newState.enemyUnits = Utils.removeFromArrayByIdent(
+        ident,
+        newState.enemyUnits,
+      );
     }
 
     return ReduxHandlers.properResponse(currentState, newState);
@@ -96,7 +111,10 @@ const ReduxHandlers = {
     if (payload.unitToUpdate) {
       const { ident } = payload.unitToUpdate;
 
-      newState.friendlyUnits = Utils.removeFromArrayByIdent(ident, newState.friendlyUnits);
+      newState.friendlyUnits = Utils.removeFromArrayByIdent(
+        ident,
+        newState.friendlyUnits,
+      );
       newState.friendlyUnits.push(payload.unitToUpdate);
     }
 

@@ -1,16 +1,16 @@
 .circleMedium {
-    width: 400px;
-    height: 400px;
-    background: #490000;
-    -moz-border-radius: 200px;
-    -webkit-border-radius: 200px;
-    border-radius: 200px;
+  width: 400px;
+  height: 400px;
+  background: #490000;
+  -moz-border-radius: 200px;
+  -webkit-border-radius: 200px;
+  border-radius: 200px;
 }
 
 .containerMedium {
-    width: 400px;
-    height: 400px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 400px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

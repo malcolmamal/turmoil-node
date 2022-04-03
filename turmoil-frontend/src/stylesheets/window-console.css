@@ -1,49 +1,49 @@
 .consoleTabs {
-	padding: 0;
-	margin: 0;
-	background: none;
-	border: 0;
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: 0;
 }
 
 .consoleTab {
-	height: 216px !important;
+  height: 216px !important;
 }
 
 .react-tabs__tab-list-console {
-	padding-inline-start: 0;
-	margin: 0;
-	padding-top: 5px;
+  padding-inline-start: 0;
+  margin: 0;
+  padding-top: 5px;
 }
 
 .react-tabs__tab-list-console li {
-	display:inline;
-	padding: 3px;
-	margin-left: 3px;
-	border: 2px solid black;
-	border-bottom: 1px solid black;
+  display: inline;
+  padding: 3px;
+  margin-left: 3px;
+  border: 2px solid black;
+  border-bottom: 1px solid black;
 }
 
 .consoleTab {
-	color: #ffffff;
-	overflow-y: scroll;
+  color: #ffffff;
+  overflow-y: scroll;
 }
 
 /* width */
 ::-webkit-scrollbar {
-	width: 10px;
+  width: 10px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-	background: #a48055;
+  background: #a48055;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-	background: rgba(100, 82, 59, 0.53);
+  background: rgba(100, 82, 59, 0.53);
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-	background: #000000;
+  background: #000000;
 }

@@ -92,9 +92,15 @@ function Signup() {
     }
   };
 
-  const inputBlurHandlerName = () => { inputBlurHandler('name'); };
-  const inputBlurHandlerEmail = () => { inputBlurHandler('email'); };
-  const inputBlurHandlerPassword = () => { inputBlurHandler('password'); };
+  const inputBlurHandlerName = () => {
+    inputBlurHandler('name');
+  };
+  const inputBlurHandlerEmail = () => {
+    inputBlurHandler('email');
+  };
+  const inputBlurHandlerPassword = () => {
+    inputBlurHandler('password');
+  };
 
   return (
     <div className="circleMedium">
@@ -133,7 +139,11 @@ function Signup() {
             valid={signupForm.password.valid}
             touched={signupForm.password.touched}
           />
-          <Button design="raised" loading={authLoading} className="centerButton">
+          <Button
+            design="raised"
+            loading={authLoading}
+            className="centerButton"
+          >
             Signup
           </Button>
         </form>

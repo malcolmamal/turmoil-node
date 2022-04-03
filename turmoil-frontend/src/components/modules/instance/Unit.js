@@ -2,15 +2,15 @@ import React from 'react';
 import Tooltip from '../../tooltip/Tooltip';
 
 function Unit(props) {
-  const {
-    healthBar, title, enemy, ident, movement, portrait, onClick,
-  } = props;
+  const { healthBar, title, enemy, ident, movement, portrait, onClick } = props;
 
   const unitStyle = {
     width: `${healthBar}px`,
   };
   const unitAlt = title || 'unit';
-  const imageClass = enemy ? ' instancePortraitFlipped instanceEnemy instanceEnemyCursor' : '';
+  const imageClass = enemy
+    ? ' instancePortraitFlipped instanceEnemy instanceEnemyCursor'
+    : '';
   const mainDivClass = enemy ? ' enemyUnit' : '';
   const tooltipType = enemy ? 'monster' : 'friend';
 
@@ -23,11 +23,17 @@ function Unit(props) {
       className={`instanceElement${mainDivClass}`}
       id={ident}
       onClick={() => onClick(ident)}
-      onContextMenu={(event) => { event.preventDefault(); }}
+      onContextMenu={(event) => {
+        event.preventDefault();
+      }}
     >
       <Tooltip ident={ident} />
       <div className="instancePortraitHealthBar">
-        <div className="instancePortraitHealthBarInner" id={`${ident}Health`} style={unitStyle} />
+        <div
+          className="instancePortraitHealthBarInner"
+          id={`${ident}Health`}
+          style={unitStyle}
+        />
       </div>
       <img
         alt={unitAlt}

@@ -5,9 +5,7 @@ import Logger from '../../../js/utils/logger';
 import useAfterPaintEffect from '../../../js/react/hooks/after-paint-effect';
 
 function FriendlyUnit(props) {
-  const {
-    position, ident, portrait, healthBar, movement,
-  } = props;
+  const { position, ident, portrait, healthBar, movement } = props;
 
   useAfterPaintEffect(() => {
     WindowLocation.handleMoveToPolygon(position, ident);
@@ -19,7 +17,14 @@ function FriendlyUnit(props) {
   };
 
   return (
-    <Unit ident={ident} portrait={portrait} position={position} healthBar={healthBar} movement={movement} onClick={actionOnUnitHandler} />
+    <Unit
+      ident={ident}
+      portrait={portrait}
+      position={position}
+      healthBar={healthBar}
+      movement={movement}
+      onClick={actionOnUnitHandler}
+    />
   );
 }
 

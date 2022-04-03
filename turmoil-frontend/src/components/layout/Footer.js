@@ -13,12 +13,8 @@ function Footer(props) {
   if (localStorage.getItem('userName')) {
     logoutBox = (
       <Link onClick={logout} to="/login" id="logout">
-        <FormattedMessage id="turmoil.footer.logout" />
-        {' '}
-        - (logged as
-        {' '}
-        {localStorage.getItem('userName')}
-        )
+        <FormattedMessage id="turmoil.footer.logout" /> - (logged as{' '}
+        {localStorage.getItem('userName')})
       </Link>
     );
   }
@@ -32,7 +28,14 @@ function Footer(props) {
         {logoutBox && ' | '}
         {children}
       </div>
-      <div id="spinner" className="spinner" style={spinnerDisplayStyle} title={`${useIntl().formatMessage({ id: 'turmoil.footer.loading' })}...`} />
+      <div
+        id="spinner"
+        className="spinner"
+        style={spinnerDisplayStyle}
+        title={`${useIntl().formatMessage({
+          id: 'turmoil.footer.loading',
+        })}...`}
+      />
     </div>
   );
 }

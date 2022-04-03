@@ -2,19 +2,15 @@ import React from 'react';
 import Tooltip from '../../tooltip/Tooltip';
 
 function Item(props) {
-  const {
-    ident, backgroundImage, iconClass, tooltipId, className, slotStyle,
-  } = props;
+  const { ident, backgroundImage, iconClass, tooltipId, className, slotStyle } =
+    props;
 
   const opacity = ident ? 1 : 0.85;
 
   return (
     <div style={slotStyle}>
       <Tooltip ident={ident} />
-      <span
-        className={className}
-        style={{ opacity }}
-      >
+      <span className={className} style={{ opacity }}>
         <span className="icon-item-gradient">
           <span
             id={tooltipId}

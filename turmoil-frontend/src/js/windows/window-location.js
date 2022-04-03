@@ -21,27 +21,24 @@ const WindowLocation = {
   actionOnUnit(unitId, callbacks) {
     const unit = document.querySelector(`#${unitId}`);
 
-    return WindowLocation.actionOnPolygon(unit.dataset.previousPolygonId, callbacks);
+    return WindowLocation.actionOnPolygon(
+      unit.dataset.previousPolygonId,
+      callbacks,
+    );
   },
   finalizeActionsOnPolygon(data, callbackFunctions) {
     WindowLocation.inactivatePolygons();
 
     data.actions.forEach((action, index, thisArray) => {
-      setTimeout(
-        () => {
-          WindowLocation.finalizeActionOnPolygon(action, callbackFunctions);
-        },
-        window.turmoil.settings.delayBetweenActions * index,
-      );
+      setTimeout(() => {
+        WindowLocation.finalizeActionOnPolygon(action, callbackFunctions);
+      }, window.turmoil.settings.delayBetweenActions * index);
 
       if (Object.is(thisArray.length - 1, index)) {
-        setTimeout(
-          () => {
-            WindowLocation.inactivateUnits();
-            Permissions.enableActions();
-          },
-          window.turmoil.settings.delayBetweenActions * index + window.turmoil.settings.delayBetweenActions / 2,
-        );
+        setTimeout(() => {
+          WindowLocation.inactivateUnits();
+          Permissions.enableActions();
+        }, window.turmoil.settings.delayBetweenActions * index + window.turmoil.settings.delayBetweenActions / 2);
       }
     });
   },
@@ -59,21 +56,36 @@ const WindowLocation = {
           if (!data.attackingUnit) {
             window.turmoil.logErrors('Attack action failed');
           }
-          WindowLocation.handleAttackPolygon(polygon, document.querySelector(`#${data.attackingUnit}`), data);
+          WindowLocation.handleAttackPolygon(
+            polygon,
+            document.querySelector(`#${data.attackingUnit}`),
+            data,
+          );
         } else if (data.actionType === 'move') {
           if (!data.unitToMove) {
             window.turmoil.logErrors('Move action failed');
           }
-          WindowLocation.handleMoveToPolygon(data.polygonId, data.unitToMove, callbackFunctions, data);
+          WindowLocation.handleMoveToPolygon(
+            data.polygonId,
+            data.unitToMove,
+            callbackFunctions,
+            data,
+          );
         }
       }
 
       if (data.unitToAdd) {
-        if (callbackFunctions && typeof (callbackFunctions.removeEnemyUnit) === 'function') {
+        if (
+          callbackFunctions &&
+          typeof callbackFunctions.removeEnemyUnit === 'function'
+        ) {
           callbackFunctions.removeEnemyUnit(data.unitToRemove);
         }
 
-        if (callbackFunctions && typeof (callbackFunctions.addEnemyUnit) === 'function') {
+        if (
+          callbackFunctions &&
+          typeof callbackFunctions.addEnemyUnit === 'function'
+        ) {
           callbackFunctions.addEnemyUnit(data.unitToAdd);
 
           WindowLocation.handleMoveToPolygon(
@@ -85,7 +97,10 @@ const WindowLocation = {
       }
 
       if (data.itemForStash) {
-        if (callbackFunctions && typeof (callbackFunctions.updateItems) === 'function') {
+        if (
+          callbackFunctions &&
+          typeof callbackFunctions.updateItems === 'function'
+        ) {
           callbackFunctions.updateItems(data.itemForStash);
         }
       }
@@ -112,7 +127,9 @@ const WindowLocation = {
     }
 
     if (unit.dataset.previousPolygonId) {
-      const previousPolygon = document.querySelector(`#${unit.dataset.previousPolygonId}`);
+      const previousPolygon = document.querySelector(
+        `#${unit.dataset.previousPolygonId}`,
+      );
 
       Svg.addClass(previousPolygon, 'instancePolygon');
       if (unit.classList.contains('enemyUnit')) {
@@ -123,13 +140,22 @@ const WindowLocation = {
       previousPolygon.dataset.unit = '';
     }
 
-    const offsetContainer = WindowLocation.getOffset(document.querySelector('#locationContainer'));
+    const offsetContainer = WindowLocation.getOffset(
+      document.querySelector('#locationContainer'),
+    );
     const offset = WindowLocation.getOffset(polygon);
 
     const centerX = offset.left - offsetContainer.left + 18;
     const centerY = offset.top - offsetContainer.top + 19;
 
-    Animations.moveUnit(unit, polygon, centerX, centerY, callbackFunctions, data);
+    Animations.moveUnit(
+      unit,
+      polygon,
+      centerX,
+      centerY,
+      callbackFunctions,
+      data,
+    );
 
     unit.setAttribute('data-previous-polygon-id', polygon.getAttribute('id'));
     polygon.setAttribute('data-unit', unit.getAttribute('id'));
@@ -150,10 +176,16 @@ const WindowLocation = {
       damageDealt = data.damageDealt;
       Animations.addDamageIndicator(targetUnit, damageDealt, hitType);
     }
-    window.turmoil.logCombat(`Unit ${unit.getAttribute('id')} attacks unit ${polygon.dataset.unit} on ${polygon.getAttribute('id')} dealing ${damageDealt} damage`);
+    window.turmoil.logCombat(
+      `Unit ${unit.getAttribute('id')} attacks unit ${
+        polygon.dataset.unit
+      } on ${polygon.getAttribute('id')} dealing ${damageDealt} damage`,
+    );
 
     if (data.healthBar) {
-      document.querySelector(`#${polygon.dataset.unit}Health`).style.width = `${data.healthBar}px`;
+      document.querySelector(
+        `#${polygon.dataset.unit}Health`,
+      ).style.width = `${data.healthBar}px`;
     }
 
     Animations.attackSwing(targetUnit.getAttribute('id'));
@@ -162,14 +194,26 @@ const WindowLocation = {
     if (unit.classList.contains('enemyUnit')) {
       WindowLocation.inactivateUnits();
 
-      const polygon = document.querySelector(`#${unit.dataset.previousPolygonId}`);
-      Svg.replaceClass(polygon, 'instancePolygonEnemyActive', 'instancePolygonEnemy');
+      const polygon = document.querySelector(
+        `#${unit.dataset.previousPolygonId}`,
+      );
+      Svg.replaceClass(
+        polygon,
+        'instancePolygonEnemyActive',
+        'instancePolygonEnemy',
+      );
     }
   },
   inactivateUnits() {
-    document.querySelectorAll('.instancePolygonEnemyActive').forEach((element) => {
-      Svg.replaceClass(element, 'instancePolygonEnemy', 'instancePolygonEnemyActive');
-    });
+    document
+      .querySelectorAll('.instancePolygonEnemyActive')
+      .forEach((element) => {
+        Svg.replaceClass(
+          element,
+          'instancePolygonEnemy',
+          'instancePolygonEnemyActive',
+        );
+      });
   },
   setActivePolygons() {
     window.turmoil.instance.polygonsInRange.forEach((element) => {
@@ -193,10 +237,16 @@ const WindowLocation = {
     const rootStyles = getComputedStyle(root);
 
     if (item.itemSpecificType === 'BOW') {
-      root.style.setProperty('--cursor-current', rootStyles.getPropertyValue('--cursor-bow'));
+      root.style.setProperty(
+        '--cursor-current',
+        rootStyles.getPropertyValue('--cursor-bow'),
+      );
       window.turmoil.instance.attackType = Consts.ATTACK_TYPE_BOW;
     } else {
-      root.style.setProperty('--cursor-current', rootStyles.getPropertyValue('--cursor-melee'));
+      root.style.setProperty(
+        '--cursor-current',
+        rootStyles.getPropertyValue('--cursor-melee'),
+      );
       window.turmoil.instance.attackType = Consts.ATTACK_TYPE_MELEE;
     }
   },
@@ -205,9 +255,15 @@ const WindowLocation = {
     const rootStyles = getComputedStyle(root);
 
     if (gender === 'female') {
-      root.style.setProperty('--equipment-background-current', rootStyles.getPropertyValue('--equipment-background-female'));
+      root.style.setProperty(
+        '--equipment-background-current',
+        rootStyles.getPropertyValue('--equipment-background-female'),
+      );
     } else {
-      root.style.setProperty('--equipment-background-current', rootStyles.getPropertyValue('--equipment-background-male'));
+      root.style.setProperty(
+        '--equipment-background-current',
+        rootStyles.getPropertyValue('--equipment-background-male'),
+      );
     }
   },
 };

@@ -8,7 +8,10 @@ import ReduxActions from '../../../js/redux/actions';
 import WindowLocation from '../../../js/windows/window-location';
 import '../../../stylesheets/window-location.css';
 import Logger from '../../../js/utils/logger';
-import { initializeEnemyUnitsAction, initializeFriendlyUnitsAction } from '../../../js/api/services/instance-service';
+import {
+  initializeEnemyUnitsAction,
+  initializeFriendlyUnitsAction,
+} from '../../../js/api/services/instance-service';
 import useAfterPaintEffect from '../../../js/react/hooks/after-paint-effect';
 
 function Location() {
@@ -61,7 +64,9 @@ function Location() {
 
   const finalizeActionOnField = (data) => {
     if (data && data.actionType === 'move') {
-      let unit = friendlyUnits.find((friendlyUnit) => friendlyUnit.ident === data.unitId);
+      let unit = friendlyUnits.find(
+        (friendlyUnit) => friendlyUnit.ident === data.unitId,
+      );
 
       if (!unit) {
         unit = enemyUnits.find((enemyUnit) => enemyUnit.ident === data.unitId);
@@ -124,20 +129,37 @@ function Location() {
       <div className="instanceSvg">
         <svg
           style={{
-            width: '160px', height: '160px', left: '320', top: '320', position: 'relative', transform: 'scale(5)',
+            width: '160px',
+            height: '160px',
+            left: '320',
+            top: '320',
+            position: 'relative',
+            transform: 'scale(5)',
           }}
           id="svgElement"
         >
           <g>
             {fields.map((field) => {
               const fieldIdent = `polygon-${field.column}-${field.row}`;
-              let unit = friendlyUnits.find((friendlyUnit) => friendlyUnit.position === fieldIdent);
+              let unit = friendlyUnits.find(
+                (friendlyUnit) => friendlyUnit.position === fieldIdent,
+              );
 
               if (!unit) {
-                unit = enemyUnits.find((enemyUnit) => enemyUnit.position === fieldIdent);
+                unit = enemyUnits.find(
+                  (enemyUnit) => enemyUnit.position === fieldIdent,
+                );
               }
 
-              return <Field column={field.column} row={field.row} key={fieldIdent} unit={unit} locationCallbackAction={finalizeActionOnField} />;
+              return (
+                <Field
+                  column={field.column}
+                  row={field.row}
+                  key={fieldIdent}
+                  unit={unit}
+                  locationCallbackAction={finalizeActionOnField}
+                />
+              );
             })}
           </g>
         </svg>

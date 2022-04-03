@@ -42,51 +42,102 @@ window.turmoil = {
 window.turmoil.equipment = {};
 window.turmoil.equipment.defaultItems = {
   slot_right_hand: {
-    slot: 'slot_right_hand', top: 175, left: 90, item: {},
+    slot: 'slot_right_hand',
+    top: 175,
+    left: 90,
+    item: {},
   },
   slot_left_hand: {
-    slot: 'slot_left_hand', top: 105, left: 625, item: {},
+    slot: 'slot_left_hand',
+    top: 105,
+    left: 625,
+    item: {},
   },
 
   slot_amulet: {
-    slot: 'slot_amulet', top: 165, left: 355, item: {}, iconItemSize: 'square',
+    slot: 'slot_amulet',
+    top: 165,
+    left: 355,
+    item: {},
+    iconItemSize: 'square',
   },
   slot_ring_one: {
-    slot: 'slot_ring_one', top: 100, left: 10, item: {}, iconItemSize: 'square',
+    slot: 'slot_ring_one',
+    top: 100,
+    left: 10,
+    item: {},
+    iconItemSize: 'square',
   },
   slot_ring_two: {
-    slot: 'slot_ring_two', top: 100, left: 705, item: {}, iconItemSize: 'square',
+    slot: 'slot_ring_two',
+    top: 100,
+    left: 705,
+    item: {},
+    iconItemSize: 'square',
   },
   slot_ring_three: {
-    slot: 'slot_ring_three', top: 175, left: 10, item: {}, iconItemSize: 'square',
+    slot: 'slot_ring_three',
+    top: 175,
+    left: 10,
+    item: {},
+    iconItemSize: 'square',
   },
   slot_ring_four: {
-    slot: 'slot_ring_four', top: 175, left: 705, item: {}, iconItemSize: 'square',
+    slot: 'slot_ring_four',
+    top: 175,
+    left: 705,
+    item: {},
+    iconItemSize: 'square',
   },
 
   slot_helm: {
-    slot: 'slot_helm', top: 20, left: 355, item: {},
+    slot: 'slot_helm',
+    top: 20,
+    left: 355,
+    item: {},
   },
   slot_chest: {
-    slot: 'slot_chest', top: 245, left: 355, item: {},
+    slot: 'slot_chest',
+    top: 245,
+    left: 355,
+    item: {},
   },
   slot_belt: {
-    slot: 'slot_belt', top: 395, left: 347, item: {}, iconItemSize: 'long',
+    slot: 'slot_belt',
+    top: 395,
+    left: 347,
+    item: {},
+    iconItemSize: 'long',
   },
   slot_pants: {
-    slot: 'slot_pants', top: 480, left: 355, item: {},
+    slot: 'slot_pants',
+    top: 480,
+    left: 355,
+    item: {},
   },
   slot_boots: {
-    slot: 'slot_boots', top: 635, left: 355, item: {},
+    slot: 'slot_boots',
+    top: 635,
+    left: 355,
+    item: {},
   },
   slot_pauldrons: {
-    slot: 'slot_pauldrons', top: 105, left: 220, item: {},
+    slot: 'slot_pauldrons',
+    top: 105,
+    left: 220,
+    item: {},
   },
   slot_gloves: {
-    slot: 'slot_gloves', top: 35, left: 90, item: {},
+    slot: 'slot_gloves',
+    top: 35,
+    left: 90,
+    item: {},
   },
   slot_bracers: {
-    slot: 'slot_bracers', top: 105, left: 500, item: {},
+    slot: 'slot_bracers',
+    top: 105,
+    left: 500,
+    item: {},
   },
 };
 
@@ -114,7 +165,10 @@ window.turmoil.sounds = {
 window.turmoil.soundLoops = {};
 window.turmoil.soundLoopsPromises = {}; // promises: https://developers.google.com/web/updates/2017/06/play-request-was-interrupted
 
-window.turmoil.windowSettings = localStorage.getItem('windowSettings') === null ? {} : JSON.parse(localStorage.getItem('windowSettings'));
+window.turmoil.windowSettings =
+  localStorage.getItem('windowSettings') === null
+    ? {}
+    : JSON.parse(localStorage.getItem('windowSettings'));
 
 window.turmoil.lastLogDate = null;
 window.turmoil.log = (content, targetParam) => {
@@ -128,7 +182,7 @@ window.turmoil.log = (content, targetParam) => {
   const consoleTarget = document.querySelector(`#console-${target}`);
   if (consoleTarget) {
     let currentDate;
-    if (typeof (moment) === 'function') {
+    if (typeof moment === 'function') {
       currentDate = moment().format('YYYY-MM-DD HH:mm:ss.SSS');
     } else {
       currentDate = Utils.getCurrentDateTime();
@@ -137,7 +191,8 @@ window.turmoil.log = (content, targetParam) => {
 
     const currentDateObject = new Date();
     if (window.turmoil.lastLogDate != null) {
-      const difference = currentDateObject.getTime() - window.turmoil.lastLogDate.getTime();
+      const difference =
+        currentDateObject.getTime() - window.turmoil.lastLogDate.getTime();
       currentDate += ` (${difference}ms) `;
     }
 
@@ -165,8 +220,11 @@ window.turmoil.log = (content, targetParam) => {
 
 window.turmoil.logDebug = (content) => {
   let caller = '';
-  if (typeof (arguments) === 'object') {
-    if (typeof (this.callee) === 'function' && typeof (this.callee.name) === 'string') {
+  if (typeof arguments === 'object') {
+    if (
+      typeof this.callee === 'function' &&
+      typeof this.callee.name === 'string'
+    ) {
       caller = `${this.callee.name}() - `;
     }
   }

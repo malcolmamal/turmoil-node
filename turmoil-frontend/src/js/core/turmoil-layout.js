@@ -17,20 +17,30 @@ const Layout = {
       // height would yield some results (changing height if possible)
       // alternatively the scroll could just be disabled (not sure if the mouse scrolling would be still possible
       // then or if that could be disabled as well)
-      newFooterPosition = Math.round(document.documentElement.scrollHeight - turmoilFooter.offsetHeight);
+      newFooterPosition = Math.round(
+        document.documentElement.scrollHeight - turmoilFooter.offsetHeight,
+      );
     } else {
-      newFooterPosition = Math.round(window.innerHeight - turmoilFooter.offsetHeight);
+      newFooterPosition = Math.round(
+        window.innerHeight - turmoilFooter.offsetHeight,
+      );
     }
 
     turmoilFooter.style.top = `${newFooterPosition}px`;
 
-    const headerPosition = document.getElementById('turmoilHeader').getBoundingClientRect().bottom;
-    const footerPosition = document.getElementById('turmoilFooter').getBoundingClientRect().top;
+    const headerPosition = document
+      .getElementById('turmoilHeader')
+      .getBoundingClientRect().bottom;
+    const footerPosition = document
+      .getElementById('turmoilFooter')
+      .getBoundingClientRect().top;
     const contentHeight = Math.round(footerPosition - headerPosition - 2);
 
     turmoilBody.style.height = `${contentHeight}px`;
 
-    const tallContentContainer = document.querySelector('.tallContentContainer');
+    const tallContentContainer = document.querySelector(
+      '.tallContentContainer',
+    );
 
     if (tallContentContainer) {
       tallContentContainer.style.height = turmoilBody.offsetHeight - 25;
@@ -38,7 +48,9 @@ const Layout = {
   },
   setCenteredContent() {
     // TODO: we don't have it at the moment (was it removed?) but login form would be an example of centered content
-    Layout.centerContentVertically(document.querySelector('#centeredContentWrapper'));
+    Layout.centerContentVertically(
+      document.querySelector('#centeredContentWrapper'),
+    );
   },
   centerContentVertically(centeredContentWrapperElement) {
     const centeredContentWrapper = centeredContentWrapperElement;
@@ -46,9 +58,16 @@ const Layout = {
     if (centeredContentWrapper) {
       let parentOffset = 0;
       if (centeredContentWrapper.parent()) {
-        parentOffset = centeredContentWrapper.parent().get(0).getBoundingClientRect().top;
+        parentOffset = centeredContentWrapper
+          .parent()
+          .get(0)
+          .getBoundingClientRect().top;
       }
-      const halfOfContentHeight = Math.round((centeredContentWrapper.get(0).getBoundingClientRect().bottom - centeredContentWrapper.get(0).getBoundingClientRect().top) / 2);
+      const halfOfContentHeight = Math.round(
+        (centeredContentWrapper.get(0).getBoundingClientRect().bottom -
+          centeredContentWrapper.get(0).getBoundingClientRect().top) /
+          2,
+      );
       const halfOfWindowHeight = Math.round(window.innerHeight / 2);
 
       let topPosition = halfOfWindowHeight - halfOfContentHeight - parentOffset;
@@ -63,9 +82,16 @@ const Layout = {
     if (centeredContentWrapper.length) {
       let parentOffset = 0;
       if (centeredContentWrapper.parent().length) {
-        parentOffset = centeredContentWrapper.parent().get(0).getBoundingClientRect().left;
+        parentOffset = centeredContentWrapper
+          .parent()
+          .get(0)
+          .getBoundingClientRect().left;
       }
-      const halfOfContentWidth = Math.round((centeredContentWrapper.get(0).getBoundingClientRect().right - centeredContentWrapper.get(0).getBoundingClientRect().left) / 2);
+      const halfOfContentWidth = Math.round(
+        (centeredContentWrapper.get(0).getBoundingClientRect().right -
+          centeredContentWrapper.get(0).getBoundingClientRect().left) /
+          2,
+      );
       const halfOfWindowWidth = Math.round(window.innerWidth / 2);
 
       let leftPosition = halfOfWindowWidth - halfOfContentWidth - parentOffset;

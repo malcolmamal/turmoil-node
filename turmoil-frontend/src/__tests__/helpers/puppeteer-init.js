@@ -20,7 +20,8 @@ class Page {
     const localPage = new Page(page, browser);
 
     return new Proxy(localPage, {
-      get: (target, property) => localPage[property] || browser[property] || page[property],
+      get: (target, property) =>
+        localPage[property] || browser[property] || page[property],
     });
   }
 

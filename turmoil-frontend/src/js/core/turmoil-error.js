@@ -8,15 +8,20 @@ export class GenericError extends Error {
 const ErrorHandler = {
   debugInfo: '',
   handleError(method, url, data, error) {
-    const {
-      message, stack, response, originalData,
-    } = error;
+    const { message, stack, response, originalData } = error;
 
-    const {
-      status, statusText,
-    } = response;
+    const { status, statusText } = response;
 
-    Logger.error('Error:', method, url, status, data, message, statusText, stack);
+    Logger.error(
+      'Error:',
+      method,
+      url,
+      status,
+      data,
+      message,
+      statusText,
+      stack,
+    );
     if (window.debug) {
       // TODO: move that html somewhere nice and add a scroller
       const errorContent = `

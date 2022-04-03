@@ -4,9 +4,13 @@ const Sound = {
   playAudio(audio) {
     const sound = new Audio(window.turmoil.sounds[audio]);
     sound.load();
-    sound.play().then().catch((err) => {
-      sound.pause(); Logger.log('Due to an error had to stop the sound prematurely', err);
-    });
+    sound
+      .play()
+      .then()
+      .catch((err) => {
+        sound.pause();
+        Logger.log('Due to an error had to stop the sound prematurely', err);
+      });
   },
   playAudioLoop(audio, suffix) {
     const ident = `${audio}_${suffix}`;
@@ -15,12 +19,16 @@ const Sound = {
     window.turmoil.soundLoops[`${ident}_loop`] = true;
 
     sound.load();
-    sound.addEventListener('ended', function onSoundEnd() {
-      if (window.turmoil.soundLoops[`${ident}_loop`]) {
-        this.currentTime = 0;
-        window.turmoil.soundLoopsPromises[ident] = this.play();
-      }
-    }, false);
+    sound.addEventListener(
+      'ended',
+      function onSoundEnd() {
+        if (window.turmoil.soundLoops[`${ident}_loop`]) {
+          this.currentTime = 0;
+          window.turmoil.soundLoopsPromises[ident] = this.play();
+        }
+      },
+      false,
+    );
 
     window.turmoil.soundLoopsPromises[ident] = sound.play();
   },
@@ -31,11 +39,18 @@ const Sound = {
       const playPromise = window.turmoil.soundLoopsPromises[ident];
 
       if (playPromise !== undefined) {
-        playPromise.then(() => {
-          sound.pause();
-        })
+        playPromise
+          .then(() => {
+            sound.pause();
+          })
           .catch((err) => {
-            if (!err.toString().includes('failed because the user didn\'t interact with the document')) {
+            if (
+              !err
+                .toString()
+                .includes(
+                  "failed because the user didn't interact with the document",
+                )
+            ) {
               Logger.log('sound pause catch', err);
             }
           });

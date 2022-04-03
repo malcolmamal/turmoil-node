@@ -30,7 +30,9 @@ function Error() {
   return (
     <div id="myModal" className="modal">
       <div className="modal-content">
-        <span className="close" id="modalClose">&times;</span>
+        <span className="close" id="modalClose">
+          &times;
+        </span>
         <p id="modalContent" />
       </div>
     </div>

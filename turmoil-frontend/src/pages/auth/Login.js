@@ -61,8 +61,12 @@ function Login(props) {
     setLoginForm(updatedForm);
   };
 
-  const inputBlurHandlerEmail = () => { inputBlurHandler('email'); };
-  const inputBlurHandlerPassword = () => { inputBlurHandler('password'); };
+  const inputBlurHandlerEmail = () => {
+    inputBlurHandler('email');
+  };
+  const inputBlurHandlerPassword = () => {
+    inputBlurHandler('password');
+  };
 
   const setAutoLogout = (milliseconds) => {
     const { logout } = props;
@@ -88,9 +92,7 @@ function Login(props) {
       localStorage.setItem('userId', response.data.userId);
       localStorage.setItem('userName', response.data.userName);
       const remainingMilliseconds = 60 * 60 * 1000;
-      const expiryDate = new Date(
-        new Date().getTime() + remainingMilliseconds,
-      );
+      const expiryDate = new Date(new Date().getTime() + remainingMilliseconds);
       localStorage.setItem('expiryDate', expiryDate.toISOString());
       setAutoLogout(remainingMilliseconds);
 
@@ -102,10 +104,12 @@ function Login(props) {
     <div className="circleMedium">
       <div className="containerMedium">
         <form
-          onSubmit={(e) => loginHandler(e, {
-            email: loginForm.email.value,
-            password: loginForm.password.value,
-          })}
+          onSubmit={(e) =>
+            loginHandler(e, {
+              email: loginForm.email.value,
+              password: loginForm.password.value,
+            })
+          }
         >
           <Input
             id="email"
@@ -129,7 +133,11 @@ function Login(props) {
             valid={loginForm.password.valid}
             touched={loginForm.password.touched}
           />
-          <Button design="raised" loading={authLoading} className="centerButton">
+          <Button
+            design="raised"
+            loading={authLoading}
+            className="centerButton"
+          >
             Login
           </Button>
         </form>

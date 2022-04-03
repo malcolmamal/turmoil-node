@@ -29,17 +29,19 @@ function Tooltip(props) {
             return;
           }
 
-          Axios.post(`tooltip/${type}/${ident}`).then((response) => {
-            if (type === 'monster' || type === 'friend') {
-              instance.setContent(response.data);
-              return;
-            }
+          Axios.post(`tooltip/${type}/${ident}`)
+            .then((response) => {
+              if (type === 'monster' || type === 'friend') {
+                instance.setContent(response.data);
+                return;
+              }
 
-            tooltipValue = response.data;
-            instance.setContent(tooltipValue);
-          }).catch((err) => {
-            Logger.log('Tooltip error', ident, err);
-          });
+              tooltipValue = response.data;
+              instance.setContent(tooltipValue);
+            })
+            .catch((err) => {
+              Logger.log('Tooltip error', ident, err);
+            });
         },
       });
     }

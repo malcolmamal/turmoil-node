@@ -14,25 +14,39 @@ const Windows = {
     locationHeight: 810,
   },
   setWindowScale(scale, windowType) {
-    document.querySelector(`#window_${windowType}_wrapper`).style.transform = `scale(${scale}, ${scale})`;
+    document.querySelector(
+      `#window_${windowType}_wrapper`,
+    ).style.transform = `scale(${scale}, ${scale})`;
   },
   actionMaximize(windowType, setToCenter) {
     // TODO: check if it is necessary (and possible) to move the window higher (so it would not go over the footer)
 
     Windows.bringToTheTop(windowType);
 
-    const windowContentWrapper = document.querySelector(`#window_${windowType}_content_wrapper`);
-    const windowContainer = document.querySelector(`#handle_${windowType}_container`);
+    const windowContentWrapper = document.querySelector(
+      `#window_${windowType}_content_wrapper`,
+    );
+    const windowContainer = document.querySelector(
+      `#handle_${windowType}_container`,
+    );
 
     windowContentWrapper.style.display = 'block';
-    document.querySelector(`#${windowType}ButtonMaximize`).style.display = 'none';
-    document.querySelector(`#${windowType}ButtonMinimize`).style.display = 'block';
+    document.querySelector(`#${windowType}ButtonMaximize`).style.display =
+      'none';
+    document.querySelector(`#${windowType}ButtonMinimize`).style.display =
+      'block';
 
-    const handleHeight = windowContainer.getBoundingClientRect().bottom - windowContainer.getBoundingClientRect().top;
-    const contentHeight = windowContentWrapper.getBoundingClientRect().bottom - windowContentWrapper.getBoundingClientRect().top;
+    const handleHeight =
+      windowContainer.getBoundingClientRect().bottom -
+      windowContainer.getBoundingClientRect().top;
+    const contentHeight =
+      windowContentWrapper.getBoundingClientRect().bottom -
+      windowContentWrapper.getBoundingClientRect().top;
     const totalHeight = Math.round(handleHeight + contentHeight);
 
-    const windowResizer = document.querySelector(`#window_${windowType}_resizer`);
+    const windowResizer = document.querySelector(
+      `#window_${windowType}_resizer`,
+    );
     windowResizer.style.height = `${totalHeight}px`;
 
     if (setToCenter) {
@@ -43,16 +57,29 @@ const Windows = {
     }
   },
   actionMinimize(windowType) {
-    document.querySelector(`#window_${windowType}_content_wrapper`).style.display = 'none';
-    document.querySelector(`#${windowType}ButtonMaximize`).style.display = 'block';
-    document.querySelector(`#${windowType}ButtonMinimize`).style.display = 'none';
+    document.querySelector(
+      `#window_${windowType}_content_wrapper`,
+    ).style.display = 'none';
+    document.querySelector(`#${windowType}ButtonMaximize`).style.display =
+      'block';
+    document.querySelector(`#${windowType}ButtonMinimize`).style.display =
+      'none';
 
-    const handleContainer = document.querySelector(`#handle_${windowType}_container`);
-    const handleHeight = handleContainer.getBoundingClientRect().bottom - handleContainer.getBoundingClientRect().top;
-    document.querySelector(`#window_${windowType}_resizer`).style.height = `${Math.round(handleHeight)}px`;
+    const handleContainer = document.querySelector(
+      `#handle_${windowType}_container`,
+    );
+    const handleHeight =
+      handleContainer.getBoundingClientRect().bottom -
+      handleContainer.getBoundingClientRect().top;
+    document.querySelector(
+      `#window_${windowType}_resizer`,
+    ).style.height = `${Math.round(handleHeight)}px`;
   },
   switchMinimizeMaximize(windowType) {
-    if (document.querySelector(`#window_${windowType}_content_wrapper`).style.display === 'none') {
+    if (
+      document.querySelector(`#window_${windowType}_content_wrapper`).style
+        .display === 'none'
+    ) {
       Windows.actionMaximize(windowType);
     } else {
       Windows.actionMinimize(windowType);
@@ -68,7 +95,9 @@ const Windows = {
     });
 
     highestZIndexValue += 1;
-    document.querySelector(`#window_${windowType}_resizer`).style.setProperty('z-index', highestZIndexValue);
+    document
+      .querySelector(`#window_${windowType}_resizer`)
+      .style.setProperty('z-index', highestZIndexValue);
   },
   resetZIndex() {
     document.querySelectorAll('.windowResizer').forEach((element) => {
@@ -81,7 +110,10 @@ const Windows = {
       forceSave = false;
     }
 
-    localStorage.setItem('windowSettings', JSON.stringify(window.turmoil.windowSettings));
+    localStorage.setItem(
+      'windowSettings',
+      JSON.stringify(window.turmoil.windowSettings),
+    );
 
     // Fetch or whatever ({
     //  url: 'account/saveWindowsSettings/' + encodeURI(JSON.stringify(window.turmoil.windowSettings))
