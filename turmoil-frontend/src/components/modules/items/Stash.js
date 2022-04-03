@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import Window from '../../Window';
 import ItemSlotStash from './ItemSlotStash';
@@ -6,6 +6,7 @@ import ReduxActions from '../../../js/redux/actions';
 import '../../../stylesheets/window-stash.css';
 import Logger from '../../../js/utils/logger';
 import { initializeStashAction } from '../../../js/api/services/instance-service';
+import useAfterPaintEffect from '../../../js/react/hooks/after-paint-effect';
 
 function Stash() {
   const stateData = useSelector((state) => state);
@@ -15,15 +16,14 @@ function Stash() {
     dispatch(ReduxActions.updateItemsInStashAction({ stashItems: content }));
   };
 
-  useEffect(async () => {
-    // addSortable('#stashItemListContainer', '#stashItemContainer');
+  useAfterPaintEffect(() => {
+    initializeStashAction().then((response) => {
+      stashedItems(response.data);
 
-    const response = await initializeStashAction();
-    stashedItems(response.data);
-
-    if (window.debug) {
-      Logger.log('Stash initialized...');
-    }
+      if (window.debug) {
+        Logger.log('Stash initialized...');
+      }
+    });
   }, []);
 
   const background = {

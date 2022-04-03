@@ -1,5 +1,6 @@
 import React from 'react';
 import WindowLocation from '../../../js/windows/window-location';
+import Logger from '../../../js/utils/logger';
 
 function Field(props) {
   const {
@@ -47,7 +48,7 @@ function Field(props) {
         strokeWidth="0.15"
         points="5,-9 -5,-9 -10,0 -5,9 5,9 10,0"
         onClick={() => { WindowLocation.actionOnPolygon(ident, { locationCallbackAction }); }}
-        onContextMenu={(event) => { event.preventDefault(); console.log('rightclicked', ident, className, unit); }}
+        onContextMenu={(event) => { event.preventDefault(); Logger.log('rightclicked', ident, className, unit); }}
       />
       <text className="locationText" x={valueX} y={valueY}>{text}</text>
     </>

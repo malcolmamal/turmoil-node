@@ -23,12 +23,14 @@ function Footer(props) {
     );
   }
 
+  const { children } = props;
+
   return (
     <div id="turmoilFooter" className="turmoilFooter" role="contentinfo">
       <div className="footerBlock">
         {logoutBox}
         {logoutBox && ' | '}
-        {props.children}
+        {children}
       </div>
       <div id="spinner" className="spinner" style={spinnerDisplayStyle} title={`${useIntl().formatMessage({ id: 'turmoil.footer.loading' })}...`} />
     </div>

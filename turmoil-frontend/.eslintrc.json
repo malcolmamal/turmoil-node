@@ -1,14 +1,15 @@
 {
     "env": {
         "browser": true,
-        "es2021": true,
-        "node": true
+        "es2021": true
     },
     "extends": [
         "plugin:react/recommended",
+        "plugin:react-hooks/recommended",
         "plugin:jest/recommended",
         "eslint:recommended",
-        "airbnb-base"
+        "airbnb-base",
+        "airbnb"
     ],
     "parserOptions": {
         "ecmaFeatures": {

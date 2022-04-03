@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Window from '../../Window';
 import CharacterState from './CharacterState';
 import '../../../stylesheets/window-stats.css';
 import Logger from '../../../js/utils/logger';
+import useAfterPaintEffect from '../../../js/react/hooks/after-paint-effect';
 
 function Stats() {
   const background = {
@@ -11,7 +12,7 @@ function Stats() {
     height: '700px',
   };
 
-  useEffect(() => {
+  useAfterPaintEffect(() => {
     if (window.debug) {
       Logger.log('Stats initialized...');
     }

@@ -7,6 +7,7 @@ const useAfterPaintEffect = (effect, dependencies) => {
         effect();
       }, 0);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, dependencies);
 };
 

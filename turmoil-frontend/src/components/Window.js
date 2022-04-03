@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Draggable from 'react-draggable';
 import Windows from '../js/core/turmoil-windows';
 import WindowIcon from './WindowIcon';
+import useAfterPaintEffect from '../js/react/hooks/after-paint-effect';
 
 function Window(props) {
   const { background: windowContainerInnerStyle, ident, children } = props;
@@ -39,7 +40,7 @@ function Window(props) {
     Windows.saveWindowsPositions();
   };
 
-  useEffect(() => {
+  useAfterPaintEffect(() => {
     if (!window.turmoil.windowSettings[ident]) {
       window.turmoil.windowSettings[ident] = {};
     }

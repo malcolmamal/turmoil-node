@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import Window from '../../Window';
 import ItemSlotEquipment from './ItemSlotEquipment';
 import ReduxActions from '../../../js/redux/actions';
 import { initializeEquipmentAction } from '../../../js/api/services/instance-service';
 import Logger from '../../../js/utils/logger';
+import useAfterPaintEffect from '../../../js/react/hooks/after-paint-effect';
 
 function Equipment() {
   const stateData = useSelector((state) => state);
@@ -23,13 +24,14 @@ function Equipment() {
     dispatch(ReduxActions.updateItemsInEquipmentAction({ wornItems: content }));
   };
 
-  useEffect(async () => {
-    const response = await initializeEquipmentAction();
-    wornItems(response.data);
+  useAfterPaintEffect(() => {
+    initializeEquipmentAction().then((response) => {
+      wornItems(response.data);
 
-    if (window.debug) {
-      Logger.log('Equipment initialized...');
-    }
+      if (window.debug) {
+        Logger.log('Equipment initialized...');
+      }
+    });
   }, []);
 
   const { equipmentItems } = stateData;

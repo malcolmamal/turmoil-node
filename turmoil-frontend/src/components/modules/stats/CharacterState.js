@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import ReduxActions from '../../../js/redux/actions';
 import WindowStats from '../../../js/windows/window-stats';
+import useAfterPaintEffect from '../../../js/react/hooks/after-paint-effect';
 
 function CharacterState() {
   const stateData = useSelector((state) => state);
@@ -12,8 +13,8 @@ function CharacterState() {
     dispatch(ReduxActions.updateCharacterStatsAction(characterState));
   };
 
-  useEffect(async () => {
-    await WindowStats.updateStats(updateCharacterStats);
+  useAfterPaintEffect(() => {
+    WindowStats.updateStats(updateCharacterStats).then();
   }, []);
 
   const { characterState } = stateData;

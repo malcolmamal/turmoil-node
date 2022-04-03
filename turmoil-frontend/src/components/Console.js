@@ -29,7 +29,7 @@ function Console() {
         style={{ width: '600px', height: '240px' }}
       >
         <div id="consoleTabs" className="consoleTabs">
-          <Tabs defaultIndex={1} onSelect={(index) => console.log('tab', index)}>
+          <Tabs defaultIndex={1} onSelect={(index) => Logger.log('tab', index)}>
             <TabList className="react-tabs__tab-list-console">
               <Tab>All</Tab>
               <Tab>Combat</Tab>

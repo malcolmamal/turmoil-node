@@ -28,6 +28,7 @@ function Turmoil() {
   ];
 
   keyMapping.forEach(([key, target]) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useHotkeys(key, () => Windows.switchShowClose(target));
   });
 
@@ -123,9 +124,9 @@ function Turmoil() {
       <Footer logout={logoutHandler}>
         {isLogged && <Link to="/logged">Main</Link>}
         {isLogged && ' | '}
-        {<Link to="/signup">Signup</Link>}
+        <Link to="/signup">Signup</Link>
         {' | '}
-        {<Link to="/login">Login</Link>}
+        <Link to="/login">Login</Link>
       </Footer>
     </div>
   );
