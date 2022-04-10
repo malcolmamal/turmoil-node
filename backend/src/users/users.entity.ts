@@ -1,16 +1,21 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {AfterInsert, AfterUpdate, Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  id!: number;
+  id: number;
 
   @Column()
-  name!: string;
+  name: string;
 
   @Column()
-  password!: string;
+  password: string;
 
   @Column()
-  email!: string;
+  email: string;
+
+  @AfterInsert()
+  logInsert() {
+    console.log(`added user for id: ${this.id}`);
+  }
 }
