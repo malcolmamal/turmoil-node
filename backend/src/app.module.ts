@@ -4,10 +4,14 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/users.entity';
+import { MessageBusModule } from './providers/message-bus/message-bus.module';
+import { SendMailModule } from './providers/send-mail/send-mail.module';
 
 @Module({
   imports: [
     UsersModule,
+    MessageBusModule,
+    SendMailModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',

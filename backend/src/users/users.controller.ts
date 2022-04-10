@@ -3,10 +3,14 @@ import { CreateUserDto } from './dtos/create-user-dto';
 import { UpdateUserDto } from './dtos/update-user-dto';
 import { UsersService } from './users.service';
 import { User } from './users.entity';
+import { MessageBus } from 'src/providers/message-bus/message-bus';
 
 @Controller('users')
 export class UsersController {
-  constructor(private userService: UsersService) {}
+  constructor(
+    private userService: UsersService,
+    private messageBus: MessageBus,
+  ) {}
 
   @Get('show')
   getUsers() {
@@ -22,6 +26,7 @@ export class UsersController {
   @Post('update')
   async updateUser(@Body() body: UpdateUserDto): Promise<User> {
     console.log(body);
+    this.messageBus.publish(JSON.stringify(body));
     return this.userService.update(body);
   }
 

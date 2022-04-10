@@ -3,9 +3,11 @@ import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users.entity';
+import { MessageBus } from 'src/providers/message-bus/message-bus';
+import { MessageBusModule } from 'src/providers/message-bus/message-bus.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User])],
+  imports: [TypeOrmModule.forFeature([User]), MessageBusModule, MessageBus],
   controllers: [UsersController],
   providers: [UsersService],
 })
