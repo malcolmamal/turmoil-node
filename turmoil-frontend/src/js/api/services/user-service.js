@@ -2,9 +2,9 @@ import { Axios } from '../../core/turmoil-axios';
 
 const servicePrefix = 'user';
 
-export const loginAction = async (email, password) =>
+export const loginAction = async (username, password) =>
   await Axios.post(`${servicePrefix}/login`, {
-    email,
+    username,
     password,
   });
 

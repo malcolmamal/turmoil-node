@@ -15,9 +15,9 @@ export class UsersService {
   }
 
   async update(userDto: UpdateUserDto): Promise<User> {
-    let user = await this.userRepo.findOne({
+    const user = (await this.userRepo.findOne({
       where: { id: userDto.id },
-    }) as Partial<User>;
+    })) as Partial<User>;
 
     if (!user) {
       throw new NotFoundException('user not found!!');
@@ -31,5 +31,11 @@ export class UsersService {
 
   async get(id: number): Promise<User> {
     return this.userRepo.findOne({ where: { id } });
+  }
+
+  async getByEmail(email: string): Promise<User> {
+    return this.userRepo.findOne({
+      where: { email },
+    });
   }
 }
