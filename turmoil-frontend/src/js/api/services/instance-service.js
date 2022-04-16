@@ -3,10 +3,10 @@ import { Axios } from '../../core/turmoil-axios';
 const servicePrefix = 'instance';
 
 export const initializeEnemyUnitsAction = async () =>
-  await Axios.post(`${servicePrefix}/initializeEnemyUnits`);
+  await Axios.get(`${servicePrefix}/initializeEnemyUnits`);
 
 export const initializeFriendlyUnitsAction = async () =>
-  await Axios.post(`${servicePrefix}/initializeFriendlyUnits`);
+  await Axios.get(`${servicePrefix}/initializeFriendlyUnits`);
 
 export const initializeEquipmentAction = async () =>
   await Axios.get(`${servicePrefix}/initializeEquipment`);

@@ -29,7 +29,7 @@ function Tooltip(props) {
             return;
           }
 
-          Axios.post(`tooltip/${type}/${ident}`)
+          Axios.get(`tooltip/${type}/${ident}`)
             .then((response) => {
               if (type === 'monster' || type === 'friend') {
                 instance.setContent(response.data);

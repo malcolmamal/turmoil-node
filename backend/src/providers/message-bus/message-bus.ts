@@ -5,8 +5,8 @@ const rabbitmqSettings = {
   protocol: 'amqp',
   hostname: 'localhost',
   port: 5672,
-  username: 'guest',
-  password: 'guest',
+  username: 'rabbit',
+  password: 'nopass',
   vhost: '/',
   authMechanism: ['PLAIN', 'AMQPLAIN', 'EXTERNAL'],
 };

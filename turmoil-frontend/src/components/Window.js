@@ -56,11 +56,14 @@ function Window(props) {
     Windows.saveWindowsPositions();
   }, []);
 
+  const nodeRef = React.useRef(null);
+
   return (
     <>
       <WindowIcon ident={ident} onClick={switchVisibility} />
       {visible && (
         <Draggable
+          nodeRef={nodeRef}
           bounds="parent"
           handle="strong"
           axis="both"
@@ -69,6 +72,7 @@ function Window(props) {
           position={controlledPosition}
         >
           <div
+            ref={nodeRef}
             id={`window_${ident}_resizer`}
             className={`windowResizer ${ident}WindowResizer noSelection`}
           >

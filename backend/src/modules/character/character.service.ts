@@ -15,4 +15,20 @@ export class CharacterService {
 
     return response.data;
   }
+
+  async equip(item: string) {
+    const response = await lastValueFrom(
+      this.httpService.get(`${API_PATH}/character/equip/${item}`),
+    );
+
+    return response.data;
+  }
+
+  async unequip(item: string) {
+    const response = await lastValueFrom(
+      this.httpService.get(`${API_PATH}/character/unequip/${item}`),
+    );
+
+    return response.data;
+  }
 }
