@@ -6,7 +6,6 @@ export class SendMailController {
   constructor(private sendMailService: SendMailService) {}
 
   async onModuleInit(): Promise<void> {
-    // should be in service
     await this.sendMailService.consume();
   }
 }
