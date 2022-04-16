@@ -9,6 +9,7 @@ import { SendMailModule } from './providers/send-mail/send-mail.module';
 import { CharacterModule } from './modules/character/character.module';
 import { InstanceModule } from './modules/instance/instance.module';
 import { TooltipModule } from './modules/tooltip/tooltip.module';
+import { databaseConstants } from './config/constants';
 
 @Module({
   imports: [
@@ -18,14 +19,9 @@ import { TooltipModule } from './modules/tooltip/tooltip.module';
     MessageBusModule,
     SendMailModule,
     TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'nopass',
-      database: 'turmoil',
-      entities: [User],
+      ...databaseConstants,
       synchronize: true,
+      entities: [User],
     }),
     CharacterModule,
   ],

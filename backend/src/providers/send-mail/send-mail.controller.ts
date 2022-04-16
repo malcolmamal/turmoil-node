@@ -1,13 +1,12 @@
 import { Controller } from '@nestjs/common';
-import { MessageBus } from '../message-bus/message-bus';
+import { SendMailService } from './send-mail.service';
 
 @Controller('send-mail')
 export class SendMailController {
-  constructor(private messageBus: MessageBus) {}
+  constructor(private sendMailService: SendMailService) {}
 
   async onModuleInit(): Promise<void> {
     // should be in service
-    await this.messageBus.consume();
-    console.log('created sendmail consumer');
+    await this.sendMailService.consume();
   }
 }
