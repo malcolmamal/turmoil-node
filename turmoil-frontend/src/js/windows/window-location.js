@@ -89,8 +89,8 @@ const WindowLocation = {
           callbackFunctions.addEnemyUnit(data.unitToAdd);
 
           WindowLocation.handleMoveToPolygon(
-            document.querySelector(`#${data.unitToAdd.position}`),
-            document.querySelector(`#${data.unitToAdd.ident}`),
+            data.unitToAdd.position,
+            data.unitToAdd.ident,
             callbackFunctions,
           );
         }
@@ -120,6 +120,11 @@ const WindowLocation = {
 
     const polygon = document.querySelector(`#${polygonId}`);
     const unit = document.querySelector(`#${unitId}`);
+
+    if (!unit) {
+      Logger.log('Unit not found, perhaps it was just killed?');
+      return;
+    }
 
     if (!polygon) {
       Logger.log('Polygon undefined');
